@@ -74,6 +74,16 @@ namespace srilakshmikanthanp::Figlet
         using Figs_type = std::vector<string_type>;
 
         /**
+         * @brief Get the Shrinl Level
+         * 
+         * @return size_type
+         * 0 - untouched
+         * 1 - kerning
+         * 2 - smushed
+         */
+        virtual size_type getShrinlLevel() const = 0;
+
+        /**
          * @brief Get the Fig string
          * 
          * @param figchs figlet characters
@@ -92,11 +102,11 @@ namespace srilakshmikanthanp::Figlet
     /**
      * @brief class Figlet
      */
-    template <class FontT, class StyleT>
+    template <class StringType>
     class Figlet
     {
     public:
-        using string_type = typename std::enable_if<std::is_same<typename FontT::string_type, typename StyleT::string_type>::value, typename FontT::string_type>::type;
+        using string_type = StringType;
         using char_type = typename string_type::value_type;
         using traits_type = typename string_type::traits_type;
         using size_type = typename string_type::size_type;
@@ -105,10 +115,12 @@ namespace srilakshmikanthanp::Figlet
 
     private:
         using ostream_type = std::basic_ostream<char_type, traits_type>;
+        using base_font = std::shared_ptr<Font<string_type>>;
+        using base_style = std::shared_ptr<Style<string_type>>;
 
     private:
-        std::shared_ptr<Font<string_type>> font;
-        std::shared_ptr<Style<string_type>> &style;
+        base_font font;
+        base_style style;
         string_type str;
 
     public:
@@ -122,8 +134,7 @@ namespace srilakshmikanthanp::Figlet
          * @param font font type
          * @param style style type
          */
-        Figlet(std::shared_ptr<Font<string_type>> font,
-               std::shared_ptr<Style<string_type>> style)
+        Figlet(base_font font, base_style style)
             : font(font), style(style)
         {
         }
@@ -259,7 +270,7 @@ namespace srilakshmikanthanp::Figlet
          * @param stream stream
          * @return Figc_type figlt character
          */
-        Figc_type nextcharacter(std::basic_istream<char_type, traits_type> &stream)
+        Figc_type next(std::basic_istream<char_type, traits_type> &stream)
         {
             std::vector<string_type> ret;
 
@@ -291,7 +302,7 @@ namespace srilakshmikanthanp::Figlet
 
             for (char_type ch = ' '; ch <= '~'; ch++)
             {
-                this->Figch[ch] = this->nextcharacter(stream);
+                this->Figch[ch] = this->next(stream);
             }
         }
 
@@ -308,7 +319,7 @@ namespace srilakshmikanthanp::Figlet
         FigletFont(string_type font)
         {
             std::basic_istringstream<char_type, traits_type> sstream(font);
-            std::ifstream stream(font);
+            std::basic_ifstream<char_type, traits_type> stream(font);
 
             if (stream.is_open())
             {
@@ -382,7 +393,7 @@ namespace srilakshmikanthanp::Figlet
         using Figs_type = std::vector<string_type>;
 
     protected:
-        static string_type cvt(const std::string &str)
+        string_type cvt(const std::string &str) const
         {
             return string_type(str.begin(), str.end());
         }
@@ -407,6 +418,19 @@ namespace srilakshmikanthanp::Figlet
         FullWidth() = default;
         FullWidth(const FullWidth &) = default;
         FullWidth(FullWidth &&) = default;
+
+        /**
+         * @brief Get the Shrink
+         * 
+         * @return size_type shrink value
+         * 0 - untouched
+         * 1 - kerning
+         * 2 - smushed
+         */
+        size_type getShrinlLevel() const override
+        {
+            return 0;
+        }
 
         /**
          * @brief Get the Fig string
@@ -439,6 +463,112 @@ namespace srilakshmikanthanp::Figlet
             }
 
             remove_hardblank(figs, hardblank);
+            return figs;
+        }
+    };
+
+    /**
+     * @brief kerned Style
+     * 
+     * @tparam gap gap between characters
+     * @tparam StringType 
+     */
+    template <int gap, class StringType>
+    class Kerning : public FullWidth<StringType>
+    {
+    public:
+        using string_type = StringType;
+        using char_type = typename string_type::value_type;
+        using traits_type = typename string_type::traits_type;
+        using size_type = typename string_type::size_type;
+        using Figc_type = std::vector<string_type>;
+        using Figs_type = std::vector<string_type>;
+
+    private:
+        void remove_space(Figc_type &figc) const
+        {
+            std::vector<size_type> elem_l, elem_r;
+
+            for (const auto &line : figc)
+            {
+                int lcount = 0, rcount = 0;
+
+                for (auto itr = line.begin(); itr != line.end(); ++itr)
+                {
+                    if (*itr == ' ')
+                        ++lcount;
+                    else
+                        break;
+                }
+
+                for (auto itr = line.rbegin(); itr != line.rend(); ++itr)
+                {
+                    if (*itr == ' ')
+                        ++rcount;
+                    else
+                        break;
+                }
+
+                elem_l.push_back(lcount);
+                elem_r.push_back(rcount);
+            }
+
+            size_type lcount = *std::min_element(elem_l.begin(), elem_l.end());
+            size_type rcount = *std::min_element(elem_r.begin(), elem_r.end());
+
+            for (auto &line : figc)
+            {
+                line.erase(0, lcount);
+                line.erase(line.size() - rcount);
+            }
+        }
+
+    public:
+        /**
+         * @brief Get the Shrink
+         * 
+         * @return size_type shrink value
+         * 0 - untouched
+         * 1 - kerning
+         * 2 - smushed
+         */
+        size_type getShrinlLevel() const override
+        {
+            return 1;
+        }
+
+        /**
+         * @brief Get the Fig string
+         * 
+         * @param figchs figlet characters
+         * @param hardblank hardblank
+         * @param height height
+         * @param shirnk shrinkklevel
+         * @return Figs_type Fig string
+         */
+        Figs_type getFigs(
+            std::vector<Figc_type> figchs,
+            char_type hardblank,
+            size_type height,
+            size_type shirnk) const override
+        {
+            Figs_type figs(height, this->cvt(""));
+
+            for (auto &figc : figchs)
+            {
+                this->error_check(figc, height);
+                this->remove_space(figc);
+            }
+
+            for (size_type i = 0; i < height; ++i)
+            {
+                for (const auto &figc : figchs)
+                {
+                    figs[i] += string_type(gap, ' ') + figc[i];
+                }
+            }
+
+            this->remove_hardblank(figs, hardblank);
             return figs;
         }
     };
