@@ -1,3 +1,8 @@
+// Copyright (c) 2021 Sri Lakshmi Kanthan P
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 #ifndef FIGLET_HPP
 #define FIGLET_HPP
 
@@ -81,7 +86,7 @@ namespace srilakshmikanthanp::Figlet
          * 1 - kerning
          * 2 - smushed
          */
-        virtual size_type getShrinlLevel() const = 0;
+        virtual size_type getShrinkLevel() const = 0;
 
         /**
          * @brief Get the Fig string
@@ -137,6 +142,50 @@ namespace srilakshmikanthanp::Figlet
         Figlet(base_font font, base_style style)
             : font(font), style(style)
         {
+            if (font->getShrink() < style->getShrinkLevel())
+            {
+                throw std::runtime_error("style not supported");
+            }
+        }
+
+        /**
+         * @brief Set the Font object
+         * 
+         * @param font 
+         */
+        void setFont(base_font font)
+        {
+            this->font = font;
+        }
+
+        /**
+         * @brief Set the Style object
+         * 
+         * @return style 
+         */
+        void setStyle(base_style style)
+        {
+            this->style = style;
+        }
+
+        /**
+         * @brief Get the Font object
+         * 
+         * @return font 
+         */
+        base_font &getFont()
+        {
+            return this->font;
+        }
+
+        /**
+         * @brief Get the Style object
+         * 
+         * @param style 
+         */
+        base_style &getStyle()
+        {
+            return this->style;
         }
 
         /**
@@ -374,6 +423,16 @@ namespace srilakshmikanthanp::Figlet
             auto ret = this->Figch.at(ch);
             return ret;
         }
+
+        /**
+         * @brief A factory for this type return smart pointer to this type
+         * 
+         * @return std::shared_ptr<FigletFont<string_type>> 
+         */
+        static std::shared_ptr<FigletFont<string_type>> make(std::string font)
+        {
+            return std::make_shared<FigletFont<string_type>>(font);
+        }
     };
 
     /**
@@ -392,12 +451,27 @@ namespace srilakshmikanthanp::Figlet
         using Figc_type = std::vector<string_type>;
         using Figs_type = std::vector<string_type>;
 
+    public:
+        static const inline size_type ShrinkLevel = 0;
+
     protected:
+        /**
+         * @brief convert ascii string to string_type
+         * 
+         * @param str string to convert
+         * @return string_type string converted
+         */
         string_type cvt(const std::string &str) const
         {
             return string_type(str.begin(), str.end());
         }
 
+        /**
+         * @brief checks height offig character
+         * 
+         * @param figc fig character
+         * @param hg height
+         */
         void error_check(const Figc_type &figc, size_type hg) const
         {
             if (figc.size() != hg)
@@ -406,6 +480,12 @@ namespace srilakshmikanthanp::Figlet
             }
         }
 
+        /**
+         * @brief removes hardblank from figstring
+         * 
+         * @param figs fig string
+         * @param hb hardblank
+         */
         void remove_hardblank(Figs_type &figs, char_type hb) const
         {
             for (size_type i = 0; i < figs.size(); ++i)
@@ -427,7 +507,7 @@ namespace srilakshmikanthanp::Figlet
          * 1 - kerning
          * 2 - smushed
          */
-        size_type getShrinlLevel() const override
+        size_type getShrinkLevel() const override
         {
             return 0;
         }
@@ -454,9 +534,9 @@ namespace srilakshmikanthanp::Figlet
                 this->error_check(figc, height);
             }
 
-            for (size_type i = 0; i < height; ++i)
+            for (const auto &figc : figchs)
             {
-                for (const auto &figc : figchs)
+                for (size_type i = 0; i < height; ++i)
                 {
                     figs[i] += figc[i];
                 }
@@ -464,6 +544,16 @@ namespace srilakshmikanthanp::Figlet
 
             remove_hardblank(figs, hardblank);
             return figs;
+        }
+
+        /**
+         * @brief A factory for this type return smart pointer to this type
+         * 
+         * @return std::shared_ptr<FullWidth<string_type>> 
+         */
+        static std::shared_ptr<FullWidth<string_type>> make()
+        {
+            return std::make_shared<FullWidth<string_type>>();
         }
     };
 
@@ -473,7 +563,7 @@ namespace srilakshmikanthanp::Figlet
      * @tparam gap gap between characters
      * @tparam StringType 
      */
-    template <int gap, class StringType>
+    template <class StringType>
     class Kerning : public FullWidth<StringType>
     {
     public:
@@ -484,16 +574,28 @@ namespace srilakshmikanthanp::Figlet
         using Figc_type = std::vector<string_type>;
         using Figs_type = std::vector<string_type>;
 
-    private:
-        void remove_space(Figc_type &figc) const
-        {
-            std::vector<size_type> elem_l, elem_r;
+    public:
+        static const inline size_type ShrinkLevel = 1;
 
-            for (const auto &line : figc)
+    private:
+        size_type gap;
+
+    protected:
+        /**
+         * @brief trims in a deep
+         * 
+         * @param figs fig string
+         * @param figc fig character
+         */
+        void trim_deep(Figs_type &figs, Figc_type &figc) const
+        {
+            std::vector<size_type> elem;
+
+            for (size_type i = 0; i < figs.size(); ++i)
             {
                 int lcount = 0, rcount = 0;
 
-                for (auto itr = line.begin(); itr != line.end(); ++itr)
+                for (auto itr = figs[i].rbegin(); itr != figs[i].rend(); ++itr)
                 {
                     if (*itr == ' ')
                         ++lcount;
@@ -501,7 +603,7 @@ namespace srilakshmikanthanp::Figlet
                         break;
                 }
 
-                for (auto itr = line.rbegin(); itr != line.rend(); ++itr)
+                for (auto itr = figc[i].begin(); itr != figc[i].end(); ++itr)
                 {
                     if (*itr == ' ')
                         ++rcount;
@@ -509,21 +611,35 @@ namespace srilakshmikanthanp::Figlet
                         break;
                 }
 
-                elem_l.push_back(lcount);
-                elem_r.push_back(rcount);
+                elem.push_back(lcount + rcount);
             }
 
-            size_type lcount = *std::min_element(elem_l.begin(), elem_l.end());
-            size_type rcount = *std::min_element(elem_r.begin(), elem_r.end());
+            size_type space = *std::min_element(elem.begin(), elem.end());
 
-            for (auto &line : figc)
+            for (size_type i = 0; i < figs.size(); ++i)
             {
-                line.erase(0, lcount);
-                line.erase(line.size() - rcount);
+                size_type size = space;
+
+                while (size > 0 && figs[i].back() == ' ')
+                {
+                    figs[i].pop_back();
+                    --size;
+                }
+
+                figc[i].erase(0, size);
             }
         }
 
     public:
+        /**
+         * @brief Construct a new Kerning
+         * 
+         * @param gap gap size
+         */
+        Kerning(size_type gap = 0) : gap(gap) {}
+        Kerning(const Kerning &) = default;
+        Kerning(Kerning &&) = default;
+
         /**
          * @brief Get the Shrink
          * 
@@ -532,7 +648,7 @@ namespace srilakshmikanthanp::Figlet
          * 1 - kerning
          * 2 - smushed
          */
-        size_type getShrinlLevel() const override
+        size_type getShrinkLevel() const override
         {
             return 1;
         }
@@ -557,21 +673,291 @@ namespace srilakshmikanthanp::Figlet
             for (auto &figc : figchs)
             {
                 this->error_check(figc, height);
-                this->remove_space(figc);
             }
 
-            for (size_type i = 0; i < height; ++i)
+            for (auto &figc : figchs)
             {
-                for (const auto &figc : figchs)
+                this->trim_deep(figs, figc);
+
+                for (size_type i = 0; i < height; ++i)
                 {
-                    figs[i] += string_type(gap, ' ') + figc[i];
+                    figs[i] += figc[i];
                 }
             }
 
             this->remove_hardblank(figs, hardblank);
             return figs;
         }
+
+        /**
+         * @brief A factory for this type return smart pointer to this type
+         * 
+         * @return std::shared_ptr<Kerning<string_type>> 
+         */
+        static std::shared_ptr<Kerning<string_type>> make(size_type gap)
+        {
+            return std::make_shared<Kerning<string_type>>(gap);
+        }
     };
+
+    /**
+     * @brief Smushing style
+     * 
+     * @tparam StringType 
+     */
+    template <class StringType>
+    class Smushed : public Kerning<StringType>
+    {
+    public:
+        using string_type = StringType;
+        using char_type = typename string_type::value_type;
+        using traits_type = typename string_type::traits_type;
+        using size_type = typename string_type::size_type;
+        using Figc_type = std::vector<string_type>;
+        using Figs_type = std::vector<string_type>;
+
+    public:
+        static const inline size_type ShrinkLevel = 2;
+
+    private:
+        /**
+         * @brief smush rules
+         * @param lc left character
+         * @param rc right character
+         * @return smushed character
+         */
+        char_type smush_rules(char_type lc, char_type rc) const
+        {
+            //()
+            if (lc == ' ')
+            {
+                return rc;
+            }
+
+            if (rc == ' ')
+            {
+                return lc;
+            }
+
+            //(Equal character smush)
+            if (lc == rc)
+            {
+                return rc;
+            }
+
+            //(Underscores smush)
+            if (lc == '_' && this->cvt("|/\\[]{}()<>").find(rc) != string_type::npos)
+            {
+                return rc;
+            }
+
+            if (rc == '_' && this->cvt("|/\\[]{}()<>").find(lc) != string_type::npos)
+            {
+                return lc;
+            }
+
+            //(Hierarchy Smushing)
+            auto find_class = [](char_type ch) -> size_type {
+                if (ch == '|')
+                {
+                    return 1;
+                }
+
+                if (ch == '/' || ch == '\\')
+                {
+                    return 3;
+                }
+
+                if (ch == '[' || ch == ']')
+                {
+                    return 4;
+                }
+
+                if (ch == '{' || ch == '}')
+                {
+                    return 5;
+                }
+
+                if (ch == '(' || ch == ')')
+                {
+                    return 6;
+                }
+
+                return 0;
+            };
+
+            size_type c_lc = find_class(lc);
+            size_type c_rc = find_class(rc);
+
+            if (c_lc > c_rc)
+            {
+                return lc;
+            }
+
+            if (c_rc > c_lc)
+            {
+                return rc;
+            }
+
+            //(Opposite smush)
+            if (lc == '[' && rc == ']')
+            {
+                return '|';
+            }
+
+            if (lc == ']' && rc == '[')
+            {
+                return '|';
+            }
+
+            if (lc == '{' && rc == '}')
+            {
+                return '|';
+            }
+
+            if (lc == '}' && rc == '{')
+            {
+                return '|';
+            }
+
+            if (lc == '(' && rc == ')')
+            {
+                return '|';
+            }
+
+            if (lc == ')' && rc == '(')
+            {
+                return '|';
+            }
+
+            //(Big X smush)
+            if (lc == '/' && rc == '\\')
+            {
+                return '|';
+            }
+
+            if (lc == '\\' && rc == '/')
+            {
+                return 'Y';
+            }
+
+            if (lc == '>' && rc == '<')
+            {
+                return 'X';
+            }
+
+            //(universel smush)
+            return lc;
+        }
+
+        /**
+         * @brief smush algoriths on kerned Fig string and character
+         * 
+         * @param figs 
+         * @param figc 
+         */
+        void smush(Figs_type &figs, Figc_type figc, char_type hb) const
+        {
+            bool smushble = true;
+
+            for (size_type i = 0; i < figs.size(); ++i)
+            {
+                if (figs[i].size() == 0 || figc[i].size() == 0)
+                {
+                    smushble = false;
+                }
+                else if ((figs[i].back() == hb) && !(figc[i].front() == hb))
+                {
+                    smushble = false;
+                }
+            }
+
+            if (smushble)
+            {
+                for (size_type i = 0; i < figs.size(); ++i)
+                {
+                    char_type val = smush_rules(figs[i].back(), figc[i].front());
+                    figs[i].pop_back();
+                    figc[i].erase(0, 1);
+                    figs[i] += string_type(1, val) + figc[i];
+                }
+            }
+            else
+            {
+                for (size_type i = 0; i < figs.size(); ++i)
+                {
+                    figs[i] += figc[i];
+                }
+            }
+        }
+
+    public:
+        Smushed() = default;
+        Smushed(const Smushed &) = default;
+        Smushed(Smushed &&) = default;
+        /**
+         * @brief Get the Fig string
+         * 
+         * @param figchs figlet characters
+         * @param hardblank hardblank
+         * @param height height
+         * @param shirnk shrinkklevel
+         * @return Figs_type Fig string
+         */
+        Figs_type getFigs(
+            std::vector<Figc_type> figchs,
+            char_type hardblank,
+            size_type height,
+            size_type shirnk) const override
+        {
+            Figs_type figs(height, this->cvt(""));
+
+            for (auto &figc : figchs)
+            {
+                this->error_check(figc, height);
+            }
+
+            for (auto &figc : figchs)
+            {
+                this->trim_deep(figs, figc);
+                this->smush(figs, figc, hardblank);
+            }
+
+            this->remove_hardblank(figs, hardblank);
+            return figs;
+        }
+
+        /**
+         * @brief A factory for this type return smart pointer to this type
+         * 
+         * @return std::shared_ptr<Smushed<string_type>> 
+         */
+        static std::shared_ptr<Smushed<string_type>> make()
+        {
+            return std::make_shared<Smushed<string_type>>();
+        }
+    };
+}
+
+/**
+ * @brief namespace Figlet
+ */
+namespace srilakshmikanthanp::Figlet
+{
+    /// @brief char figlet font
+    using CharFigletFont = FigletFont<std::string>;
+
+    /// @brief char full width style
+    using CharFullWidth = FullWidth<std::string>;
+
+    /// @brief char Kerning
+    using CharKerning = Kerning<std::string>;
+
+    /// @brief char smushed
+    using CharSmushed = Smushed<std::string>;
+
+    /// @brief char Figlet
+    using CharFiglet = Figlet<std::string>;
 }
 
 #endif
