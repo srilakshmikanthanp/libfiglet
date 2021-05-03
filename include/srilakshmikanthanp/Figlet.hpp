@@ -618,15 +618,15 @@ namespace srilakshmikanthanp::Figlet
 
             for (size_type i = 0; i < figs.size(); ++i)
             {
-                size_type size = space;
+                size_type siz = space;
 
-                while (size > 0 && figs[i].back() == ' ')
+                while (siz > 0 && figs[i].back() == ' ')
                 {
                     figs[i].pop_back();
-                    --size;
+                    --siz;
                 }
 
-                figc[i].erase(0, size);
+                figc[i].erase(0, siz);
             }
         }
 
