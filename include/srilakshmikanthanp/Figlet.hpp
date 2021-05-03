@@ -97,11 +97,12 @@ namespace srilakshmikanthanp::Figlet
          * @param shirnk shrinkklevel
          * @return Figs_type Fig string
          */
-        virtual Figs_type getFigs(
+        virtual Figs_type getFigs (
             std::vector<Figc_type> figchs,
             char_type hardblank,
             size_type height,
-            size_type shirnk) const = 0;
+            size_type shirnk
+        ) const = 0;
     };
 
     /**
@@ -521,11 +522,12 @@ namespace srilakshmikanthanp::Figlet
          * @param shirnk shrinkklevel
          * @return Figs_type Fig string
          */
-        Figs_type getFigs(
+        Figs_type getFigs (
             std::vector<Figc_type> figchs,
             char_type hardblank,
             size_type height,
-            size_type shirnk) const override
+            size_type shirnk
+        ) const override
         {
             Figs_type figs(height, cvt(""));
 
@@ -662,11 +664,12 @@ namespace srilakshmikanthanp::Figlet
          * @param shirnk shrinkklevel
          * @return Figs_type Fig string
          */
-        Figs_type getFigs(
+        Figs_type getFigs (
             std::vector<Figc_type> figchs,
             char_type hardblank,
             size_type height,
-            size_type shirnk) const override
+            size_type shirnk
+        ) const override
         {
             Figs_type figs(height, this->cvt(""));
 
@@ -904,11 +907,12 @@ namespace srilakshmikanthanp::Figlet
          * @param shirnk shrinkklevel
          * @return Figs_type Fig string
          */
-        Figs_type getFigs(
+        Figs_type getFigs (
             std::vector<Figc_type> figchs,
             char_type hardblank,
             size_type height,
-            size_type shirnk) const override
+            size_type shirnk
+        ) const override
         {
             Figs_type figs(height, this->cvt(""));
 
