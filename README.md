@@ -1,19 +1,15 @@
 <!-- PROJECT LOGO -->
  <h3 align="center">Figlet</h3>
-
+ 
   <p align="center">
     Figlet For C++
     <br />
     <a href="https://srilakshmikanthanp.github.io/Figlet/docs/html"><strong>Explore the docs »</strong></a>
     <br />
-    <br />
     <a href="https://github.com/srilakshmikanthanp/Figlet/issues">Report Bug</a>
     ·
     <a href="https://github.com/srilakshmikanthanp/Figlet/issues">Request Feature</a>
   </p>
-</p>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -40,7 +36,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This is Figlet Library for C++ to generate Large text like this,
+This is Figlet Library for C++ to generate Large text out ordinary text like this,
 
 ~~~Figlet
  _   _      _ _            ____            
@@ -65,7 +61,7 @@ Usage of This Library is vera easy a Hello world would be,
 
 ~~~cpp
 #include <iostream>
-#include "../include/srilakshmikanthanp/Figlet.hpp"
+#include "srilakshmikanthanp/Figlet.hpp"
 
 using namespace srilakshmikanthanp::Figlet::Char;
 
@@ -90,14 +86,10 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-
-
 <!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
-
-
 
 <!-- CONTACT -->
 ## Contact
