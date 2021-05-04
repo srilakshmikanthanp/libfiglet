@@ -946,22 +946,22 @@ namespace srilakshmikanthanp::Figlet
 /**
  * @brief namespace Figlet
  */
-namespace srilakshmikanthanp::Figlet
+namespace srilakshmikanthanp::Figlet::Char
 {
     /// @brief char figlet font
-    using CharFigletFont = FigletFont<std::string>;
+    using FigletFont = srilakshmikanthanp::Figlet::FigletFont<std::string>;
 
     /// @brief char full width style
-    using CharFullWidth = FullWidth<std::string>;
+    using FullWidth = srilakshmikanthanp::Figlet::FullWidth<std::string>;
 
     /// @brief char Kerning
-    using CharKerning = Kerning<std::string>;
+    using Kerning = srilakshmikanthanp::Figlet::Kerning<std::string>;
 
     /// @brief char smushed
-    using CharSmushed = Smushed<std::string>;
+    using Smushed = srilakshmikanthanp::Figlet::Smushed<std::string>;
 
     /// @brief char Figlet
-    using CharFiglet = Figlet<std::string>;
+    using Figlet = srilakshmikanthanp::Figlet::Figlet<std::string>;
 }
 
 #endif
