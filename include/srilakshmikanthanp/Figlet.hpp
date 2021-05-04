@@ -3,6 +3,13 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
+/**
+ * @mainpage Figlet.hpp
+ * @brief Generate large out of ordinary text
+ * With Figlet in C++ but using this library
+ * @author Sri Lakshmi Kanthan P
+ */
+
 #ifndef FIGLET_HPP
 #define FIGLET_HPP
 
