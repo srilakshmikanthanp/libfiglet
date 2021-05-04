@@ -1,15 +1,16 @@
 <!-- PROJECT LOGO -->
- <h3 align="center">Figlet</h3>
+<h3 align="center">Figlet</h3>
  
-  <p align="center">
-    Figlet For C++
-    <br />
-    <a href="https://srilakshmikanthanp.github.io/Figlet/docs/html"><strong>Explore the docs »</strong></a>
-    <br />
-    <a href="https://github.com/srilakshmikanthanp/Figlet/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/srilakshmikanthanp/Figlet/issues">Request Feature</a>
-  </p>
+<p align="center">
+  Figlet For C++
+  <br />
+  <a href="https://srilakshmikanthanp.github.io/Figlet/docs/html"><strong>Explore the docs »</strong></a>
+  <br />
+  <a href="https://github.com/srilakshmikanthanp/Figlet/issues">Report Bug</a>
+  ·
+  <a href="https://github.com/srilakshmikanthanp/Figlet/issues">Request Feature</a>
+</p>
+
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
