@@ -58,7 +58,7 @@ This is header only library so just take `Figlet.hpp` and use.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Usage of This Library is vera easy a Hello world would be,
+Usage of This Library is very easy a Hello C++ would be,
 
 ~~~cpp
 #include <iostream>
