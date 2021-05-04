@@ -1,16 +1,10 @@
 <!-- PROJECT LOGO -->
-<br />
-<p align="center">
-  <a href="https://github.com/srilakshmikanthanp/Figlet">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-  <h3 align="center">Figlet</h3>
+ <h3 align="center">Figlet</h3>
 
   <p align="center">
     Figlet For C++
     <br />
-    <a href="https://github.com/srilakshmikanthanp/Figlet"><strong>Explore the docs »</strong></a>
+    <a href="https://srilakshmikanthanp.github.io/Figlet/docs/html"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/srilakshmikanthanp/Figlet/issues">Report Bug</a>
