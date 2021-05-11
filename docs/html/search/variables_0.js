@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['shrinklevel_68',['ShrinkLevel',['../classsrilakshmikanthanp_1_1_figlet_1_1_full_width.html#a7399918a88b947bb38006367a233af7b',1,'srilakshmikanthanp::Figlet::FullWidth::ShrinkLevel()'],['../classsrilakshmikanthanp_1_1_figlet_1_1_kerning.html#a0ae9c097a6987b818d122deaf6ed37a4',1,'srilakshmikanthanp::Figlet::Kerning::ShrinkLevel()'],['../classsrilakshmikanthanp_1_1_figlet_1_1_smushed.html#a629d3d98e3183bd638d76ce7066ae409',1,'srilakshmikanthanp::Figlet::Smushed::ShrinkLevel()']]]
+  ['shrinklevel_70',['ShrinkLevel',['../classsrilakshmikanthanp_1_1_basic_full_width.html#afaf99c08ab24ebe78cfbdb8787b11190',1,'srilakshmikanthanp::BasicFullWidth::ShrinkLevel()'],['../classsrilakshmikanthanp_1_1_basic_kerning.html#a2836dc163e891a993c34bc2fc8b5d104',1,'srilakshmikanthanp::BasicKerning::ShrinkLevel()'],['../classsrilakshmikanthanp_1_1_basic_smushed.html#a38339c65e98206047107aa86ceaeb92f',1,'srilakshmikanthanp::BasicSmushed::ShrinkLevel()']]]
 ];

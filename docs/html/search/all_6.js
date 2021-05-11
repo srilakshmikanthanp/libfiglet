@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['operator_28_29_21',['operator()',['../classsrilakshmikanthanp_1_1_figlet_1_1_figlet.html#acb0d6449a94aaa06ca4336278966c647',1,'srilakshmikanthanp::Figlet::Figlet']]],
-  ['operator_3c_3c_22',['operator&lt;&lt;',['../classsrilakshmikanthanp_1_1_figlet_1_1_figlet.html#af5224fd79f392ec8334c8e10d33ada7e',1,'srilakshmikanthanp::Figlet::Figlet']]]
+  ['make_26',['make',['../classsrilakshmikanthanp_1_1_basic_figlet_font.html#a45f832a9b548ee773442c62cc0749934',1,'srilakshmikanthanp::BasicFigletFont::make()'],['../classsrilakshmikanthanp_1_1_basic_full_width.html#ab416bb93d4619c3e31d3e70b56b04f7c',1,'srilakshmikanthanp::BasicFullWidth::make()'],['../classsrilakshmikanthanp_1_1_basic_kerning.html#acb09ebce3f8bedcec57118d723f0b6e1',1,'srilakshmikanthanp::BasicKerning::make()'],['../classsrilakshmikanthanp_1_1_basic_smushed.html#a070f792f5d0f1e7680075c38873ddf3c',1,'srilakshmikanthanp::BasicSmushed::make()']]]
 ];

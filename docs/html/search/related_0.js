@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['operator_3c_3c_80',['operator&lt;&lt;',['../classsrilakshmikanthanp_1_1_figlet_1_1_figlet.html#af5224fd79f392ec8334c8e10d33ada7e',1,'srilakshmikanthanp::Figlet::Figlet']]]
+  ['operator_3c_3c_82',['operator&lt;&lt;',['../classsrilakshmikanthanp_1_1_basic_figlet.html#a75f85e8487b13162bc95ed0d0bb6f2f8',1,'srilakshmikanthanp::BasicFiglet']]]
 ];

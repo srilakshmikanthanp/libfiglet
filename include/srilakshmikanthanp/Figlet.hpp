@@ -4,9 +4,9 @@
 // https://opensource.org/licenses/MIT
 
 /**
- * @mainpage Figlet.hpp
+ * @mainpage Figlet
  * @brief Generate large out of ordinary text
- * With Figlet in C++ but using this library
+ * With BasicFiglet in C++ but using this library
  * @author Sri Lakshmi Kanthan P
  */
 
@@ -23,15 +23,15 @@
 #include <sstream>
 
 /**
- * @brief Figlet namespace 
+ * @brief srilakshmikanthanp namespace 
  */
-namespace srilakshmikanthanp::Figlet
+namespace srilakshmikanthanp
 {
     /**
-     * @brief Font
+     * @brief BasicFont
      */
     template <class StringType>
-    struct Font
+    struct BasicFont
     {
         using string_type = StringType;
         using char_type = typename string_type::value_type;
@@ -65,9 +65,9 @@ namespace srilakshmikanthanp::Figlet
         virtual size_type getShrink() const = 0;
 
         /**
-         * @brief Get the Figlet character
+         * @brief Get the BasicFiglet character
          * 
-         * @return Figc_type Figlet character
+         * @return Figc_type BasicFiglet character
          */
         virtual Figc_type getFigc(char_type) const = 0;
     };
@@ -76,7 +76,7 @@ namespace srilakshmikanthanp::Figlet
      * @brief Styles
      */
     template <class StringType>
-    struct Style
+    struct BasicStyle
     {
         using string_type = StringType;
         using char_type = typename string_type::value_type;
@@ -113,10 +113,10 @@ namespace srilakshmikanthanp::Figlet
     };
 
     /**
-     * @brief class Figlet
+     * @brief class BasicFiglet
      */
     template <class StringType>
-    class Figlet
+    class BasicFiglet
     {
     public:
         using string_type = StringType;
@@ -128,8 +128,9 @@ namespace srilakshmikanthanp::Figlet
 
     private:
         using ostream_type = std::basic_ostream<char_type, traits_type>;
-        using base_font = std::shared_ptr<Font<string_type>>;
-        using base_style = std::shared_ptr<Style<string_type>>;
+        using sstream_type = std::basic_stringstream<char_type, traits_type>;
+        using base_font = std::shared_ptr<BasicFont<string_type>>;
+        using base_style = std::shared_ptr<BasicStyle<string_type>>;
 
     private:
         base_font font;
@@ -137,17 +138,17 @@ namespace srilakshmikanthanp::Figlet
         string_type str;
 
     public:
-        Figlet() = delete;
-        Figlet(const Figlet &) = default;
-        Figlet(Figlet &&) = default;
+        BasicFiglet() = delete;
+        BasicFiglet(const BasicFiglet &) = default;
+        BasicFiglet(BasicFiglet &&) = default;
 
         /**
-         * @brief Construct a new Figlet object
+         * @brief Construct a new BasicFiglet object
          * 
          * @param font font type
          * @param style style type
          */
-        Figlet(base_font font, base_style style)
+        BasicFiglet(base_font font, base_style style)
             : font(font), style(style)
         {
             if (font->getShrink() < style->getShrinkLevel())
@@ -157,7 +158,7 @@ namespace srilakshmikanthanp::Figlet
         }
 
         /**
-         * @brief Set the Font object
+         * @brief Set the BasicFont object
          * 
          * @param font 
          */
@@ -167,7 +168,7 @@ namespace srilakshmikanthanp::Figlet
         }
 
         /**
-         * @brief Set the Style object
+         * @brief Set the BasicStyle object
          * 
          * @return style 
          */
@@ -177,7 +178,7 @@ namespace srilakshmikanthanp::Figlet
         }
 
         /**
-         * @brief Get the Font object
+         * @brief Get the BasicFont object
          * 
          * @return font 
          */
@@ -187,7 +188,7 @@ namespace srilakshmikanthanp::Figlet
         }
 
         /**
-         * @brief Get the Style object
+         * @brief Get the BasicStyle object
          * 
          * @param style 
          */
@@ -200,9 +201,9 @@ namespace srilakshmikanthanp::Figlet
          * @brief set stringto figlet
          * 
          * @param str string 
-         * @return Figlet& *this
+         * @return BasicFiglet& *this
          */
-        Figlet &operator()(const string_type &str)
+        BasicFiglet &operator()(const string_type &str)
         {
             this->str = str;
             return *this;
@@ -215,7 +216,7 @@ namespace srilakshmikanthanp::Figlet
          * @param figlet figlet
          * @return ostream_type& os
          */
-        friend ostream_type &operator<<(ostream_type &os, Figlet &figlet)
+        friend ostream_type &operator<<(ostream_type &os, BasicFiglet &figlet)
         {
             std::vector<Figc_type> figchars;
             char_type hb = figlet.font->getHardBlank();
@@ -236,15 +237,27 @@ namespace srilakshmikanthanp::Figlet
 
             return os;
         }
+
+        /**
+         * @brief Get the String object
+         * 
+         * @return string_type as string
+         */
+        string_type getString() const
+        {
+            sstream_type stream;
+            stream << *this;
+            return stream.str(); 
+        }
     };
 
     /**
-     * @brief FigletFont
+     * @brief BasicFigletFont
      * 
      * @tparam StringType 
      */
     template <class StringType>
-    class FigletFont : public Font<StringType>
+    class BasicFigletFont : public BasicFont<StringType>
     {
     public:
         using string_type = StringType;
@@ -364,16 +377,16 @@ namespace srilakshmikanthanp::Figlet
         }
 
     public:
-        FigletFont() = delete;
-        FigletFont(const FigletFont &) = default;
-        FigletFont(FigletFont &&) = default;
+        BasicFigletFont() = delete;
+        BasicFigletFont(const BasicFigletFont &) = default;
+        BasicFigletFont(BasicFigletFont &&) = default;
 
         /**
-         * @brief Construct a new Figlet Font
+         * @brief Construct a new BasicFiglet BasicFont
          * 
          * @param font 
          */
-        FigletFont(string_type font)
+        BasicFigletFont(string_type font)
         {
             std::basic_istringstream<char_type, traits_type> sstream(font);
             std::basic_ifstream<char_type, traits_type> stream(font);
@@ -422,9 +435,9 @@ namespace srilakshmikanthanp::Figlet
         }
 
         /**
-         * @brief Get the Figlet character
+         * @brief Get the BasicFiglet character
          * 
-         * @return Figc_type Figlet character
+         * @return Figc_type BasicFiglet character
          */
         Figc_type getFigc(char_type ch) const override
         {
@@ -435,21 +448,21 @@ namespace srilakshmikanthanp::Figlet
         /**
          * @brief A factory for this type return smart pointer to this type
          * 
-         * @return std::shared_ptr<FigletFont<string_type>> 
+         * @return std::shared_ptr<BasicFigletFont<string_type>> 
          */
-        static std::shared_ptr<FigletFont<string_type>> make(std::string font)
+        static std::shared_ptr<BasicFigletFont<string_type>> make(std::string font)
         {
-            return std::make_shared<FigletFont<string_type>>(font);
+            return std::make_shared<BasicFigletFont<string_type>>(font);
         }
     };
 
     /**
-     * @brief Full Width Style
+     * @brief Full Width BasicStyle
      * 
      * @tparam StringType 
      */
     template <class StringType>
-    class FullWidth : public Style<StringType>
+    class BasicFullWidth : public BasicStyle<StringType>
     {
     public:
         using string_type = StringType;
@@ -503,9 +516,9 @@ namespace srilakshmikanthanp::Figlet
         }
 
     public:
-        FullWidth() = default;
-        FullWidth(const FullWidth &) = default;
-        FullWidth(FullWidth &&) = default;
+        BasicFullWidth() = default;
+        BasicFullWidth(const BasicFullWidth &) = default;
+        BasicFullWidth(BasicFullWidth &&) = default;
 
         /**
          * @brief Get the Shrink
@@ -558,22 +571,22 @@ namespace srilakshmikanthanp::Figlet
         /**
          * @brief A factory for this type return smart pointer to this type
          * 
-         * @return std::shared_ptr<FullWidth<string_type>> 
+         * @return std::shared_ptr<BasicFullWidth<string_type>> 
          */
-        static std::shared_ptr<FullWidth<string_type>> make()
+        static std::shared_ptr<BasicFullWidth<string_type>> make()
         {
-            return std::make_shared<FullWidth<string_type>>();
+            return std::make_shared<BasicFullWidth<string_type>>();
         }
     };
 
     /**
-     * @brief kerned Style
+     * @brief kerned BasicStyle
      * 
      * @tparam gap gap between characters
      * @tparam StringType 
      */
     template <class StringType>
-    class Kerning : public FullWidth<StringType>
+    class BasicKerning : public BasicFullWidth<StringType>
     {
     public:
         using string_type = StringType;
@@ -641,13 +654,13 @@ namespace srilakshmikanthanp::Figlet
 
     public:
         /**
-         * @brief Construct a new Kerning
+         * @brief Construct a new BasicKerning
          * 
          * @param gap gap size
          */
-        Kerning(size_type gap = 0) : gap(gap) {}
-        Kerning(const Kerning &) = default;
-        Kerning(Kerning &&) = default;
+        BasicKerning(size_type gap = 0) : gap(gap) {}
+        BasicKerning(const BasicKerning &) = default;
+        BasicKerning(BasicKerning &&) = default;
 
         /**
          * @brief Get the Shrink
@@ -702,11 +715,11 @@ namespace srilakshmikanthanp::Figlet
         /**
          * @brief A factory for this type return smart pointer to this type
          * 
-         * @return std::shared_ptr<Kerning<string_type>> 
+         * @return std::shared_ptr<BasicKerning<string_type>> 
          */
-        static std::shared_ptr<Kerning<string_type>> make(size_type gap)
+        static std::shared_ptr<BasicKerning<string_type>> make(size_type gap)
         {
-            return std::make_shared<Kerning<string_type>>(gap);
+            return std::make_shared<BasicKerning<string_type>>(gap);
         }
     };
 
@@ -716,7 +729,7 @@ namespace srilakshmikanthanp::Figlet
      * @tparam StringType 
      */
     template <class StringType>
-    class Smushed : public Kerning<StringType>
+    class BasicSmushed : public BasicKerning<StringType>
     {
     public:
         using string_type = StringType;
@@ -902,9 +915,9 @@ namespace srilakshmikanthanp::Figlet
         }
 
     public:
-        Smushed() = default;
-        Smushed(const Smushed &) = default;
-        Smushed(Smushed &&) = default;
+        BasicSmushed() = default;
+        BasicSmushed(const BasicSmushed &) = default;
+        BasicSmushed(BasicSmushed &&) = default;
         /**
          * @brief Get the Fig string
          * 
@@ -941,34 +954,34 @@ namespace srilakshmikanthanp::Figlet
         /**
          * @brief A factory for this type return smart pointer to this type
          * 
-         * @return std::shared_ptr<Smushed<string_type>> 
+         * @return std::shared_ptr<BasicSmushed<string_type>> 
          */
-        static std::shared_ptr<Smushed<string_type>> make()
+        static std::shared_ptr<BasicSmushed<string_type>> make()
         {
-            return std::make_shared<Smushed<string_type>>();
+            return std::make_shared<BasicSmushed<string_type>>();
         }
     };
 }
 
 /**
- * @brief namespace Figlet
+ * @brief srilakshmijathan namespace
  */
-namespace srilakshmikanthanp::Figlet::Char
+namespace srilakshmikanthanp
 {
     /// @brief char figlet font
-    using FigletFont = srilakshmikanthanp::Figlet::FigletFont<std::string>;
+    using FigletFont = BasicFigletFont<std::string>;
 
     /// @brief char full width style
-    using FullWidth = srilakshmikanthanp::Figlet::FullWidth<std::string>;
+    using FullWidth = BasicFullWidth<std::string>;
 
-    /// @brief char Kerning
-    using Kerning = srilakshmikanthanp::Figlet::Kerning<std::string>;
+    /// @brief char BasicKerning
+    using Kerning = BasicKerning<std::string>;
 
     /// @brief char smushed
-    using Smushed = srilakshmikanthanp::Figlet::Smushed<std::string>;
+    using Smushed = BasicSmushed<std::string>;
 
-    /// @brief char Figlet
-    using Figlet = srilakshmikanthanp::Figlet::Figlet<std::string>;
+    /// @brief char BasicFiglet
+    using Figlet = BasicFiglet<std::string>;
 }
 
 #endif

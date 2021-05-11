@@ -64,13 +64,13 @@ Usage of This Library is very easy a Hello C++ would be,
 #include <iostream>
 #include "srilakshmikanthanp/Figlet.hpp"
 
-using namespace srilakshmikanthanp::Figlet::Char;
+using namespace srilakshmikanthanp;
 
 int main()
 {
     Figlet figlet(FigletFont::make("Fonts/Standard.flf"), Smushed::make());
 
-    std::cout << figlet("Hello, C++");
+    std::cout << figlet("Hello, C++"); // or figlet("Hello, C++).getString()
 
     return 0;
 }

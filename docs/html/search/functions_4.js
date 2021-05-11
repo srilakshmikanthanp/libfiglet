@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['kerning_60',['Kerning',['../classsrilakshmikanthanp_1_1_figlet_1_1_kerning.html#a47fc384d1f5e83e23bab98002b18f189',1,'srilakshmikanthanp::Figlet::Kerning::Kerning(size_type gap=0)'],['../classsrilakshmikanthanp_1_1_figlet_1_1_kerning.html#a88099162db3f1f5d5197dcc7332c87bd',1,'srilakshmikanthanp::Figlet::Kerning::Kerning(const Kerning &amp;)=default'],['../classsrilakshmikanthanp_1_1_figlet_1_1_kerning.html#ad79cfbf4bada3d190cf44ad623e52e55',1,'srilakshmikanthanp::Figlet::Kerning::Kerning(Kerning &amp;&amp;)=default']]]
+  ['make_64',['make',['../classsrilakshmikanthanp_1_1_basic_figlet_font.html#a45f832a9b548ee773442c62cc0749934',1,'srilakshmikanthanp::BasicFigletFont::make()'],['../classsrilakshmikanthanp_1_1_basic_full_width.html#ab416bb93d4619c3e31d3e70b56b04f7c',1,'srilakshmikanthanp::BasicFullWidth::make()'],['../classsrilakshmikanthanp_1_1_basic_kerning.html#acb09ebce3f8bedcec57118d723f0b6e1',1,'srilakshmikanthanp::BasicKerning::make()'],['../classsrilakshmikanthanp_1_1_basic_smushed.html#a070f792f5d0f1e7680075c38873ddf3c',1,'srilakshmikanthanp::BasicSmushed::make()']]]
 ];
