@@ -472,9 +472,6 @@ namespace srilakshmikanthanp
         using Figc_type = std::vector<string_type>;
         using Figs_type = std::vector<string_type>;
 
-    public:
-        static const inline size_type ShrinkLevel = 0;
-
     protected:
         /**
          * @brief convert ascii string to string_type
@@ -595,9 +592,6 @@ namespace srilakshmikanthanp
         using size_type = typename string_type::size_type;
         using Figc_type = std::vector<string_type>;
         using Figs_type = std::vector<string_type>;
-
-    public:
-        static const inline size_type ShrinkLevel = 1;
 
     private:
         size_type gap;
@@ -738,9 +732,6 @@ namespace srilakshmikanthanp
         using size_type = typename string_type::size_type;
         using Figc_type = std::vector<string_type>;
         using Figs_type = std::vector<string_type>;
-
-    public:
-        static const inline size_type ShrinkLevel = 2;
 
     private:
         /**
