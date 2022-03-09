@@ -384,11 +384,20 @@ namespace srilakshmikanthanp
         /**
          * @brief Construct a new BasicFiglet BasicFont
          * 
+         * @param stream stream of data
+         */
+        BasicFigletFont(std::basic_stringstream<char_type, traits_type> stream)
+        {
+            this->read(stream);
+        }
+
+        /**
+         * @brief Construct a new BasicFiglet BasicFont
+         * 
          * @param font 
          */
         BasicFigletFont(string_type font)
         {
-            std::basic_istringstream<char_type, traits_type> sstream(font);
             std::basic_ifstream<char_type, traits_type> stream(font);
 
             if (stream.is_open())
@@ -397,7 +406,7 @@ namespace srilakshmikanthanp
             }
             else
             {
-                this->read(sstream);
+                throw std::runtime_error( font + " not found !" );
             }
         }
 
