@@ -134,7 +134,6 @@ namespace srilakshmikanthanp
     private:
         base_font font;
         base_style style;
-        string_type str;
 
     public:
         BasicFiglet() = delete;
@@ -199,52 +198,29 @@ namespace srilakshmikanthanp
          * @brief set stringto figlet
          *
          * @param str string
-         * @return BasicFiglet& *this
+         * @return Figlet string
          */
-        BasicFiglet &operator()(const string_type &str)
-        {
-            this->str = str;
-            return *this;
-        }
-
-        /**
-         * @brief operator << printer
-         *
-         * @param os ostream
-         * @param figlet figlet
-         * @return ostream_type& os
-         */
-        friend ostream_type &operator<<(ostream_type &os, BasicFiglet &figlet)
+        string_type operator()(const string_type &str)
         {
             std::vector<Figc_type> figchars;
-            char_type hb = figlet.font->getHardBlank();
-            size_type hg = figlet.font->getHeight();
-            size_type sk = figlet.font->getShrink();
+            char_type hb = this->font->getHardBlank();
+            size_type hg = this->font->getHeight();
+            size_type sk = this->font->getShrink();
 
-            for (auto ch : figlet.str)
+            for (auto ch : str)
             {
-                figchars.push_back(figlet.font->getFigc(ch));
+                figchars.push_back(this->font->getFigc(ch));
             }
 
-            Figs_type figs = figlet.style->getFigs(figchars, hb, hg, sk);
+            Figs_type figs = this->style->getFigs(figchars, hb, hg, sk);
+
+            sstream_type stream;
 
             for (const auto &str : figs)
             {
-                os << str << "\n";
+                stream << str << "\n";
             }
 
-            return os;
-        }
-
-        /**
-         * @brief Get the String object
-         *
-         * @return string_type as string
-         */
-        string_type getString() const
-        {
-            sstream_type stream;
-            stream << *this;
             return stream.str();
         }
     };

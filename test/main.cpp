@@ -10,7 +10,7 @@ using namespace srilakshmikanthanp;
 
 int main()
 {
-    Figlet figlet(FigletFont::make("../fonts/Standard.flf"), Smushed::make());
+    Figlet figlet(FigletFont::make("../assets/fonts/Standard.flf"), Smushed::make());
     std::cout << figlet("Hello, C++");
     return 0;
 }
