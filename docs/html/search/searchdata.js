@@ -5,10 +5,9 @@ var indexSectionsWithContent =
   2: "s",
   3: "f",
   4: "bcegmorst",
-  5: "s",
-  6: "cfkst",
-  7: "o",
-  8: "f"
+  5: "cfkst",
+  6: "o",
+  7: "f"
 };
 
 var indexSectionNames =
@@ -18,10 +17,9 @@ var indexSectionNames =
   2: "namespaces",
   3: "files",
   4: "functions",
-  5: "variables",
-  6: "typedefs",
-  7: "related",
-  8: "pages"
+  5: "typedefs",
+  6: "related",
+  7: "pages"
 };
 
 var indexSectionLabels =
@@ -31,9 +29,8 @@ var indexSectionLabels =
   2: "Namespaces",
   3: "Files",
   4: "Functions",
-  5: "Variables",
-  6: "Typedefs",
-  7: "Friends",
-  8: "Pages"
+  5: "Typedefs",
+  6: "Friends",
+  7: "Pages"
 };
 

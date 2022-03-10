@@ -70,7 +70,7 @@ int main()
 {
     Figlet figlet(FigletFont::make("Fonts/Standard.flf"), Smushed::make());
 
-    std::cout << figlet("Hello, C++"); // or figlet("Hello, C++).getString()
+    std::cout << figlet("Hello, C++"); // or figlet("Hello, C++").getString()
 
     return 0;
 }
