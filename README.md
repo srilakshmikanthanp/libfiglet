@@ -68,11 +68,9 @@ using namespace srilakshmikanthanp;
 
 int main()
 {
-    Figlet figlet(FigletFont::make("Fonts/Standard.flf"), Smushed::make());
-
-    std::cout << figlet("Hello, C++");
-
-    return 0;
+  Figlet figlet(FigletFont::make("Fonts/Standard.flf"), Smushed::make());
+  std::cout << figlet("Hello, C++");
+  return 0;
 }
 ~~~
 
