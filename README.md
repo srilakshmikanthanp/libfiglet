@@ -1,14 +1,14 @@
 <!-- PROJECT LOGO -->
-<h3 align="center">Figlet</h3>
+<h3 align="center">libfiglet</h3>
  
 <p align="center">
   Figlet For C++
   <br />
-  <a href="https://srilakshmikanthanp.github.io/Figlet/docs/html"><strong>Explore the docs »</strong></a>
+  <a href="https://srilakshmikanthanp.github.io/libfiglet/docs/html"><strong>Explore the docs »</strong></a>
   <br />
-  <a href="https://github.com/srilakshmikanthanp/Figlet/issues">Report Bug</a>
+  <a href="https://github.com/srilakshmikanthanp/libfiglet/issues">Report Bug</a>
   ·
-  <a href="https://github.com/srilakshmikanthanp/Figlet/issues">Request Feature</a>
+  <a href="https://github.com/srilakshmikanthanp/libfiglet/issues">Request Feature</a>
 </p>
 
 
@@ -33,7 +33,6 @@
 </details>
 
 
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
@@ -53,7 +52,7 @@ This is Figlet Library for C++ to generate Large text out ordinary text like thi
 
 ### Installation
 
-This is header only library so just take `Figlet.hpp` and use.
+This is header only library so just take `libfiglet.hpp` and use.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -62,9 +61,9 @@ Usage of This Library is very easy a Hello C++ would be,
 
 ~~~cpp
 #include <iostream>
-#include "srilakshmikanthanp/Figlet.hpp"
+#include "srilakshmikanthanp/libfiglet.hpp"
 
-using namespace srilakshmikanthanp;
+using namespace srilakshmikanthanp::libfiglet;
 
 int main()
 {
@@ -93,4 +92,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Project Link: [https://github.com/srilakshmikanthanp/Figlet](https://github.com/srilakshmikanthanp/Figlet)
+Project Link: [https://github.com/srilakshmikanthanp/libfiglet](https://github.com/srilakshmikanthanp/libfiglet)
