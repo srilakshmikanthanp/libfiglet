@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['setfont_0',['setFont',['../classsrilakshmikanthanp_1_1_basic_figlet.html#ad9b1d17d7ac931b0ac49b0a15fd68628',1,'srilakshmikanthanp::BasicFiglet']]],
-  ['setstyle_1',['setStyle',['../classsrilakshmikanthanp_1_1_basic_figlet.html#a2ce9c7a092af219e5fe3bcf0677cd395',1,'srilakshmikanthanp::BasicFiglet']]]
+  ['setfont_0',['setFont',['../classsrilakshmikanthanp_1_1libfiglet_1_1_basic_figlet.html#a3256af55536ed778181cff8636688def',1,'srilakshmikanthanp::libfiglet::BasicFiglet']]],
+  ['setstyle_1',['setStyle',['../classsrilakshmikanthanp_1_1libfiglet_1_1_basic_figlet.html#a55d33f5b7295b55bb346dd36e7b5b4de',1,'srilakshmikanthanp::libfiglet::BasicFiglet']]]
 ];

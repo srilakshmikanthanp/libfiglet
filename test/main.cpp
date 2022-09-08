@@ -4,9 +4,9 @@
 // https://opensource.org/licenses/MIT
 
 #include <iostream>
-#include "../include/srilakshmikanthanp/Figlet.hpp"
+#include "../include/srilakshmikanthanp/libfiglet.hpp"
 
-using namespace srilakshmikanthanp;
+using namespace srilakshmikanthanp::libfiglet;
 
 int main()
 {

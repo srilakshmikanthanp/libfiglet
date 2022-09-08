@@ -59,7 +59,6 @@ var menudata={children:[
 {text:"c",url:"functions_type.html#index_c"},
 {text:"f",url:"functions_type.html#index_f"},
 {text:"s",url:"functions_type.html#index_s"},
-{text:"t",url:"functions_type.html#index_t"}]},
-{text:"Related Functions",url:"functions_rela.html"}]}]},
+{text:"t",url:"functions_type.html#index_t"}]}]}]},
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"}]}]}

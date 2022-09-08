@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['make_0',['make',['../classsrilakshmikanthanp_1_1_basic_figlet_font.html#a9e1d5126cad888e36aee9eba806610a7',1,'srilakshmikanthanp::BasicFigletFont::make(std::basic_stringstream&lt; char_type, traits_type &gt; stream)'],['../classsrilakshmikanthanp_1_1_basic_figlet_font.html#a61ac8662c66246fa9801dc20ab956fc2',1,'srilakshmikanthanp::BasicFigletFont::make(std::string font)'],['../classsrilakshmikanthanp_1_1_basic_full_width.html#ad11a83c3f6ab0019d9e9c4a2844b45f2',1,'srilakshmikanthanp::BasicFullWidth::make()'],['../classsrilakshmikanthanp_1_1_basic_kerning.html#a7b9c9d624cb4eaa2303c519d74db3120',1,'srilakshmikanthanp::BasicKerning::make()'],['../classsrilakshmikanthanp_1_1_basic_smushed.html#afd0bc406a580636b8c07eb0f6eb2e5fb',1,'srilakshmikanthanp::BasicSmushed::make()']]]
+  ['libfiglet_2ehpp_0',['libfiglet.hpp',['../libfiglet_8hpp.html',1,'']]]
 ];
