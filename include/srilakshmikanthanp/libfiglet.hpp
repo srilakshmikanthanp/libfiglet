@@ -34,7 +34,7 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
     template <class string_type_t>
     struct fig_types_t
     {
-      using string_type = string_type_t;                         // String Type
+      using string_type = string_type_t;                       // String Type
       using char_type = typename string_type_t::value_type;    // Character Type
       using traits_type = typename string_type_t::traits_type; // Traits Type
       using size_type = typename string_type_t::size_type;     // Size Type
@@ -160,10 +160,10 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
         this->font = font;   // Set font
       }
 
-    public:                                        // Public members
+    public:                                         // Public members
       basic_figlet(const basic_figlet &) = default; // copy constructor
       basic_figlet(basic_figlet &&) = default;      // move constructor
-      basic_figlet() = delete;                     // constructor
+      basic_figlet() = delete;                      // constructor
 
       /**
        * @brief Construct a new basic figlet object
@@ -217,11 +217,11 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
 
         // Transform to fig char
         std::transform(
-          str.begin(), str.end(), std::back_inserter(fig_chs), 
-          [this](auto ch) { 
-            return this->font->get_fig_char(ch); 
-          }
-        );
+            str.begin(), str.end(), std::back_inserter(fig_chs),
+            [this](auto ch)
+            {
+              return this->font->get_fig_char(ch);
+            });
 
         // Get the figlet string
         const auto fig_str = this->style->get_fig_str(fig_chs, hard_blank, height);
@@ -542,11 +542,10 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
       }
 
     public: // static methods
-
       /**
        * @brief Make a flf font type as shared pointer
        */
-      static typename basic_figlet<fig_types>::base_figlet_font_ptr 
+      static typename basic_figlet<fig_types>::base_figlet_font_ptr
       make_shared(const typename fig_types::string_type &file)
       {
         return std::make_shared<basic_flf_font>(file);
@@ -555,7 +554,7 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
       /**
        * @brief Make a flf font type as shared pointer
        */
-      static typename basic_figlet<fig_types>::base_figlet_font_ptr  
+      static typename basic_figlet<fig_types>::base_figlet_font_ptr
       make_shared(typename fig_types::istream_type &is)
       {
         return std::make_shared<basic_flf_font>(is);
@@ -611,7 +610,6 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
       }
 
     public: // static methods
-
       /**
        * @brief Make a full width style as shared pointer
        */
@@ -619,6 +617,121 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
       make_shared()
       {
         return std::make_shared<basic_full_width_style>();
+      }
+    };
+
+    /**
+     * @brief Figlet kerning style
+     */
+    template <typename fig_types>
+    struct basic_kerning_style : public basic_base_figlet_style<fig_types>
+    {
+    private: // Private methods
+      /**
+       * @brief Trim deep the figlet string and char
+       */
+      void trim_deep(typename fig_types::fig_str_type &fig_str, typename fig_types::fig_char_type &fig_ch) const
+      {
+        // left spaces and right spaces
+        std::vector<typename fig_types::size_type> elem;
+
+        // count space
+        for (typename fig_types::size_type i = 0; i < fig_str.size(); ++i)
+        {
+          int l_count = 0, r_count = 0;
+
+          for (auto itr = fig_str[i].rbegin(); itr != fig_str[i].rend(); ++itr)
+          {
+            if (*itr == ' ')
+              ++l_count;
+            else
+              break;
+          }
+
+          for (auto itr = fig_ch[i].begin(); itr != fig_ch[i].end(); ++itr)
+          {
+            if (*itr == ' ')
+              ++r_count;
+            else
+              break;
+          }
+
+          elem.push_back(l_count + r_count);
+        }
+
+        // minimum
+        const auto min = *std::min_element(elem.begin(), elem.end());
+
+        // for each line
+        for (typename fig_types::size_type i = 0; i < fig_str.size(); ++i)
+        {
+          typename fig_types::size_type siz = min;
+
+          while (siz > 0 && fig_str[i].back() == ' ')
+          {
+            fig_str[i].pop_back();
+            --siz;
+          }
+
+          fig_ch[i].erase(0, siz);
+        }
+      }
+
+    public: // Public overrides
+      /**
+       * @brief get shrink level
+       */
+      typename fig_types::shrink_type get_shrink_level() const override
+      {
+        return fig_types::shrink_type::KERNING;
+      }
+
+      /**
+       * @brief get the fig str
+       */
+      typename fig_types::fig_str_type get_fig_str(
+          std::vector<typename fig_types::fig_char_type> fig_chs,
+          typename fig_types::char_type hardblank,
+          typename fig_types::size_type height) const override
+      {
+        // fig str container type
+        typename fig_types::fig_str_type fig_str(height);
+
+        // for each fig char
+        for (auto fig_char : fig_chs)
+        {
+          // check height
+          if (fig_char.size() != height)
+          {
+            throw std::runtime_error("Invalid fig char height");
+          }
+
+          // size type
+          using size_type = typename fig_types::size_type;
+
+          // trim
+          this->trim_deep(fig_str, fig_char);
+
+          // for each line
+          for (size_type i = 0; i < height; ++i)
+          {
+            fig_str[i] += fig_char[i];
+          }
+        }
+
+        // return
+        return this->rm_hb(fig_str, hardblank);
+      }
+
+    public: // static methods
+
+      /**
+       * @brief Make a kerning style as shared pointer
+       */
+      static typename basic_figlet<fig_types>::base_figlet_style_ptr
+      make_shared()
+      {
+        return std::make_shared<basic_kerning_style>();
       }
     };
   } // namespace libfiglet
@@ -654,6 +767,9 @@ namespace srilakshmikanthanp
 
     // std::string type for full width style
     using full_width = basic_full_width_style<s_fig_type>;
+
+    // std::string type for kerning style
+    using kerning = basic_kerning_style<s_fig_type>;
   } // namespace libfiglet
 } // namespace srilakshmikanthanp
 
@@ -672,6 +788,9 @@ namespace srilakshmikanthanp
 
     // std::wstring type for full width style
     using wfull_width = basic_full_width_style<w_fig_type>;
+
+    // std::wstring type for kerning style
+    using wkerning = basic_kerning_style<w_fig_type>;
   } // namespace libfiglet
 } // namespace srilakshmikanthanp
 
