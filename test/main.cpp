@@ -3,14 +3,14 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-#include <iostream>
 #include "../include/srilakshmikanthanp/libfiglet.hpp"
+#include <iostream>
 
 using namespace srilakshmikanthanp::libfiglet;
 
 int main()
 {
-    Figlet figlet(FigletFont::make("../assets/fonts/Standard.flf"), Smushed::make());
-    std::cout << figlet("Hello, C++");
-    return 0;
+    const auto font_file = "D:\\source\\srilakshmikanthanp\\libfiglet\\assets\\fonts\\Standard.flf";
+    const figlet figlet(flf_font::make_shared(font_file), full_width::make_shared());
+    std::cout << figlet("Hello");
 }
