@@ -39,8 +39,8 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
       using traits_type = typename string_type_t::traits_type; // Traits Type
       using size_type = typename string_type_t::size_type;     // Size Type
 
-      using fig_char_type = std::vector<string_type_t>; // Figlet char
-      using fig_str_type = std::vector<string_type_t>;  // Figlet String
+      using fig_char_type = std::vector<string_type_t>;        // Figlet char
+      using fig_str_type = std::vector<string_type_t>;         // Figlet String
 
       using ostream_type = std::basic_ostream<char_type>;      // Ostream Type
       using istream_type = std::basic_istream<char_type>;      // Istream Type
@@ -217,11 +217,10 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
 
         // Transform to fig char
         std::transform(
-            str.begin(), str.end(), std::back_inserter(fig_chs),
-            [this](auto ch)
-            {
-              return this->font->get_fig_char(ch);
-            });
+          str.begin(), str.end(), std::back_inserter(fig_chs),
+          [this](auto ch){
+            return this->font->get_fig_char(ch);
+        });
 
         // Get the figlet string
         const auto fig_str = this->style->get_fig_str(fig_chs, hard_blank, height);
@@ -624,9 +623,9 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
      * @brief Figlet kerning style
      */
     template <typename fig_types>
-    struct basic_kerning_style : public basic_base_figlet_style<fig_types>
+    struct basic_kerning_style : public basic_full_width_style<fig_types>
     {
-    private: // Private methods
+    protected: // protected methods
       /**
        * @brief Trim deep the figlet string and char
        */
@@ -665,12 +664,11 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
         // for each line
         for (typename fig_types::size_type i = 0; i < fig_str.size(); ++i)
         {
-          typename fig_types::size_type siz = min;
+          typename fig_types::size_type siz = min + 1;
 
-          while (siz > 0 && fig_str[i].back() == ' ')
+          while (--siz > 0 && fig_str[i].back() == ' ')
           {
             fig_str[i].pop_back();
-            --siz;
           }
 
           fig_ch[i].erase(0, siz);
@@ -692,16 +690,17 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
       typename fig_types::fig_str_type get_fig_str(
           std::vector<typename fig_types::fig_char_type> fig_chs,
           typename fig_types::char_type hardblank,
-          typename fig_types::size_type height) const override
+          typename fig_types::size_type height
+        ) const override
       {
         // fig str container type
         typename fig_types::fig_str_type fig_str(height);
 
         // for each fig char
-        for (auto fig_char : fig_chs)
+        for (auto fig_ch : fig_chs)
         {
           // check height
-          if (fig_char.size() != height)
+          if (fig_ch.size() != height)
           {
             throw std::runtime_error("Invalid fig char height");
           }
@@ -710,12 +709,12 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
           using size_type = typename fig_types::size_type;
 
           // trim
-          this->trim_deep(fig_str, fig_char);
+          this->trim_deep(fig_str, fig_ch);
 
           // for each line
           for (size_type i = 0; i < height; ++i)
           {
-            fig_str[i] += fig_char[i];
+            fig_str[i] += fig_ch[i];
           }
         }
 
@@ -724,7 +723,6 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
       }
 
     public: // static methods
-
       /**
        * @brief Make a kerning style as shared pointer
        */
@@ -732,6 +730,228 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
       make_shared()
       {
         return std::make_shared<basic_kerning_style>();
+      }
+    };
+
+    /**
+     * @brief Figlet smushed style
+     */
+    template <typename fig_types>
+    struct basic_smushed_style : public basic_kerning_style<fig_types>
+    {
+    protected: // private methods
+      auto smush_rules(typename fig_types::char_type lc, typename fig_types::char_type rc) const
+      {
+        //()
+        if (lc == ' ')
+        {
+          return rc;
+        }
+
+        if (rc == ' ')
+        {
+          return lc;
+        }
+
+        //(Equal character smush)
+        if (lc == rc)
+        {
+          return rc;
+        }
+
+        //(Underscores smush)
+        if (lc == '_' && this->cvt("|/\\[]{}()<>").find(rc) != fig_types::string_type::npos)
+        {
+          return rc;
+        }
+
+        if (rc == '_' && this->cvt("|/\\[]{}()<>").find(lc) != fig_types::string_type::npos)
+        {
+          return lc;
+        }
+
+        //(Hierarchy Smushing)
+        auto find_class = [](typename fig_types::char_type ch)
+        {
+          if (ch == '|')
+          {
+            return 1;
+          }
+
+          if (ch == '/' || ch == '\\')
+          {
+            return 3;
+          }
+
+          if (ch == '[' || ch == ']')
+          {
+            return 4;
+          }
+
+          if (ch == '{' || ch == '}')
+          {
+            return 5;
+          }
+
+          if (ch == '(' || ch == ')')
+          {
+            return 6;
+          }
+
+          return 0;
+        };
+
+        typename fig_types::size_type c_lc = find_class(lc);
+        typename fig_types::size_type c_rc = find_class(rc);
+
+        if (c_lc > c_rc)
+        {
+          return lc;
+        }
+
+        if (c_rc > c_lc)
+        {
+          return rc;
+        }
+
+        //(Opposite smush)
+        if (lc == '[' && rc == ']')
+        {
+          return '|';
+        }
+
+        if (lc == ']' && rc == '[')
+        {
+          return '|';
+        }
+
+        if (lc == '{' && rc == '}')
+        {
+          return '|';
+        }
+
+        if (lc == '}' && rc == '{')
+        {
+          return '|';
+        }
+
+        if (lc == '(' && rc == ')')
+        {
+          return '|';
+        }
+
+        if (lc == ')' && rc == '(')
+        {
+          return '|';
+        }
+
+        //(Big X smush)
+        if (lc == '/' && rc == '\\')
+        {
+          return '|';
+        }
+
+        if (lc == '\\' && rc == '/')
+        {
+          return 'Y';
+        }
+
+        if (lc == '>' && rc == '<')
+        {
+          return 'X';
+        }
+
+        //(universel smush)
+        return lc;
+      }
+
+      /**
+       * @brief smush algoriths on kerned Fig string and character
+       *
+       * @param figs
+       * @param figc
+       */
+      void smush(typename fig_types::fig_str_type &fig_str,typename fig_types::fig_char_type fig_ch, typename fig_types::char_type hb) const
+      {
+        // trim
+        this->trim_deep(fig_str, fig_ch);
+
+        bool smashable = true;
+
+        for (auto &line : fig_str)
+        {
+          if ((line.back() == hb) && !(line.front() == hb))
+          {
+            smashable = false;
+          }
+          else if (line.size() == 0 || line.size() == 0)
+          {
+            smashable = false;
+          }
+        }
+
+        if (smashable)
+        {
+          for (typename fig_types::size_type i = 0; i < fig_str.size(); ++i)
+          {
+            auto val = smush_rules(fig_str[i].back(), fig_ch[i].front());
+            fig_str[i].pop_back();
+            fig_ch[i].erase(0, 1);
+            fig_str[i] += typename fig_types::string_type(1, val) + fig_ch[i];
+          }
+        }
+        else
+        {
+          for (typename fig_types::size_type i = 0; i < fig_str.size(); ++i)
+          {
+            fig_str[i] += fig_ch[i];
+          }
+        }
+      }
+
+    public: // public methods
+      /**
+       * @brief Get the shrink level
+       */
+      typename fig_types::shrink_type get_shrink_level() const override
+      {
+        return fig_types::shrink_type::SMUSHED;
+      }
+
+      /**
+       * @brief Get the Fig string
+       */
+      virtual typename fig_types::fig_str_type get_fig_str(
+          std::vector<typename fig_types::fig_char_type> fig_chs,
+          typename fig_types::char_type hardblank,
+          typename fig_types::size_type height
+        ) const
+      {
+        typename fig_types::fig_str_type fig_str(height, this->cvt(""));
+
+        for (auto &fig_char : fig_chs)
+        {
+          // check height
+          if (fig_char.size() != height)
+          {
+            throw std::runtime_error("Invalid fig char height");
+          }
+
+          // smush
+          this->smush(fig_str, fig_char, hardblank);
+        }
+
+        return this->rm_hb(fig_str, hardblank);
+      }
+
+    public: // static methods
+      /**
+       * @brief Make a kerning style as shared pointer
+       */
+      static typename basic_figlet<fig_types>::base_figlet_style_ptr
+      make_shared()
+      {
+        return std::make_shared<basic_smushed_style>();
       }
     };
   } // namespace libfiglet
@@ -770,6 +990,9 @@ namespace srilakshmikanthanp
 
     // std::string type for kerning style
     using kerning = basic_kerning_style<s_fig_type>;
+
+    // std::string type for smushed style
+    using smushed = basic_smushed_style<s_fig_type>;
   } // namespace libfiglet
 } // namespace srilakshmikanthanp
 
@@ -791,6 +1014,9 @@ namespace srilakshmikanthanp
 
     // std::wstring type for kerning style
     using wkerning = basic_kerning_style<w_fig_type>;
+
+    // std::wstring type for smushed style
+    using wsmushed = basic_smushed_style<w_fig_type>;
   } // namespace libfiglet
 } // namespace srilakshmikanthanp
 
