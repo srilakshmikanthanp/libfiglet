@@ -34,19 +34,19 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
     template <class string_type_t>
     struct fig_types_t
     {
-      using string_type = string_type_t;                       // String Type
-      using char_type = typename string_type_t::value_type;    // Character Type
-      using traits_type = typename string_type_t::traits_type; // Traits Type
-      using size_type = typename string_type_t::size_type;     // Size Type
+      using string_type      =   string_type_t;                       // String Type
+      using char_type        =   typename string_type_t::value_type;  // Character Type
+      using traits_type      =   typename string_type_t::traits_type; // Traits Type
+      using size_type        =   typename string_type_t::size_type;   // Size Type
 
-      using fig_char_type = std::vector<string_type_t>;        // Figlet char
-      using fig_str_type = std::vector<string_type_t>;         // Figlet String
+      using fig_char_type    =   std::vector<string_type_t>;          // Figlet char
+      using fig_str_type     =   std::vector<string_type_t>;          // Figlet String
 
-      using ostream_type = std::basic_ostream<char_type>;      // Ostream Type
-      using istream_type = std::basic_istream<char_type>;      // Istream Type
-      using ifstream_type = std::basic_ifstream<char_type>;    // Ifstream Type
-      using ofstream_type = std::basic_ofstream<char_type>;    // Ofstream Type
-      using sstream_type = std::basic_stringstream<char_type>; // Sstream Type
+      using ostream_type     =   std::basic_ostream<char_type>;       // Ostream Type
+      using istream_type     =   std::basic_istream<char_type>;       // Istream Type
+      using ifstream_type    =   std::basic_ifstream<char_type>;      // Ifstream Type
+      using ofstream_type    =   std::basic_ofstream<char_type>;      // Ofstream Type
+      using sstream_type     =   std::basic_stringstream<char_type>;  // Sstream Type
 
       enum class shrink_type : size_type // Font Shrink
       {
@@ -62,6 +62,11 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
     template <class fig_types>
     struct basic_base_figlet_font
     {
+        /**
+       * @brief Get the BasicFiglet character
+       */
+      virtual typename fig_types::fig_char_type get_fig_char(typename fig_types::char_type ch) const = 0;
+
       /**
        * @brief Get the Hard Blank character
        */
@@ -76,12 +81,6 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
        * @brief Get the Shrink Level of font
        */
       virtual typename fig_types::shrink_type get_shrink_level() const = 0;
-
-      /**
-       * @brief Get the BasicFiglet character
-       */
-      virtual typename fig_types::fig_char_type get_fig_char(
-          typename fig_types::char_type ch) const = 0;
     };
 
     /**
@@ -137,13 +136,13 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
     template <class fig_types>
     class basic_figlet
     {
-    public: // Public types
-      using base_figlet_style_ptr = std::shared_ptr<basic_base_figlet_style<fig_types>>;
-      using base_figlet_font_ptr = std::shared_ptr<basic_base_figlet_font<fig_types>>;
+    public:                                                   // Public types
+      using base_figlet_style_ptr  = std::shared_ptr<basic_base_figlet_style<fig_types>>;
+      using base_figlet_font_ptr   = std::shared_ptr<basic_base_figlet_font<fig_types>>;
 
-    private:                       // Private members
-      base_figlet_style_ptr style; // Figlet Style
-      base_figlet_font_ptr font;   // Figlet Font
+    private:                                                  // Private members
+      base_figlet_style_ptr style;                            // Figlet Style
+      base_figlet_font_ptr font;                              // Figlet Font
 
     private: // private utilities
       /**
@@ -160,10 +159,10 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
         this->font = font;   // Set font
       }
 
-    public:                                         // Public members
-      basic_figlet(const basic_figlet &) = default; // copy constructor
-      basic_figlet(basic_figlet &&) = default;      // move constructor
-      basic_figlet() = delete;                      // constructor
+    public:                                                   // Public members
+      basic_figlet(const basic_figlet &) = default;           // copy constructor
+      basic_figlet(basic_figlet &&) = default;                // move constructor
+      basic_figlet() = delete;                                // constructor
 
       /**
        * @brief Construct a new basic figlet object
@@ -243,19 +242,19 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
     template <class fig_types>
     class basic_flf_font : public basic_base_figlet_font<fig_types>
     {
-    private: // Private types definition
+    private:                                                  // Private types definition
       using map_type = std::map<typename fig_types::char_type, typename fig_types::fig_char_type>;
       using isbuf_it = std::istreambuf_iterator<typename fig_types::char_type>;
 
-    private: // Private configs
+    private:                                                  // Private configs
       typename fig_types::char_type hard_blank;
       typename fig_types::size_type height;
       typename fig_types::shrink_type shrink;
 
-    private: // Private characters
+    private:                                                  // Private characters
       map_type fig_chars;
 
-    private: // Private utilities
+    private:                                                  // Private utilities
       /**
        * @brief Read the Config from the stream
        */
@@ -462,10 +461,10 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
         }
       }
 
-    public:                                             // Public constructors
-      basic_flf_font() = delete;                        // default constructor
-      basic_flf_font(const basic_flf_font &) = default; // copy constructor
-      basic_flf_font(basic_flf_font &&) = default;      // move constructor
+    public:                                                 // Public constructors
+      basic_flf_font() = delete;                            // default constructor
+      basic_flf_font(const basic_flf_font &) = default;     // copy constructor
+      basic_flf_font(basic_flf_font &&) = default;          // move constructor
 
       /**
        * @brief From istream
@@ -690,8 +689,7 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
       typename fig_types::fig_str_type get_fig_str(
           std::vector<typename fig_types::fig_char_type> fig_chs,
           typename fig_types::char_type hardblank,
-          typename fig_types::size_type height
-        ) const override
+          typename fig_types::size_type height) const override
       {
         // fig str container type
         typename fig_types::fig_str_type fig_str(height);
@@ -739,7 +737,14 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
     template <typename fig_types>
     struct basic_smushed_style : public basic_kerning_style<fig_types>
     {
-    protected: // private methods
+    protected:                                                         // private methods
+      /**
+       * @brief Smush Rules for the characters
+       *
+       * @param lc left character
+       * @param rc right character
+       * @return smushed character
+       */
       auto smush_rules(typename fig_types::char_type lc, typename fig_types::char_type rc) const
       {
         //()
@@ -868,16 +873,18 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
       /**
        * @brief smush algoriths on kerned Fig string and character
        *
-       * @param figs
-       * @param figc
+       * @param fig_str figlet string
+       * @param fig_ch  figlet character
        */
       void smush(typename fig_types::fig_str_type &fig_str,typename fig_types::fig_char_type fig_ch, typename fig_types::char_type hb) const
       {
-        // trim
+        // trim the ends of the fig str and fig char
         this->trim_deep(fig_str, fig_ch);
 
+        // is smushable
         bool smashable = true;
 
+        // determine if smushable
         for (auto &line : fig_str)
         {
           if ((line.back() == hb) && !(line.front() == hb))
@@ -924,8 +931,7 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
       virtual typename fig_types::fig_str_type get_fig_str(
           std::vector<typename fig_types::fig_char_type> fig_chs,
           typename fig_types::char_type hardblank,
-          typename fig_types::size_type height
-        ) const
+          typename fig_types::size_type height) const
       {
         typename fig_types::fig_str_type fig_str(height, this->cvt(""));
 

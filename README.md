@@ -63,17 +63,17 @@ This is header-only library so just take `libfiglet.hpp` and use.
 Usage of This Library is very easy a Hello C++ would be,
 
 ~~~cpp
+#include "../include/srilakshmikanthanp/libfiglet.hpp"
 #include <iostream>
-#include "srilakshmikanthanp/libfiglet.hpp"
 
 using namespace srilakshmikanthanp::libfiglet;
 
 int main()
 {
-  Figlet figlet(FigletFont::make("Fonts/Standard.flf"), Smushed::make());
-  std::cout << figlet("Hello, C++");
-  return 0;
+  const figlet figlet(flf_font::make_shared("./path/to/font"), smushed::make_shared());
+  std::cout << figlet("Hello");
 }
+
 ~~~
 
 <!-- CONTRIBUTING -->
