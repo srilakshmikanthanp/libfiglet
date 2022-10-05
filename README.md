@@ -11,7 +11,6 @@
   <a href="https://github.com/srilakshmikanthanp/libfiglet/issues">Request Feature</a>
 </p>
 
-
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
@@ -36,7 +35,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This is Figlet Library for C++ to generate Large text out ordinary text like this,
+This is Figlet Library for C++ to generate Large text out of ordinary text like this,
 
 ~~~Figlet
  _   _      _ _            ____            
@@ -50,9 +49,13 @@ This is Figlet Library for C++ to generate Large text out ordinary text like thi
 <!-- GETTING STARTED -->
 ## Getting Started
 
+### Project Scope
+
+This Project was only can use With ASCII Characters and it will not support Unicode Characters.
+
 ### Installation
 
-This is header only library so just take `libfiglet.hpp` and use.
+This is header-only library so just take `libfiglet.hpp` and use.
 
 <!-- USAGE EXAMPLES -->
 ## Usage

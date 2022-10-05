@@ -1,4 +1,4 @@
-// Copyright (c) 2021 Sri Lakshmi Kanthan P
+// Copyright (c) 2022 Sri Lakshmi Kanthan P
 //
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
@@ -6,7 +6,7 @@
 /**
  * @mainpage Figlet
  * @brief Generate large out of ordinary text
- * With BasicFiglet in C++ using this library
+ * With C++ using this library
  * @author Sri Lakshmi Kanthan P
  */
 
@@ -17,947 +17,1007 @@
 #include <ostream>
 #include <string>
 #include <map>
+#include <iomanip>
+#include <regex>
 #include <vector>
 #include <memory>
 #include <fstream>
 #include <sstream>
 
+namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
+{
+  namespace libfiglet // Library for FIGlet
+  {
+    /**
+     * @brief Some of the common typedefs for the Library
+     */
+    template <class string_type_t>
+    struct fig_types_t
+    {
+      using string_type = string_type_t;                       // String Type
+      using char_type = typename string_type_t::value_type;    // Character Type
+      using traits_type = typename string_type_t::traits_type; // Traits Type
+      using size_type = typename string_type_t::size_type;     // Size Type
+
+      using fig_char_type = std::vector<string_type_t>;        // Figlet char
+      using fig_str_type = std::vector<string_type_t>;         // Figlet String
+
+      using ostream_type = std::basic_ostream<char_type>;      // Ostream Type
+      using istream_type = std::basic_istream<char_type>;      // Istream Type
+      using ifstream_type = std::basic_ifstream<char_type>;    // Ifstream Type
+      using ofstream_type = std::basic_ofstream<char_type>;    // Ofstream Type
+      using sstream_type = std::basic_stringstream<char_type>; // Sstream Type
+
+      enum class shrink_type : size_type // Font Shrink
+      {
+        FULL_WIDTH,
+        KERNING,
+        SMUSHED
+      };
+    };
+
+    /**
+     * @brief Base Font Type for Figlet
+     */
+    template <class fig_types>
+    struct basic_base_figlet_font
+    {
+      /**
+       * @brief Get the Hard Blank character
+       */
+      virtual typename fig_types::char_type get_hard_blank() const = 0;
+
+      /**
+       * @brief Get the Height of font
+       */
+      virtual typename fig_types::size_type get_height() const = 0;
+
+      /**
+       * @brief Get the Shrink Level of font
+       */
+      virtual typename fig_types::shrink_type get_shrink_level() const = 0;
+
+      /**
+       * @brief Get the BasicFiglet character
+       */
+      virtual typename fig_types::fig_char_type get_fig_char(
+          typename fig_types::char_type ch) const = 0;
+    };
+
+    /**
+     * @brief Base Style Type for Figlet
+     */
+    template <class fig_types>
+    struct basic_base_figlet_style
+    {
+      /**
+       * @brief removes hardblank from fig string
+       *
+       * @param figs fig string
+       * @param hb hardblank
+       */
+      typename fig_types::fig_str_type rm_hb(typename fig_types::fig_str_type &figs, typename fig_types::char_type hb) const
+      {
+        for (typename fig_types::size_type i = 0; i < figs.size(); ++i)
+        {
+          std::replace(figs[i].begin(), figs[i].end(), hb, ' ');
+        }
+
+        return figs;
+      }
+
+      /**
+       * @brief convert ascii string to string_type
+       *
+       * @param str string to convert
+       * @return string_type string converted
+       */
+      typename fig_types::string_type cvt(const std::string &str) const
+      {
+        return typename fig_types::string_type(str.begin(), str.end());
+      }
+
+      /**
+       * @brief Get the Fig string
+       */
+      virtual typename fig_types::fig_str_type get_fig_str(
+          std::vector<typename fig_types::fig_char_type> fig_chs,
+          typename fig_types::char_type hardblank,
+          typename fig_types::size_type height) const = 0;
+
+      /**
+       * @brief Get the Shrink Level
+       */
+      virtual typename fig_types::shrink_type get_shrink_level() const = 0;
+    };
+
+    /**
+     * @brief basic figlet class
+     */
+    template <class fig_types>
+    class basic_figlet
+    {
+    public: // Public types
+      using base_figlet_style_ptr = std::shared_ptr<basic_base_figlet_style<fig_types>>;
+      using base_figlet_font_ptr = std::shared_ptr<basic_base_figlet_font<fig_types>>;
+
+    private:                       // Private members
+      base_figlet_style_ptr style; // Figlet Style
+      base_figlet_font_ptr font;   // Figlet Font
+
+    private: // private utilities
+      /**
+       * @brief Check the shrink level, set font and style
+       */
+      void set_font_and_style(base_figlet_font_ptr font, base_figlet_style_ptr style)
+      {
+        if (font->get_shrink_level() < style->get_shrink_level())
+        {
+          throw std::runtime_error("Invalid shrink level");
+        }
+
+        this->style = style; // Set style
+        this->font = font;   // Set font
+      }
+
+    public:                                         // Public members
+      basic_figlet(const basic_figlet &) = default; // copy constructor
+      basic_figlet(basic_figlet &&) = default;      // move constructor
+      basic_figlet() = delete;                      // constructor
+
+      /**
+       * @brief Construct a new basic figlet object
+       */
+      basic_figlet(base_figlet_font_ptr font, base_figlet_style_ptr style)
+      {
+        this->set_font_and_style(font, style);
+      }
+
+      /**
+       * @brief set the style
+       */
+      void set_style(base_figlet_style_ptr style)
+      {
+        this->set_font_and_style(this->font, style);
+      }
+
+      /**
+       * @brief set the font
+       */
+      void set_font(base_figlet_font_ptr font)
+      {
+        this->set_font_and_style(font, this->style);
+      }
+
+      /**
+       * @brief Get the style
+       */
+      base_figlet_style_ptr get_style() const
+      {
+        return this->style;
+      }
+
+      /**
+       * @brief Get the font
+       */
+      base_figlet_font_ptr get_font() const
+      {
+        return this->font;
+      }
+
+      /**
+       * @brief Get the figlet string
+       */
+      typename fig_types::string_type operator()(const typename fig_types::string_type &str) const
+      {
+        // Attributes for Transform
+        std::vector<typename fig_types::fig_char_type> fig_chs;
+        const auto hard_blank = this->font->get_hard_blank();
+        const auto height = this->font->get_height();
+
+        // Transform to fig char
+        std::transform(
+          str.begin(), str.end(), std::back_inserter(fig_chs),
+          [this](auto ch){
+            return this->font->get_fig_char(ch);
+        });
+
+        // Get the figlet string
+        const auto fig_str = this->style->get_fig_str(fig_chs, hard_blank, height);
+
+        // add with new line
+        typename fig_types::string_type value;
+
+        for (const auto &fig : fig_str)
+        {
+          value += fig + '\n';
+        }
+
+        return value;
+      }
+    };
+
+    /**
+     * @brief Figlet flf Font Type
+     */
+    template <class fig_types>
+    class basic_flf_font : public basic_base_figlet_font<fig_types>
+    {
+    private: // Private types definition
+      using map_type = std::map<typename fig_types::char_type, typename fig_types::fig_char_type>;
+      using isbuf_it = std::istreambuf_iterator<typename fig_types::char_type>;
+
+    private: // Private configs
+      typename fig_types::char_type hard_blank;
+      typename fig_types::size_type height;
+      typename fig_types::shrink_type shrink;
+
+    private: // Private characters
+      map_type fig_chars;
+
+    private: // Private utilities
+      /**
+       * @brief Read the Config from the stream
+       */
+      void read_config_and_remove_comments(typename fig_types::istream_type &is)
+      {
+        // flf header line container
+        typename fig_types::string_type flf_config_line;
+
+        // get the first line
+        std::getline(is, flf_config_line);
+
+        // string stream for the first line
+        typename fig_types::sstream_type ss(flf_config_line);
+
+        // token
+        typename fig_types::string_type token;
+
+        // Read header
+        ss >> std::setw(5) >> token;
+
+        // check
+        if (token != "flf2a")
+        {
+          throw std::runtime_error("Invalid flf header");
+        }
+
+        // Read hard blank
+        ss >> this->hard_blank;
+
+        // check stream
+        if (ss.fail())
+        {
+          throw std::runtime_error("Invalid flf header");
+        }
+
+        // Read height
+        ss >> this->height;
+
+        // check stream
+        if (ss.fail())
+        {
+          throw std::runtime_error("Invalid flf header");
+        }
+
+        // Read baseline
+        ss >> token;
+
+        // check stream
+        if (ss.fail())
+        {
+          throw std::runtime_error("Invalid flf header");
+        }
+
+        // Read max length
+        ss >> token;
+
+        // check stream
+        if (ss.fail())
+        {
+          throw std::runtime_error("Invalid flf header");
+        }
+
+        // Read old layout
+        ss >> token;
+
+        // check stream
+        if (ss.fail())
+        {
+          throw std::runtime_error("Invalid flf header");
+        }
+
+        // set shrink level
+        const auto old_layout = std::stoi(token);
+
+        if (old_layout < 0) // less than 0 then FULL_WIDTH
+        {
+          this->shrink = fig_types::shrink_type::FULL_WIDTH;
+        }
+
+        if (old_layout == 0) // equal to 0 then KERNING
+        {
+          this->shrink = fig_types::shrink_type::KERNING;
+        }
+
+        if (old_layout > 0) // greater than 0 then SMUSHED
+        {
+          this->shrink = fig_types::shrink_type::SMUSHED;
+        }
+
+        // Read comment lines
+        ss >> token;
+
+        // check and set
+        const auto comment_lines = std::stoi(token);
+
+        // ignore comment lines
+        for (auto i = 0; i < comment_lines; ++i)
+        {
+          std::getline(is, token);
+        }
+
+        // Read print direction
+        ss >> token;
+
+        // check stream
+        if (ss.fail())
+        {
+          throw std::runtime_error("Invalid flf header");
+        }
+
+        // Read full layout
+        ss >> token;
+
+        // check stream
+        if (ss.fail())
+        {
+          throw std::runtime_error("Invalid flf header");
+        }
+
+        // Read codetag count
+        ss >> token;
+
+        // check stream
+        if (ss.fail())
+        {
+          throw std::runtime_error("Invalid flf header");
+        }
+      }
+
+      /**
+       * @brief string to fig char
+       */
+      typename fig_types::fig_char_type str_to_fig_char(const typename fig_types::string_type &str) const
+      {
+        // fig char container
+        typename fig_types::fig_char_type fig_char;
+
+        // string stream
+        typename fig_types::sstream_type ss(str);
+
+        // line
+        typename fig_types::string_type line;
+
+        // read lines
+        while (std::getline(ss, line))
+        {
+          // pop the last char
+          line.pop_back();
+
+          // push the line
+          fig_char.push_back(line);
+        }
+
+        // check height
+        if (fig_char.size() != this->height)
+        {
+          throw std::runtime_error("Invalid flf font");
+        }
+
+        // return
+        return fig_char;
+      }
+
+      /**
+       * @brief Read the characters from the stream
+       */
+      void read_chars(typename fig_types::istream_type &is)
+      {
+        // Regular expression for flf char
+        std::regex pattern("(.*(?=[@#])[\\s\\S]*?[@#](?=[@#]))", std::regex_constants::ECMAScript);
+
+        // Read the whole file
+        const auto file_str = typename fig_types::string_type(isbuf_it(is), isbuf_it());
+
+        // get all the matches
+        std::match_results<typename fig_types::string_type::const_iterator> res;
+
+        // start char
+        typename fig_types::char_type ch = ' ';
+
+        // start
+        auto start = file_str.cbegin();
+
+        // end
+        auto end = file_str.cend();
+
+        // read all the characters
+        for (ch = ' '; std::regex_search(start, end, res, pattern) && ch <= '~'; ++ch)
+        {
+          // get the fig char
+          const auto fig_char = this->str_to_fig_char(res[0].str());
+
+          // insert the fig char
+          this->fig_chars.insert({ch, fig_char});
+
+          // update start
+          start = res.suffix().first + 1;
+        }
+
+        // check
+        if (--ch != '~')
+        {
+          throw std::runtime_error("Invalid flf characters");
+        }
+      }
+
+    public:                                             // Public constructors
+      basic_flf_font() = delete;                        // default constructor
+      basic_flf_font(const basic_flf_font &) = default; // copy constructor
+      basic_flf_font(basic_flf_font &&) = default;      // move constructor
+
+      /**
+       * @brief From istream
+       */
+      explicit basic_flf_font(typename fig_types::istream_type &is)
+      {
+        // read config and remove comments
+        this->read_config_and_remove_comments(is);
+
+        // read characters
+        this->read_chars(is);
+      }
+
+      /**
+       * @brief From file
+       */
+      explicit basic_flf_font(const typename fig_types::string_type &file)
+      {
+        // file stream
+        typename fig_types::ifstream_type ifs(file);
+
+        // check
+        if (!ifs.is_open())
+        {
+          throw std::runtime_error("Cannot open file");
+        }
+
+        // read config and remove comments
+        this->read_config_and_remove_comments(ifs);
+
+        // read characters
+        this->read_chars(ifs);
+      }
+
+    public: // Public overrides
+      /**
+       * @brief Get the Hard Blank character
+       */
+      typename fig_types::char_type get_hard_blank() const override
+      {
+        return this->hard_blank;
+      }
+
+      /**
+       * @brief Get the height of the font
+       */
+      typename fig_types::size_type get_height() const override
+      {
+        return this->height;
+      }
+
+      /**
+       * @brief Get the shrink level
+       */
+      typename fig_types::shrink_type get_shrink_level() const override
+      {
+        return this->shrink;
+      }
+
+      /**
+       * @brief Get the fig char
+       */
+      typename fig_types::fig_char_type get_fig_char(typename fig_types::char_type ch) const override
+      {
+        // check
+        if (ch < ' ' || ch > '~')
+        {
+          throw std::runtime_error("Invalid character");
+        }
+
+        // return
+        return this->fig_chars.at(ch);
+      }
+
+    public: // static methods
+      /**
+       * @brief Make a flf font type as shared pointer
+       */
+      static typename basic_figlet<fig_types>::base_figlet_font_ptr
+      make_shared(const typename fig_types::string_type &file)
+      {
+        return std::make_shared<basic_flf_font>(file);
+      }
+
+      /**
+       * @brief Make a flf font type as shared pointer
+       */
+      static typename basic_figlet<fig_types>::base_figlet_font_ptr
+      make_shared(typename fig_types::istream_type &is)
+      {
+        return std::make_shared<basic_flf_font>(is);
+      }
+    };
+
+    /**
+     * @brief Figlet full width style
+     */
+    template <typename fig_types>
+    struct basic_full_width_style : public basic_base_figlet_style<fig_types>
+    {
+      /**
+       * @brief get shrink level
+       */
+      typename fig_types::shrink_type get_shrink_level() const override
+      {
+        return fig_types::shrink_type::FULL_WIDTH;
+      }
+
+      /**
+       * @brief get the fig str
+       */
+      typename fig_types::fig_str_type get_fig_str(
+          std::vector<typename fig_types::fig_char_type> fig_chs,
+          typename fig_types::char_type hardblank,
+          typename fig_types::size_type height) const override
+      {
+        // fig str container type
+        typename fig_types::fig_str_type fig_str(height);
+
+        // for each fig char
+        for (const auto &fig_char : fig_chs)
+        {
+          // check height
+          if (fig_char.size() != height)
+          {
+            throw std::runtime_error("Invalid fig char height");
+          }
+
+          // size type
+          using size_type = typename fig_types::size_type;
+
+          // for each line
+          for (size_type i = 0; i < height; ++i)
+          {
+            fig_str[i] += fig_char[i];
+          }
+        }
+
+        // return
+        return this->rm_hb(fig_str, hardblank);
+      }
+
+    public: // static methods
+      /**
+       * @brief Make a full width style as shared pointer
+       */
+      static typename basic_figlet<fig_types>::base_figlet_style_ptr
+      make_shared()
+      {
+        return std::make_shared<basic_full_width_style>();
+      }
+    };
+
+    /**
+     * @brief Figlet kerning style
+     */
+    template <typename fig_types>
+    struct basic_kerning_style : public basic_full_width_style<fig_types>
+    {
+    protected: // protected methods
+      /**
+       * @brief Trim deep the figlet string and char
+       */
+      void trim_deep(typename fig_types::fig_str_type &fig_str, typename fig_types::fig_char_type &fig_ch) const
+      {
+        // left spaces and right spaces
+        std::vector<typename fig_types::size_type> elem;
+
+        // count space
+        for (typename fig_types::size_type i = 0; i < fig_str.size(); ++i)
+        {
+          int l_count = 0, r_count = 0;
+
+          for (auto itr = fig_str[i].rbegin(); itr != fig_str[i].rend(); ++itr)
+          {
+            if (*itr == ' ')
+              ++l_count;
+            else
+              break;
+          }
+
+          for (auto itr = fig_ch[i].begin(); itr != fig_ch[i].end(); ++itr)
+          {
+            if (*itr == ' ')
+              ++r_count;
+            else
+              break;
+          }
+
+          elem.push_back(l_count + r_count);
+        }
+
+        // minimum
+        const auto min = *std::min_element(elem.begin(), elem.end());
+
+        // for each line
+        for (typename fig_types::size_type i = 0; i < fig_str.size(); ++i)
+        {
+          typename fig_types::size_type siz = min + 1;
+
+          while (--siz > 0 && fig_str[i].back() == ' ')
+          {
+            fig_str[i].pop_back();
+          }
+
+          fig_ch[i].erase(0, siz);
+        }
+      }
+
+    public: // Public overrides
+      /**
+       * @brief get shrink level
+       */
+      typename fig_types::shrink_type get_shrink_level() const override
+      {
+        return fig_types::shrink_type::KERNING;
+      }
+
+      /**
+       * @brief get the fig str
+       */
+      typename fig_types::fig_str_type get_fig_str(
+          std::vector<typename fig_types::fig_char_type> fig_chs,
+          typename fig_types::char_type hardblank,
+          typename fig_types::size_type height
+        ) const override
+      {
+        // fig str container type
+        typename fig_types::fig_str_type fig_str(height);
+
+        // for each fig char
+        for (auto fig_ch : fig_chs)
+        {
+          // check height
+          if (fig_ch.size() != height)
+          {
+            throw std::runtime_error("Invalid fig char height");
+          }
+
+          // size type
+          using size_type = typename fig_types::size_type;
+
+          // trim
+          this->trim_deep(fig_str, fig_ch);
+
+          // for each line
+          for (size_type i = 0; i < height; ++i)
+          {
+            fig_str[i] += fig_ch[i];
+          }
+        }
+
+        // return
+        return this->rm_hb(fig_str, hardblank);
+      }
+
+    public: // static methods
+      /**
+       * @brief Make a kerning style as shared pointer
+       */
+      static typename basic_figlet<fig_types>::base_figlet_style_ptr
+      make_shared()
+      {
+        return std::make_shared<basic_kerning_style>();
+      }
+    };
+
+    /**
+     * @brief Figlet smushed style
+     */
+    template <typename fig_types>
+    struct basic_smushed_style : public basic_kerning_style<fig_types>
+    {
+    protected: // private methods
+      auto smush_rules(typename fig_types::char_type lc, typename fig_types::char_type rc) const
+      {
+        //()
+        if (lc == ' ')
+        {
+          return rc;
+        }
+
+        if (rc == ' ')
+        {
+          return lc;
+        }
+
+        //(Equal character smush)
+        if (lc == rc)
+        {
+          return rc;
+        }
+
+        //(Underscores smush)
+        if (lc == '_' && this->cvt("|/\\[]{}()<>").find(rc) != fig_types::string_type::npos)
+        {
+          return rc;
+        }
+
+        if (rc == '_' && this->cvt("|/\\[]{}()<>").find(lc) != fig_types::string_type::npos)
+        {
+          return lc;
+        }
+
+        //(Hierarchy Smushing)
+        auto find_class = [](typename fig_types::char_type ch)
+        {
+          if (ch == '|')
+          {
+            return 1;
+          }
+
+          if (ch == '/' || ch == '\\')
+          {
+            return 3;
+          }
+
+          if (ch == '[' || ch == ']')
+          {
+            return 4;
+          }
+
+          if (ch == '{' || ch == '}')
+          {
+            return 5;
+          }
+
+          if (ch == '(' || ch == ')')
+          {
+            return 6;
+          }
+
+          return 0;
+        };
+
+        typename fig_types::size_type c_lc = find_class(lc);
+        typename fig_types::size_type c_rc = find_class(rc);
+
+        if (c_lc > c_rc)
+        {
+          return lc;
+        }
+
+        if (c_rc > c_lc)
+        {
+          return rc;
+        }
+
+        //(Opposite smush)
+        if (lc == '[' && rc == ']')
+        {
+          return '|';
+        }
+
+        if (lc == ']' && rc == '[')
+        {
+          return '|';
+        }
+
+        if (lc == '{' && rc == '}')
+        {
+          return '|';
+        }
+
+        if (lc == '}' && rc == '{')
+        {
+          return '|';
+        }
+
+        if (lc == '(' && rc == ')')
+        {
+          return '|';
+        }
+
+        if (lc == ')' && rc == '(')
+        {
+          return '|';
+        }
+
+        //(Big X smush)
+        if (lc == '/' && rc == '\\')
+        {
+          return '|';
+        }
+
+        if (lc == '\\' && rc == '/')
+        {
+          return 'Y';
+        }
+
+        if (lc == '>' && rc == '<')
+        {
+          return 'X';
+        }
+
+        //(universel smush)
+        return lc;
+      }
+
+      /**
+       * @brief smush algoriths on kerned Fig string and character
+       *
+       * @param figs
+       * @param figc
+       */
+      void smush(typename fig_types::fig_str_type &fig_str,typename fig_types::fig_char_type fig_ch, typename fig_types::char_type hb) const
+      {
+        // trim
+        this->trim_deep(fig_str, fig_ch);
+
+        bool smashable = true;
+
+        for (auto &line : fig_str)
+        {
+          if ((line.back() == hb) && !(line.front() == hb))
+          {
+            smashable = false;
+          }
+          else if (line.size() == 0 || line.size() == 0)
+          {
+            smashable = false;
+          }
+        }
+
+        if (smashable)
+        {
+          for (typename fig_types::size_type i = 0; i < fig_str.size(); ++i)
+          {
+            auto val = smush_rules(fig_str[i].back(), fig_ch[i].front());
+            fig_str[i].pop_back();
+            fig_ch[i].erase(0, 1);
+            fig_str[i] += typename fig_types::string_type(1, val) + fig_ch[i];
+          }
+        }
+        else
+        {
+          for (typename fig_types::size_type i = 0; i < fig_str.size(); ++i)
+          {
+            fig_str[i] += fig_ch[i];
+          }
+        }
+      }
+
+    public: // public methods
+      /**
+       * @brief Get the shrink level
+       */
+      typename fig_types::shrink_type get_shrink_level() const override
+      {
+        return fig_types::shrink_type::SMUSHED;
+      }
+
+      /**
+       * @brief Get the Fig string
+       */
+      virtual typename fig_types::fig_str_type get_fig_str(
+          std::vector<typename fig_types::fig_char_type> fig_chs,
+          typename fig_types::char_type hardblank,
+          typename fig_types::size_type height
+        ) const
+      {
+        typename fig_types::fig_str_type fig_str(height, this->cvt(""));
+
+        for (auto &fig_char : fig_chs)
+        {
+          // check height
+          if (fig_char.size() != height)
+          {
+            throw std::runtime_error("Invalid fig char height");
+          }
+
+          // smush
+          this->smush(fig_str, fig_char, hardblank);
+        }
+
+        return this->rm_hb(fig_str, hardblank);
+      }
+
+    public: // static methods
+      /**
+       * @brief Make a kerning style as shared pointer
+       */
+      static typename basic_figlet<fig_types>::base_figlet_style_ptr
+      make_shared()
+      {
+        return std::make_shared<basic_smushed_style>();
+      }
+    };
+  } // namespace libfiglet
+} // namespace srilakshmikanthanp
+
 /**
- * @brief srilakshmikanthanp namespace
+ * @brief Default figlet types
  */
 namespace srilakshmikanthanp
 {
-    namespace libfiglet
-    {
-        /**
-         * @brief BasicFont
-         */
-        template <class StringType>
-        struct BasicFont
-        {
-            using string_type = StringType;
-            using char_type = typename string_type::value_type;
-            using traits_type = typename string_type::traits_type;
-            using size_type = typename string_type::size_type;
-            using Figc_type = std::vector<string_type>;
-            using Figs_type = std::vector<string_type>;
-
-            /**
-             * @brief Get the Hard Blank character
-             *
-             * @return char_type hardblank
-             */
-            virtual char_type getHardBlank() const = 0;
-
-            /**
-             * @brief Get the Height
-             *
-             * @return size_type height
-             */
-            virtual size_type getHeight() const = 0;
-
-            /**
-             * @brief Get the Shrink
-             *
-             * @return size_type shrink value
-             * 0 - untouched
-             * 1 - kerning
-             * 2 - smushed
-             */
-            virtual size_type getShrink() const = 0;
-
-            /**
-             * @brief Get the BasicFiglet character
-             *
-             * @return Figc_type BasicFiglet character
-             */
-            virtual Figc_type getFigc(char_type) const = 0;
-        };
-
-        /**
-         * @brief Styles
-         */
-        template <class StringType>
-        struct BasicStyle
-        {
-            using string_type = StringType;
-            using char_type = typename string_type::value_type;
-            using traits_type = typename string_type::traits_type;
-            using size_type = typename string_type::size_type;
-            using Figc_type = std::vector<string_type>;
-            using Figs_type = std::vector<string_type>;
-
-            /**
-             * @brief Get the Shrinl Level
-             *
-             * @return size_type
-             * 0 - untouched
-             * 1 - kerning
-             * 2 - smushed
-             */
-            virtual size_type getShrinkLevel() const = 0;
-
-            /**
-             * @brief Get the Fig string
-             *
-             * @param figchs figlet characters
-             * @param hardblank hardblank
-             * @param height height
-             * @param shirnk shrinkklevel
-             * @return Figs_type Fig string
-             */
-            virtual Figs_type getFigs(
-                std::vector<Figc_type> figchs,
-                char_type hardblank,
-                size_type height,
-                size_type shirnk) const = 0;
-        };
-
-        /**
-         * @brief class BasicFiglet
-         */
-        template <class StringType>
-        class BasicFiglet
-        {
-        public:
-            using string_type = StringType;
-            using char_type = typename string_type::value_type;
-            using traits_type = typename string_type::traits_type;
-            using size_type = typename string_type::size_type;
-            using Figc_type = std::vector<string_type>;
-            using Figs_type = std::vector<string_type>;
-
-        private:
-            using ostream_type = std::basic_ostream<char_type, traits_type>;
-            using sstream_type = std::basic_stringstream<char_type, traits_type>;
-            using base_font = std::shared_ptr<BasicFont<string_type>>;
-            using base_style = std::shared_ptr<BasicStyle<string_type>>;
-
-        private:
-            base_font font;
-            base_style style;
-
-        public:
-            BasicFiglet() = delete;
-            BasicFiglet(const BasicFiglet &) = default;
-            BasicFiglet(BasicFiglet &&) = default;
-
-            /**
-             * @brief Construct a new BasicFiglet object
-             *
-             * @param font font type
-             * @param style style type
-             */
-            BasicFiglet(base_font font, base_style style) : font(font), style(style)
-            {
-                if (font->getShrink() < style->getShrinkLevel())
-                {
-                    throw std::runtime_error("style not supported");
-                }
-            }
-
-            /**
-             * @brief Set the BasicFont object
-             *
-             * @param font
-             */
-            void setFont(base_font font)
-            {
-                this->font = font;
-            }
-
-            /**
-             * @brief Set the BasicStyle object
-             *
-             * @return style
-             */
-            void setStyle(base_style style)
-            {
-                this->style = style;
-            }
-
-            /**
-             * @brief Get the BasicFont object
-             *
-             * @return font
-             */
-            base_font &getFont()
-            {
-                return this->font;
-            }
-
-            /**
-             * @brief Get the BasicStyle object
-             *
-             * @param style
-             */
-            base_style &getStyle()
-            {
-                return this->style;
-            }
-
-            /**
-             * @brief set stringto figlet
-             *
-             * @param str string
-             * @return Figlet string
-             */
-            string_type operator()(const string_type &str)
-            {
-                std::vector<Figc_type> figchars;
-                char_type hb = this->font->getHardBlank();
-                size_type hg = this->font->getHeight();
-                size_type sk = this->font->getShrink();
-
-                for (auto ch : str)
-                {
-                    figchars.push_back(this->font->getFigc(ch));
-                }
-
-                Figs_type figs = this->style->getFigs(figchars, hb, hg, sk);
-
-                sstream_type stream;
-
-                for (const auto &str : figs)
-                {
-                    stream << str << "\n";
-                }
-
-                return stream.str();
-            }
-        };
-
-        /**
-         * @brief BasicFigletFont
-         *
-         * @tparam StringType
-         */
-        template <class StringType>
-        class BasicFigletFont : public BasicFont<StringType>
-        {
-        public:
-            using string_type = StringType;
-            using char_type = typename string_type::value_type;
-            using traits_type = typename string_type::traits_type;
-            using size_type = typename string_type::size_type;
-            using Figc_type = std::vector<string_type>;
-            using Figs_type = std::vector<string_type>;
-
-        private:
-            char_type HardBlank;
-            size_type Height;
-            size_type Shrink;
-            std::map<char_type, Figc_type> Figch;
-
-        private:
-            /**
-             * @brief converts ascii str to string_type
-             * @param str string to convert
-             * @return string_type converted string
-             **/
-            string_type cvt(const std::string &str)
-            {
-                return string_type{str.begin(), str.end()};
-            }
-
-            /**
-             * @brief reads settings
-             *
-             * @param stream
-             */
-            void start(std::basic_istream<char_type, traits_type> &stream)
-            {
-                string_type str;
-                size_type dummy;
-                size_type cmnt;
-                int old_tag;
-
-                stream >> str;
-
-                if (str.substr(0, 5) != cvt("flf2a"))
-                {
-                    throw std::runtime_error("flf2a not found !");
-                }
-
-                str.erase(0, 5);
-
-                this->HardBlank = str.at(0); // HardBlank
-
-                stream >> this->Height; // Height
-                stream >> dummy;
-                stream >> dummy;
-                stream >> old_tag;
-                stream >> cmnt; // comment line
-
-                std::getline(stream, str);
-
-                for (size_type i = 0; i < cmnt; i++)
-                {
-                    std::getline(stream, str);
-                }
-
-                if (old_tag < 0)
-                {
-                    this->Shrink = 0;
-                }
-                else if (old_tag == 0)
-                {
-                    this->Shrink = 1;
-                }
-                else
-                {
-                    this->Shrink = 2;
-                }
-            }
-
-            /**
-             * @brief next character from font
-             *
-             * @param stream stream
-             * @return Figc_type figlt character
-             */
-            Figc_type next(std::basic_istream<char_type, traits_type> &stream)
-            {
-                std::vector<string_type> ret;
-
-                for (size_type i = 1; i <= this->Height; ++i)
-                {
-                    string_type str;
-                    std::getline(stream, str);
-
-                    if (str.back() == '\n' || str.back() == '\r')
-                    {
-                        str.pop_back();
-                    }
-
-                    str.pop_back();
-                    ret.push_back(str);
-
-                    if (i == this->Height)
-                    {
-                        ret.back().pop_back();
-                    }
-                }
-
-                return ret;
-            }
-
-            void read(std::basic_istream<char_type, traits_type> &stream)
-            {
-                this->start(stream);
-
-                for (char_type ch = ' '; ch <= '~'; ch++)
-                {
-                    this->Figch[ch] = this->next(stream);
-                }
-            }
-
-        public:
-            BasicFigletFont() = delete;
-            BasicFigletFont(const BasicFigletFont &) = default;
-            BasicFigletFont(BasicFigletFont &&) = default;
-
-            /**
-             * @brief Construct a new BasicFiglet BasicFont
-             *
-             * @param stream stream of data
-             */
-            BasicFigletFont(std::basic_stringstream<char_type, traits_type> stream)
-            {
-                this->read(stream);
-            }
-
-            /**
-             * @brief Construct a new BasicFiglet BasicFont
-             *
-             * @param font
-             */
-            BasicFigletFont(string_type font)
-            {
-                std::basic_ifstream<char_type, traits_type> stream(font);
-
-                if (stream.is_open())
-                {
-                    this->read(stream);
-                }
-                else
-                {
-                    throw std::runtime_error(font + " not found !");
-                }
-            }
-
-            /**
-             * @brief Get the Hard Blank character
-             *
-             * @return char_type hardblank
-             */
-            char_type getHardBlank() const override
-            {
-                return this->HardBlank;
-            }
-
-            /**
-             * @brief Get the Height
-             *
-             * @return size_type height
-             */
-            size_type getHeight() const override
-            {
-                return this->Height;
-            }
-
-            /**
-             * @brief Get the Shrink
-             *
-             * @return size_type shrink value
-             * 0 - untouched
-             * 1 - kerning
-             * 2 - smushed
-             */
-            size_type getShrink() const override
-            {
-                return this->Shrink;
-            }
-
-            /**
-             * @brief Get the BasicFiglet character
-             *
-             * @return Figc_type BasicFiglet character
-             */
-            Figc_type getFigc(char_type ch) const override
-            {
-                auto ret = this->Figch.at(ch);
-                return ret;
-            }
-
-            /**
-             * @brief A factory for this type return smart pointer to this type
-             *
-             * @return std::shared_ptr<BasicFigletFont<string_type>>
-             */
-            static std::shared_ptr<BasicFigletFont<string_type>> make(std::basic_stringstream<char_type, traits_type> stream)
-            {
-                return std::make_shared<BasicFigletFont<string_type>>(stream);
-            }
-
-            /**
-             * @brief A factory for this type return smart pointer to this type
-             *
-             * @return std::shared_ptr<BasicFigletFont<string_type>>
-             */
-            static std::shared_ptr<BasicFigletFont<string_type>> make(std::string font)
-            {
-                return std::make_shared<BasicFigletFont<string_type>>(font);
-            }
-        };
-
-        /**
-         * @brief Full Width BasicStyle
-         *
-         * @tparam StringType
-         */
-        template <class StringType>
-        class BasicFullWidth : public BasicStyle<StringType>
-        {
-        public:
-            using string_type = StringType;
-            using char_type = typename string_type::value_type;
-            using traits_type = typename string_type::traits_type;
-            using size_type = typename string_type::size_type;
-            using Figc_type = std::vector<string_type>;
-            using Figs_type = std::vector<string_type>;
-
-        protected:
-            /**
-             * @brief convert ascii string to string_type
-             *
-             * @param str string to convert
-             * @return string_type string converted
-             */
-            string_type cvt(const std::string &str) const
-            {
-                return string_type(str.begin(), str.end());
-            }
-
-            /**
-             * @brief checks height offig character
-             *
-             * @param figc fig character
-             * @param hg height
-             */
-            void error_check(const Figc_type &figc, size_type hg) const
-            {
-                if (figc.size() != hg)
-                {
-                    throw std::runtime_error("Height is not equal");
-                }
-            }
-
-            /**
-             * @brief removes hardblank from figstring
-             *
-             * @param figs fig string
-             * @param hb hardblank
-             */
-            void remove_hardblank(Figs_type &figs, char_type hb) const
-            {
-                for (size_type i = 0; i < figs.size(); ++i)
-                {
-                    std::replace(figs[i].begin(), figs[i].end(), hb, ' ');
-                }
-            }
-
-        public:
-            BasicFullWidth() = default;
-            BasicFullWidth(const BasicFullWidth &) = default;
-            BasicFullWidth(BasicFullWidth &&) = default;
-
-            /**
-             * @brief Get the Shrink
-             *
-             * @return size_type shrink value
-             * 0 - untouched
-             * 1 - kerning
-             * 2 - smushed
-             */
-            size_type getShrinkLevel() const override
-            {
-                return 0;
-            }
-
-            /**
-             * @brief Get the Fig string
-             *
-             * @param figchs figlet characters
-             * @param hardblank hardblank
-             * @param height height
-             * @param shirnk shrinkklevel
-             * @return Figs_type Fig string
-             */
-            Figs_type getFigs(std::vector<Figc_type> figchs, char_type hardblank, size_type height, size_type shirnk) const override
-            {
-                Figs_type figs(height, cvt(""));
-
-                for (const auto &figc : figchs)
-                {
-                    this->error_check(figc, height);
-                }
-
-                for (const auto &figc : figchs)
-                {
-                    for (size_type i = 0; i < height; ++i)
-                    {
-                        figs[i] += figc[i];
-                    }
-                }
-
-                remove_hardblank(figs, hardblank);
-                return figs;
-            }
-
-            /**
-             * @brief A factory for this type return smart pointer to this type
-             *
-             * @return std::shared_ptr<BasicFullWidth<string_type>>
-             */
-            static std::shared_ptr<BasicFullWidth<string_type>> make()
-            {
-                return std::make_shared<BasicFullWidth<string_type>>();
-            }
-        };
-
-        /**
-         * @brief kerned BasicStyle
-         *
-         * @tparam gap gap between characters
-         * @tparam StringType
-         */
-        template <class StringType>
-        class BasicKerning : public BasicFullWidth<StringType>
-        {
-        public:
-            using string_type = StringType;
-            using char_type = typename string_type::value_type;
-            using traits_type = typename string_type::traits_type;
-            using size_type = typename string_type::size_type;
-            using Figc_type = std::vector<string_type>;
-            using Figs_type = std::vector<string_type>;
-
-        private:
-            size_type gap;
-
-        protected:
-            /**
-             * @brief trims in a deep
-             *
-             * @param figs fig string
-             * @param figc fig character
-             */
-            void trim_deep(Figs_type &figs, Figc_type &figc) const
-            {
-                std::vector<size_type> elem;
-
-                for (size_type i = 0; i < figs.size(); ++i)
-                {
-                    int lcount = 0, rcount = 0;
-
-                    for (auto itr = figs[i].rbegin(); itr != figs[i].rend(); ++itr)
-                    {
-                        if (*itr == ' ')
-                            ++lcount;
-                        else
-                            break;
-                    }
-
-                    for (auto itr = figc[i].begin(); itr != figc[i].end(); ++itr)
-                    {
-                        if (*itr == ' ')
-                            ++rcount;
-                        else
-                            break;
-                    }
-
-                    elem.push_back(lcount + rcount);
-                }
-
-                size_type space = *std::min_element(elem.begin(), elem.end());
-
-                for (size_type i = 0; i < figs.size(); ++i)
-                {
-                    size_type siz = space;
-
-                    while (siz > 0 && figs[i].back() == ' ')
-                    {
-                        figs[i].pop_back();
-                        --siz;
-                    }
-
-                    figc[i].erase(0, siz);
-                }
-            }
-
-        public:
-            /**
-             * @brief Construct a new BasicKerning
-             *
-             * @param gap gap size
-             */
-            BasicKerning(size_type gap = 0) : gap(gap) {}
-            BasicKerning(const BasicKerning &) = default;
-            BasicKerning(BasicKerning &&) = default;
-
-            /**
-             * @brief Get the Shrink
-             *
-             * @return size_type shrink value
-             * 0 - untouched
-             * 1 - kerning
-             * 2 - smushed
-             */
-            size_type getShrinkLevel() const override
-            {
-                return 1;
-            }
-
-            /**
-             * @brief Get the Fig string
-             *
-             * @param figchs figlet characters
-             * @param hardblank hardblank
-             * @param height height
-             * @param shirnk shrinkklevel
-             * @return Figs_type Fig string
-             */
-            Figs_type getFigs(std::vector<Figc_type> figchs, char_type hb, size_type height, size_type shirnk) const override
-            {
-                Figs_type figs(height, this->cvt(""));
-
-                for (auto &figc : figchs)
-                {
-                    this->error_check(figc, height);
-                }
-
-                for (auto &figc : figchs)
-                {
-                    this->trim_deep(figs, figc);
-
-                    for (size_type i = 0; i < height; ++i)
-                    {
-                        figs[i] += figc[i];
-                    }
-                }
-
-                this->remove_hardblank(figs, hb);
-                return figs;
-            }
-
-            /**
-             * @brief A factory for this type return smart pointer to this type
-             *
-             * @return std::shared_ptr<BasicKerning<string_type>>
-             */
-            static std::shared_ptr<BasicKerning<string_type>> make(size_type gap)
-            {
-                return std::make_shared<BasicKerning<string_type>>(gap);
-            }
-        };
-
-        /**
-         * @brief Smushing style
-         *
-         * @tparam StringType
-         */
-        template <class StringType>
-        class BasicSmushed : public BasicKerning<StringType>
-        {
-        public:
-            using string_type = StringType;
-            using char_type = typename string_type::value_type;
-            using traits_type = typename string_type::traits_type;
-            using size_type = typename string_type::size_type;
-            using Figc_type = std::vector<string_type>;
-            using Figs_type = std::vector<string_type>;
-
-        private:
-            /**
-             * @brief smush rules
-             * @param lc left character
-             * @param rc right character
-             * @return smushed character
-             */
-            char_type smush_rules(char_type lc, char_type rc) const
-            {
-                //()
-                if (lc == ' ')
-                {
-                    return rc;
-                }
-
-                if (rc == ' ')
-                {
-                    return lc;
-                }
-
-                //(Equal character smush)
-                if (lc == rc)
-                {
-                    return rc;
-                }
-
-                //(Underscores smush)
-                if (lc == '_' && this->cvt("|/\\[]{}()<>").find(rc) != string_type::npos)
-                {
-                    return rc;
-                }
-
-                if (rc == '_' && this->cvt("|/\\[]{}()<>").find(lc) != string_type::npos)
-                {
-                    return lc;
-                }
-
-                //(Hierarchy Smushing)
-                auto find_class = [](char_type ch) -> size_type
-                {
-                    if (ch == '|')
-                    {
-                        return 1;
-                    }
-
-                    if (ch == '/' || ch == '\\')
-                    {
-                        return 3;
-                    }
-
-                    if (ch == '[' || ch == ']')
-                    {
-                        return 4;
-                    }
-
-                    if (ch == '{' || ch == '}')
-                    {
-                        return 5;
-                    }
-
-                    if (ch == '(' || ch == ')')
-                    {
-                        return 6;
-                    }
-
-                    return 0;
-                };
-
-                size_type c_lc = find_class(lc);
-                size_type c_rc = find_class(rc);
-
-                if (c_lc > c_rc)
-                {
-                    return lc;
-                }
-
-                if (c_rc > c_lc)
-                {
-                    return rc;
-                }
-
-                //(Opposite smush)
-                if (lc == '[' && rc == ']')
-                {
-                    return '|';
-                }
-
-                if (lc == ']' && rc == '[')
-                {
-                    return '|';
-                }
-
-                if (lc == '{' && rc == '}')
-                {
-                    return '|';
-                }
-
-                if (lc == '}' && rc == '{')
-                {
-                    return '|';
-                }
-
-                if (lc == '(' && rc == ')')
-                {
-                    return '|';
-                }
-
-                if (lc == ')' && rc == '(')
-                {
-                    return '|';
-                }
-
-                //(Big X smush)
-                if (lc == '/' && rc == '\\')
-                {
-                    return '|';
-                }
-
-                if (lc == '\\' && rc == '/')
-                {
-                    return 'Y';
-                }
-
-                if (lc == '>' && rc == '<')
-                {
-                    return 'X';
-                }
-
-                //(universel smush)
-                return lc;
-            }
-
-            /**
-             * @brief smush algoriths on kerned Fig string and character
-             *
-             * @param figs
-             * @param figc
-             */
-            void smush(Figs_type &figs, Figc_type figc, char_type hb) const
-            {
-                bool smushble = true;
-
-                for (size_type i = 0; i < figs.size(); ++i)
-                {
-                    if (figs[i].size() == 0 || figc[i].size() == 0)
-                    {
-                        smushble = false;
-                    }
-                    else if ((figs[i].back() == hb) && !(figc[i].front() == hb))
-                    {
-                        smushble = false;
-                    }
-                }
-
-                if (smushble)
-                {
-                    for (size_type i = 0; i < figs.size(); ++i)
-                    {
-                        char_type val = smush_rules(figs[i].back(), figc[i].front());
-                        figs[i].pop_back();
-                        figc[i].erase(0, 1);
-                        figs[i] += string_type(1, val) + figc[i];
-                    }
-                }
-                else
-                {
-                    for (size_type i = 0; i < figs.size(); ++i)
-                    {
-                        figs[i] += figc[i];
-                    }
-                }
-            }
-
-        public:
-            BasicSmushed() = default;
-            BasicSmushed(const BasicSmushed &) = default;
-            BasicSmushed(BasicSmushed &&) = default;
-            /**
-             * @brief Get the Fig string
-             *
-             * @param figchs figlet characters
-             * @param hardblank hardblank
-             * @param height height
-             * @param shirnk shrinkklevel
-             * @return Figs_type Fig string
-             */
-            Figs_type getFigs(std::vector<Figc_type> figchs, char_type hardblank, size_type height, size_type shirnk) const override
-            {
-                Figs_type figs(height, this->cvt(""));
-
-                for (auto &figc : figchs)
-                {
-                    this->error_check(figc, height);
-                }
-
-                for (auto &figc : figchs)
-                {
-                    this->trim_deep(figs, figc);
-                    this->smush(figs, figc, hardblank);
-                }
-
-                this->remove_hardblank(figs, hardblank);
-                return figs;
-            }
-
-            /**
-             * @brief A factory for this type return smart pointer to this type
-             *
-             * @return std::shared_ptr<BasicSmushed<string_type>>
-             */
-            static std::shared_ptr<BasicSmushed<string_type>> make()
-            {
-                return std::make_shared<BasicSmushed<string_type>>();
-            }
-        };
-    }
-}
+  namespace libfiglet
+  {
+    // std::string type for figlet
+    using s_fig_type = fig_types_t<std::string>;
+
+    // std::wstring type for figlet
+    using w_fig_type = fig_types_t<std::wstring>;
+  } // namespace libfiglet
+} // namespace srilakshmikanthanp
 
 /**
- * @brief srilakshmijathan namespace
+ * @brief std::string types
  */
 namespace srilakshmikanthanp
 {
-    namespace libfiglet
-    {
-        /// @brief char figlet font
-        using FigletFont = BasicFigletFont<std::string>;
+  namespace libfiglet
+  {
+    // std::string type for flf font
+    using flf_font = basic_flf_font<s_fig_type>;
 
-        /// @brief char full width style
-        using FullWidth = BasicFullWidth<std::string>;
+    // std::string type for figlet
+    using figlet = basic_figlet<s_fig_type>;
 
-        /// @brief char BasicKerning
-        using Kerning = BasicKerning<std::string>;
+    // std::string type for full width style
+    using full_width = basic_full_width_style<s_fig_type>;
 
-        /// @brief char smushed
-        using Smushed = BasicSmushed<std::string>;
+    // std::string type for kerning style
+    using kerning = basic_kerning_style<s_fig_type>;
 
-        /// @brief char BasicFiglet
-        using Figlet = BasicFiglet<std::string>;
-    }
-}
+    // std::string type for smushed style
+    using smushed = basic_smushed_style<s_fig_type>;
+  } // namespace libfiglet
+} // namespace srilakshmikanthanp
+
+/**
+ * @brief std::wstring types
+ */
+namespace srilakshmikanthanp
+{
+  namespace libfiglet
+  {
+    // std::wstring type for flf font
+    using wflf_font = basic_flf_font<w_fig_type>;
+
+    // std::wstring type for figlet
+    using wfiglet = basic_figlet<w_fig_type>;
+
+    // std::wstring type for full width style
+    using wfull_width = basic_full_width_style<w_fig_type>;
+
+    // std::wstring type for kerning style
+    using wkerning = basic_kerning_style<w_fig_type>;
+
+    // std::wstring type for smushed style
+    using wsmushed = basic_smushed_style<w_fig_type>;
+  } // namespace libfiglet
+} // namespace srilakshmikanthanp
 
 #endif
