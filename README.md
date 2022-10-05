@@ -51,7 +51,7 @@ This is Figlet Library for C++ to generate Large text out of ordinary text like 
 
 ### Project Scope
 
-This Project was only can use With ASCII Characters and it will not support Unicode Characters.
+This Project was only can use With ASCII Characters and it currently not support Unicode Characters (atleast flf font parser).
 
 ### Installation
 
