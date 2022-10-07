@@ -1,6 +1,6 @@
 <!-- PROJECT LOGO -->
 <h3 align="center">libfiglet</h3>
- 
+
 <p align="center">
   Figlet For C++
   <br />
@@ -31,7 +31,6 @@
   </ol>
 </details>
 
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
@@ -51,11 +50,11 @@ This is Figlet Library for C++ to generate Large text out of ordinary text like 
 
 ### Project Scope
 
-This Project was only can use With ASCII Characters and it currently not support Unicode Characters (atleast flf font parser).
+This Project was only can use With ASCII Characters and it currently does not support Unicode Characters (at least flf font parser).
 
 ### Installation
 
-This is header-only library so just take `libfiglet.hpp` and use.
+This is a header-only library so just take `libfiglet.hpp` and use it.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -71,7 +70,7 @@ using namespace srilakshmikanthanp::libfiglet;
 int main()
 {
   const figlet figlet(flf_font::make_shared("./path/to/font"), smushed::make_shared());
-  std::cout << figlet("Hello");
+  std::cout << figlet("Hello, C++");
 }
 
 ~~~
