@@ -49,11 +49,7 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
       using ofstream_type    =   std::basic_ofstream<char_type>;          // Ofstream Type
 
       enum class shrink_type : size_type                                  // Font Shrink
-      {
-        FULL_WIDTH,
-        KERNING,
-        SMUSHED
-      };
+      { FULL_WIDTH, KERNING, SMUSHED };
     };
 
     /**
