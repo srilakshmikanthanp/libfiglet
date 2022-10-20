@@ -8,16 +8,10 @@ var libfiglet_8hpp =
     [ "srilakshmikanthanp::libfiglet::basic_full_width_style< fig_types >", "structsrilakshmikanthanp_1_1libfiglet_1_1basic__full__width__style.html", "structsrilakshmikanthanp_1_1libfiglet_1_1basic__full__width__style" ],
     [ "srilakshmikanthanp::libfiglet::basic_kerning_style< fig_types >", "structsrilakshmikanthanp_1_1libfiglet_1_1basic__kerning__style.html", "structsrilakshmikanthanp_1_1libfiglet_1_1basic__kerning__style" ],
     [ "srilakshmikanthanp::libfiglet::basic_smushed_style< fig_types >", "structsrilakshmikanthanp_1_1libfiglet_1_1basic__smushed__style.html", "structsrilakshmikanthanp_1_1libfiglet_1_1basic__smushed__style" ],
-    [ "figlet", "libfiglet_8hpp.html#a7d5c9a64623379b276866193ddcd100b", null ],
-    [ "flf_font", "libfiglet_8hpp.html#a8768ea00554ad1b30419f9c21f0b84d1", null ],
-    [ "full_width", "libfiglet_8hpp.html#a9a07aeaffa69e4a46592682acf2738a7", null ],
-    [ "kerning", "libfiglet_8hpp.html#a527d3600e22e797c162a4c4f69c8431e", null ],
-    [ "s_fig_type", "libfiglet_8hpp.html#a6f3e13d5e665b5ff642781f1126db975", null ],
-    [ "smushed", "libfiglet_8hpp.html#adcd5313f691b7e00e352f807dc31b9ea", null ],
-    [ "w_fig_type", "libfiglet_8hpp.html#a3eb89a2cfd2f463a863bcbda3de23b6c", null ],
-    [ "wfiglet", "libfiglet_8hpp.html#a6d5696e266aad5bdf4ed7c801fb7d981", null ],
-    [ "wflf_font", "libfiglet_8hpp.html#a67f469b5043b9993d43bc85afd5c7c8f", null ],
-    [ "wfull_width", "libfiglet_8hpp.html#a0635ce8274e827d4d1941d3cc1cee99f", null ],
-    [ "wkerning", "libfiglet_8hpp.html#adad048f5184ca7fa5be6f4e94418da36", null ],
-    [ "wsmushed", "libfiglet_8hpp.html#a3946c0d4998dc6199eb097ec7642b5a0", null ]
+    [ "ascii_fig_type", "libfiglet_8hpp.html#a59333dd166b8c1297db16de4b2aa350c", null ],
+    [ "figlet", "libfiglet_8hpp.html#a5afb702cdfe1968bc01a6d82334e8a9b", null ],
+    [ "flf_font", "libfiglet_8hpp.html#a79fc7104e2516a40e1e3a06d03de9620", null ],
+    [ "full_width", "libfiglet_8hpp.html#a2447166176afe39e3f99d6d48834038e", null ],
+    [ "kerning", "libfiglet_8hpp.html#a0ffda6028926c0f8a3cdb92718e4ac7d", null ],
+    [ "smushed", "libfiglet_8hpp.html#a9fabf275d9801aec96962cc4c8fc87e9", null ]
 ];

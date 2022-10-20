@@ -84,6 +84,8 @@ $(document).ready(function(){initNavTree('structsrilakshmikanthanp_1_1libfiglet_
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">srilakshmikanthanp::libfiglet::basic_base_figlet_style&lt; fig_types &gt; Struct Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
@@ -101,23 +103,69 @@ Inheritance diagram for srilakshmikanthanp::libfiglet::basic_base_figlet_style&l
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4f9cdbbc88bbb2770d83da5e530d132d"><td class="memItemLeft" align="right" valign="top">fig_types::fig_str_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#a4f9cdbbc88bbb2770d83da5e530d132d">rm_hb</a> (typename fig_types::fig_str_type &amp;figs, typename fig_types::char_type hb) const</td></tr>
-<tr class="memdesc:a4f9cdbbc88bbb2770d83da5e530d132d"><td class="mdescLeft">&#160;</td><td class="mdescRight">removes hardblank from fig string  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#a4f9cdbbc88bbb2770d83da5e530d132d">More...</a><br /></td></tr>
-<tr class="separator:a4f9cdbbc88bbb2770d83da5e530d132d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa966b3e7de592856596fdb431ab03686"><td class="memItemLeft" align="right" valign="top">fig_types::string_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#aa966b3e7de592856596fdb431ab03686">cvt</a> (const std::string &amp;str) const</td></tr>
-<tr class="memdesc:aa966b3e7de592856596fdb431ab03686"><td class="mdescLeft">&#160;</td><td class="mdescRight">convert ascii string to string_type  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#aa966b3e7de592856596fdb431ab03686">More...</a><br /></td></tr>
-<tr class="separator:aa966b3e7de592856596fdb431ab03686"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88fc8aa3496997db5ceedf96e844bec0"><td class="memItemLeft" align="right" valign="top">virtual fig_types::fig_str_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#a88fc8aa3496997db5ceedf96e844bec0">get_fig_str</a> (std::vector&lt; typename fig_types::fig_char_type &gt; fig_chs, typename fig_types::char_type hardblank, typename fig_types::size_type height) const =0</td></tr>
-<tr class="memdesc:a88fc8aa3496997db5ceedf96e844bec0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Fig string.  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#a88fc8aa3496997db5ceedf96e844bec0">More...</a><br /></td></tr>
-<tr class="separator:a88fc8aa3496997db5ceedf96e844bec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd683fa59b407522345027c3529a33f9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#acd683fa59b407522345027c3529a33f9">basic_base_figlet_style</a> ()</td></tr>
+<tr class="separator:acd683fa59b407522345027c3529a33f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89c4f6583e5750d1d7d78ca985136acd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#a89c4f6583e5750d1d7d78ca985136acd">set_height</a> (typename fig_types::size_type h)</td></tr>
+<tr class="memdesc:a89c4f6583e5750d1d7d78ca985136acd"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the height of fig string  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#a89c4f6583e5750d1d7d78ca985136acd">More...</a><br /></td></tr>
+<tr class="separator:a89c4f6583e5750d1d7d78ca985136acd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a401c08487dd5b16f464e5f016c529880"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#a401c08487dd5b16f464e5f016c529880">set_hard_blank</a> (typename fig_types::char_type hb)</td></tr>
+<tr class="memdesc:a401c08487dd5b16f464e5f016c529880"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the hard blank character of fig string  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#a401c08487dd5b16f464e5f016c529880">More...</a><br /></td></tr>
+<tr class="separator:a401c08487dd5b16f464e5f016c529880"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fc2fa6b3072c3feaad7808a41e6a0cb"><td class="memItemLeft" align="right" valign="top">virtual fig_types::shrink_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#a7fc2fa6b3072c3feaad7808a41e6a0cb">get_shrink_level</a> () const =0</td></tr>
 <tr class="memdesc:a7fc2fa6b3072c3feaad7808a41e6a0cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Shrink Level.  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#a7fc2fa6b3072c3feaad7808a41e6a0cb">More...</a><br /></td></tr>
 <tr class="separator:a7fc2fa6b3072c3feaad7808a41e6a0cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3afea78370185c074c479b88be636c08"><td class="memItemLeft" align="right" valign="top">virtual fig_types::fig_str_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#a3afea78370185c074c479b88be636c08">get_fig_str</a> (std::vector&lt; typename fig_types::fig_char_type &gt; fig_chs) const =0</td></tr>
+<tr class="memdesc:a3afea78370185c074c479b88be636c08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Fig string.  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#a3afea78370185c074c479b88be636c08">More...</a><br /></td></tr>
+<tr class="separator:a3afea78370185c074c479b88be636c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ab243c9ab9520544ba3122b800fbeaa1e"><td class="memItemLeft" align="right" valign="top">fig_types::fig_str_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#ab243c9ab9520544ba3122b800fbeaa1e">rm_hb</a> (typename fig_types::fig_str_type &amp;figs) const</td></tr>
+<tr class="memdesc:ab243c9ab9520544ba3122b800fbeaa1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">removes hardblank from fig string  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#ab243c9ab9520544ba3122b800fbeaa1e">More...</a><br /></td></tr>
+<tr class="separator:ab243c9ab9520544ba3122b800fbeaa1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa966b3e7de592856596fdb431ab03686"><td class="memItemLeft" align="right" valign="top">fig_types::string_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#aa966b3e7de592856596fdb431ab03686">cvt</a> (const std::string &amp;str) const</td></tr>
+<tr class="memdesc:aa966b3e7de592856596fdb431ab03686"><td class="mdescLeft">&#160;</td><td class="mdescRight">convert ascii string to string_type  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#aa966b3e7de592856596fdb431ab03686">More...</a><br /></td></tr>
+<tr class="separator:aa966b3e7de592856596fdb431ab03686"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a7f21dda088cef06f6af0aae2fc11b1da"><td class="memItemLeft" align="right" valign="top">fig_types::char_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#a7f21dda088cef06f6af0aae2fc11b1da">hard_blank</a></td></tr>
+<tr class="separator:a7f21dda088cef06f6af0aae2fc11b1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa57291bae1c488134bf014f25962d5eb"><td class="memItemLeft" align="right" valign="top">fig_types::size_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#aa57291bae1c488134bf014f25962d5eb">height</a></td></tr>
+<tr class="separator:aa57291bae1c488134bf014f25962d5eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;class fig_types&gt;<br />
 struct srilakshmikanthanp::libfiglet::basic_base_figlet_style&lt; fig_types &gt;</div><p >Base Style Type for Figlet. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="acd683fa59b407522345027c3529a33f9" name="acd683fa59b407522345027c3529a33f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd683fa59b407522345027c3529a33f9">&#9670;&nbsp;</a></span>basic_base_figlet_style()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class fig_types &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html">srilakshmikanthanp::libfiglet::basic_base_figlet_style</a>&lt; fig_types &gt;::basic_base_figlet_style </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="aa966b3e7de592856596fdb431ab03686" name="aa966b3e7de592856596fdb431ab03686"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa966b3e7de592856596fdb431ab03686">&#9670;&nbsp;</a></span>cvt()</h2>
 
@@ -139,7 +187,7 @@ template&lt;class fig_types &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -155,8 +203,8 @@ template&lt;class fig_types &gt; </div>
 
 </div>
 </div>
-<a id="a88fc8aa3496997db5ceedf96e844bec0" name="a88fc8aa3496997db5ceedf96e844bec0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88fc8aa3496997db5ceedf96e844bec0">&#9670;&nbsp;</a></span>get_fig_str()</h2>
+<a id="a3afea78370185c074c479b88be636c08" name="a3afea78370185c074c479b88be636c08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3afea78370185c074c479b88be636c08">&#9670;&nbsp;</a></span>get_fig_str()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -170,24 +218,8 @@ template&lt;class fig_types &gt; </div>
           <td class="memname">virtual fig_types::fig_str_type <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html">srilakshmikanthanp::libfiglet::basic_base_figlet_style</a>&lt; fig_types &gt;::get_fig_str </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; typename fig_types::fig_char_type &gt;&#160;</td>
-          <td class="paramname"><em>fig_chs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">typename fig_types::char_type&#160;</td>
-          <td class="paramname"><em>hardblank</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">typename fig_types::size_type&#160;</td>
-          <td class="paramname"><em>height</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
+          <td class="paramname"><em>fig_chs</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -199,7 +231,7 @@ template&lt;class fig_types &gt; </div>
 
 <p>Get the Fig string. </p>
 
-<p>Implemented in <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__smushed__style.html#a71633b106f2d67ed57f97565201dc5c0">srilakshmikanthanp::libfiglet::basic_smushed_style&lt; fig_types &gt;</a>, <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__full__width__style.html#a22063292529db8bb6358ac75332b30df">srilakshmikanthanp::libfiglet::basic_full_width_style&lt; fig_types &gt;</a>, and <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__kerning__style.html#af7fc569f8c878c65614b89db44c51dd0">srilakshmikanthanp::libfiglet::basic_kerning_style&lt; fig_types &gt;</a>.</p>
+<p>Implemented in <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__smushed__style.html#aac8a8854e6501d482f11614bd341faba">srilakshmikanthanp::libfiglet::basic_smushed_style&lt; fig_types &gt;</a>, <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__full__width__style.html#a902d45992323be8a09339c1e1643290f">srilakshmikanthanp::libfiglet::basic_full_width_style&lt; fig_types &gt;</a>, and <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__kerning__style.html#a2c3f8fc4f4b5705f245d3a45b23f5117">srilakshmikanthanp::libfiglet::basic_kerning_style&lt; fig_types &gt;</a>.</p>
 
 </div>
 </div>
@@ -234,8 +266,8 @@ template&lt;class fig_types &gt; </div>
 
 </div>
 </div>
-<a id="a4f9cdbbc88bbb2770d83da5e530d132d" name="a4f9cdbbc88bbb2770d83da5e530d132d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f9cdbbc88bbb2770d83da5e530d132d">&#9670;&nbsp;</a></span>rm_hb()</h2>
+<a id="ab243c9ab9520544ba3122b800fbeaa1e" name="ab243c9ab9520544ba3122b800fbeaa1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab243c9ab9520544ba3122b800fbeaa1e">&#9670;&nbsp;</a></span>rm_hb()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -249,23 +281,13 @@ template&lt;class fig_types &gt; </div>
           <td class="memname">fig_types::fig_str_type <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html">srilakshmikanthanp::libfiglet::basic_base_figlet_style</a>&lt; fig_types &gt;::rm_hb </td>
           <td>(</td>
           <td class="paramtype">typename fig_types::fig_str_type &amp;&#160;</td>
-          <td class="paramname"><em>figs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">typename fig_types::char_type&#160;</td>
-          <td class="paramname"><em>hb</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
+          <td class="paramname"><em>figs</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -278,6 +300,115 @@ template&lt;class fig_types &gt; </div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a401c08487dd5b16f464e5f016c529880" name="a401c08487dd5b16f464e5f016c529880"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a401c08487dd5b16f464e5f016c529880">&#9670;&nbsp;</a></span>set_hard_blank()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class fig_types &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html">srilakshmikanthanp::libfiglet::basic_base_figlet_style</a>&lt; fig_types &gt;::set_hard_blank </td>
+          <td>(</td>
+          <td class="paramtype">typename fig_types::char_type&#160;</td>
+          <td class="paramname"><em>hb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set the hard blank character of fig string </p>
+
+</div>
+</div>
+<a id="a89c4f6583e5750d1d7d78ca985136acd" name="a89c4f6583e5750d1d7d78ca985136acd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89c4f6583e5750d1d7d78ca985136acd">&#9670;&nbsp;</a></span>set_height()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class fig_types &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html">srilakshmikanthanp::libfiglet::basic_base_figlet_style</a>&lt; fig_types &gt;::set_height </td>
+          <td>(</td>
+          <td class="paramtype">typename fig_types::size_type&#160;</td>
+          <td class="paramname"><em>h</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set the height of fig string </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a7f21dda088cef06f6af0aae2fc11b1da" name="a7f21dda088cef06f6af0aae2fc11b1da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f21dda088cef06f6af0aae2fc11b1da">&#9670;&nbsp;</a></span>hard_blank</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class fig_types &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fig_types::char_type <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html">srilakshmikanthanp::libfiglet::basic_base_figlet_style</a>&lt; fig_types &gt;::hard_blank</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa57291bae1c488134bf014f25962d5eb" name="aa57291bae1c488134bf014f25962d5eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa57291bae1c488134bf014f25962d5eb">&#9670;&nbsp;</a></span>height</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class fig_types &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fig_types::size_type <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html">srilakshmikanthanp::libfiglet::basic_base_figlet_style</a>&lt; fig_types &gt;::height</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

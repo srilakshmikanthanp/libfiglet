@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['ofstream_5ftype_0',['ofstream_type',['../structsrilakshmikanthanp_1_1libfiglet_1_1fig__types__t.html#aa549696e5aa6841749217b4201e4d796',1,'srilakshmikanthanp::libfiglet::fig_types_t']]],
-  ['operator_28_29_1',['operator()',['../classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a26cd2874e14703a56b120bf7feb4ddd1',1,'srilakshmikanthanp::libfiglet::basic_figlet']]],
-  ['ostream_5ftype_2',['ostream_type',['../structsrilakshmikanthanp_1_1libfiglet_1_1fig__types__t.html#a2c19655f1b2142cc97483dabb54e30e5',1,'srilakshmikanthanp::libfiglet::fig_types_t']]]
+  ['kerning_0',['KERNING',['../structsrilakshmikanthanp_1_1libfiglet_1_1fig__types__t.html#a978ddff155a56f412aac4b9c32ecd33eafc50889d1f8ccd23d51575b83703dd1a',1,'srilakshmikanthanp::libfiglet::fig_types_t']]],
+  ['kerning_1',['kerning',['../namespacesrilakshmikanthanp_1_1libfiglet.html#a0ffda6028926c0f8a3cdb92718e4ac7d',1,'srilakshmikanthanp::libfiglet']]]
 ];
