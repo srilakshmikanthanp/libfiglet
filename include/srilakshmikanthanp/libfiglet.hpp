@@ -170,7 +170,7 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
       {
         if (font->get_shrink_level() < style->get_shrink_level())
         {
-          throw std::runtime_error("Invalid shrink level");
+          throw std::runtime_error("The Shrink Level of Font is less than Style");
         }
 
         this->style = style; // Set style
@@ -281,6 +281,36 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
 
     private:                                                  // Private utilities
       /**
+       * @brief string to fig char
+       */
+      typename fig_types::fig_char_type to_fig_char(const std::vector<typename fig_types::string_type> &lines) const
+      {
+        // regex pattern to match
+        std::regex pattern("(.)\\1?\n", std::regex::ECMAScript);
+
+        // fig char container
+        typename fig_types::fig_char_type fig_char;
+
+        // line
+        typename fig_types::string_type line;
+
+        // read lines
+        for (const auto &line : lines)
+        {
+          fig_char.push_back(std::regex_replace(line + "\n", pattern, ""));
+        }
+
+        // check height
+        if (fig_char.size() != this->height)
+        {
+          throw std::runtime_error("Height not match");
+        }
+
+        // return
+        return fig_char;
+      }
+
+      /**
        * @brief Read the Config from the stream
        */
       void read_config_and_remove_comments(typename fig_types::istream_type &is)
@@ -303,7 +333,7 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
         // check
         if (token != "flf2a")
         {
-          throw std::runtime_error("Invalid flf header");
+          throw std::runtime_error("Invalid flf2a header");
         }
 
         // Read hard blank
@@ -312,7 +342,7 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
         // check stream
         if (ss.fail())
         {
-          throw std::runtime_error("Invalid flf header");
+          throw std::runtime_error("Invalid hard blank");
         }
 
         // Read height
@@ -321,7 +351,7 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
         // check stream
         if (ss.fail())
         {
-          throw std::runtime_error("Invalid flf header");
+          throw std::runtime_error("Invalid height");
         }
 
         // Read baseline
@@ -330,7 +360,7 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
         // check stream
         if (ss.fail())
         {
-          throw std::runtime_error("Invalid flf header");
+          throw std::runtime_error("Invalid baseline");
         }
 
         // Read max length
@@ -339,7 +369,7 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
         // check stream
         if (ss.fail())
         {
-          throw std::runtime_error("Invalid flf header");
+          throw std::runtime_error("Invalid max length");
         }
 
         // Read old layout
@@ -348,7 +378,7 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
         // check stream
         if (ss.fail())
         {
-          throw std::runtime_error("Invalid flf header");
+          throw std::runtime_error("Invalid old layout");
         }
 
         // set shrink level
@@ -380,67 +410,28 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
         {
           std::getline(is, token);
         }
-
-        // Read print direction
-        ss >> token;
-
-        // check stream
-        if (ss.fail())
-        {
-          throw std::runtime_error("Invalid flf header");
-        }
-
-        // Read full layout
-        ss >> token;
-
-        // check stream
-        if (ss.fail())
-        {
-          throw std::runtime_error("Invalid flf header");
-        }
-
-        // Read codetag count
-        ss >> token;
-
-        // check stream
-        if (ss.fail())
-        {
-          throw std::runtime_error("Invalid flf header");
-        }
       }
 
       /**
-       * @brief string to fig char
+       * @brief Read the next n lines
+       * @param n lines
        */
-      typename fig_types::fig_char_type str_to_fig_char(const typename fig_types::string_type &str) const
+      auto read_lines(typename fig_types::istream_type &is, typename fig_types::size_type n) const
       {
-        // fig char container
-        typename fig_types::fig_char_type fig_char;
-
-        // string stream
-        typename fig_types::sstream_type ss(str);
+        // lines container
+        std::vector<typename fig_types::string_type> lines;
 
         // line
         typename fig_types::string_type line;
 
         // read lines
-        while (std::getline(ss, line))
+        for (auto i = 0; i < n && std::getline(is, line); ++i)
         {
-          // pop the last char
-          line.pop_back();
-
-          // push the line
-          fig_char.push_back(line);
-        }
-
-        // check height
-        if (fig_char.size() != this->height)
-        {
-          throw std::runtime_error("Invalid flf font");
+          lines.push_back(line);
         }
 
         // return
-        return fig_char;
+        return lines;
       }
 
       /**
@@ -448,41 +439,20 @@ namespace srilakshmikanthanp // Sri Lakshmi Kanthan P
        */
       void read_chars(typename fig_types::istream_type &is)
       {
-        // Regular expression for flf char
-        std::regex pattern("(.*(?=[@#])[\\s\\S]*?[@#](?=[@#]))", std::regex_constants::ECMAScript);
-
-        // Read the whole file
-        const auto file_str = typename fig_types::string_type(ibuff_it(is), ibuff_it());
-
-        // get all the matches
-        std::match_results<typename fig_types::string_type::const_iterator> res;
-
-        // start char
-        typename fig_types::char_type ch = ' ';
-
-        // start
-        auto start = file_str.cbegin();
-
-        // end
-        auto end = file_str.cend();
-
-        // read all the characters
-        for (ch = ' '; std::regex_search(start, end, res, pattern) && ch <= '~'; ++ch)
+        // read all the characters (ch <= '~' must be first)
+        for (typename fig_types::char_type ch = ' '; ch <= '~'; ++ch)
         {
           // get the fig char
-          const auto fig_char = this->str_to_fig_char(res[0].str());
+          const auto fig_char = this->to_fig_char(this->read_lines(is, this->height));
+
+          // if length less
+          if (fig_char.size() < this->height)
+          {
+            throw std::runtime_error("Invalid fig char");
+          }
 
           // insert the fig char
           this->fig_chars.insert({ch, fig_char});
-
-          // update start
-          start = res.suffix().first + 1;
-        }
-
-        // check
-        if (--ch != '~')
-        {
-          throw std::runtime_error("Invalid flf characters");
         }
       }
 
