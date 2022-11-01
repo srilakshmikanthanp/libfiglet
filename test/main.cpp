@@ -14,11 +14,7 @@ int main(void)
     {
       const auto flf_font = flf_font::make_shared(entry.path().string());
       const figlet figlet(flf_font, full_width::make_shared());
-<<<<<<< HEAD
       std::cout << entry.path().filename() << "\n" << figlet("Hello, C++");
-=======
-      std::cout << entry.path().filename() << "\n"  << figlet("Hello, C++");
->>>>>>> 6bd3b7a854ea6fb88ed1972fc27091c01b72cef0
     }
     catch (const std::exception & e)
     {
