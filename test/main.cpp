@@ -1,16 +1,25 @@
-// Copyright (c) 2022 Sri Lakshmi Kanthan P
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
-
 #include "../include/srilakshmikanthanp/libfiglet.hpp"
+#include <filesystem>
 #include <iostream>
 
 using namespace srilakshmikanthanp::libfiglet;
 
-int main()
+int main(void)
 {
-  const auto font_file = "D:\\source\\srilakshmikanthanp\\libfiglet\\assets\\fonts\\Standard.flf";
-  const figlet figlet(flf_font::make_shared(font_file), smushed::make_shared());
-  std::cout << figlet("Hello");
+  const auto base_dir_path = "D:\\source\\srilakshmikanthanp\\libfiglet\\assets\\fonts";
+
+  for (const auto & entry : std::filesystem::directory_iterator(base_dir_path))
+  {
+    try
+    {
+      const auto flf_font = flf_font::make_shared(entry.path().string());
+      const figlet figlet(flf_font, full_width::make_shared());
+      std::cout << entry.path().filename() << "\n"  << figlet("Hello, C++");
+    }
+    catch (const std::exception & e)
+    {
+      std::cout << e.what() << entry.path().string() << std::endl;
+      std::exit(EXIT_FAILURE);
+    }
+  }
 }
