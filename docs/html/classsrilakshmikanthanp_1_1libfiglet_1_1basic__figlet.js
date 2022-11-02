@@ -1,14 +1,20 @@
 var classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet =
 [
-    [ "base_figlet_font_ptr", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a5c619c9752171813c4df942467e2fae0", null ],
-    [ "base_figlet_style_ptr", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a0155c6c22fbcbad93f0d4de71ea54059", null ],
-    [ "basic_figlet", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#ad52fb93005e2a793dfb74676178002b4", null ],
-    [ "basic_figlet", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#aeb12f90b69f2902d5f2823cf68c06b03", null ],
-    [ "basic_figlet", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a6e0ab3a2240d03f3bd003011c8d36d9a", null ],
-    [ "basic_figlet", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#af5727be5a947477be36d6f29f5bef542", null ],
-    [ "get_font", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#acc2e9dc715e360b9bfaee9879b3397d1", null ],
-    [ "get_style", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#ae9f9a0d24f80d398323a261f8b7c0f54", null ],
-    [ "operator()", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a26cd2874e14703a56b120bf7feb4ddd1", null ],
-    [ "set_font", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#ade57b4913a744320bc1f5ef41ae5f04d", null ],
-    [ "set_style", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a94720c91866686df8f71823788129472", null ]
+    [ "base_figlet_font_ptr", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a13db172e10e69fd251243472d0ef941f", null ],
+    [ "base_figlet_style_ptr", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a25f12937bf49689cd37b75fe83304dad", null ],
+    [ "char_type", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a08d7ccf7d0a3c84943411a8915dfa252", null ],
+    [ "fig_char_type", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a022411c5b70ffbb94a824d6457dc82a0", null ],
+    [ "fig_str_type", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a4afa23ffc3ac94250cfc001e54016a4d", null ],
+    [ "size_type", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#ae1ce846e2668117e2979abc3e89f8d06", null ],
+    [ "string_type", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a2be756c4d21bdb439f78a56d9b22c8cc", null ],
+    [ "traits_type", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a095bd27e37000a58187b7206e8b8367b", null ],
+    [ "basic_figlet", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a676149548cdd14126915c16f59e74c0d", null ],
+    [ "basic_figlet", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a2952ad90df78bc11357cd08790624a31", null ],
+    [ "basic_figlet", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a391c96429159075c746608f0fb2c1493", null ],
+    [ "basic_figlet", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a7e37b49cef082ce881071bd368882974", null ],
+    [ "get_font", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#abb878a307774694a85c33855abdc7424", null ],
+    [ "get_style", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#acf1c9b694dd3e0b0c58ed8394e09580d", null ],
+    [ "operator()", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#a2060be0876ab3d9910915e8aae8f53f2", null ],
+    [ "set_font", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#ae1a727d66716a9e04e2b81dba313121c", null ],
+    [ "set_style", "classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#aa450e86738c0f572c610b6f9685386f4", null ]
 ];

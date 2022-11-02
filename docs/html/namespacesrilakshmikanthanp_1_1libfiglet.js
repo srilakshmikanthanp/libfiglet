@@ -7,11 +7,15 @@ var namespacesrilakshmikanthanp_1_1libfiglet =
     [ "basic_full_width_style", "structsrilakshmikanthanp_1_1libfiglet_1_1basic__full__width__style.html", "structsrilakshmikanthanp_1_1libfiglet_1_1basic__full__width__style" ],
     [ "basic_kerning_style", "structsrilakshmikanthanp_1_1libfiglet_1_1basic__kerning__style.html", "structsrilakshmikanthanp_1_1libfiglet_1_1basic__kerning__style" ],
     [ "basic_smushed_style", "structsrilakshmikanthanp_1_1libfiglet_1_1basic__smushed__style.html", "structsrilakshmikanthanp_1_1libfiglet_1_1basic__smushed__style" ],
-    [ "fig_types_t", "structsrilakshmikanthanp_1_1libfiglet_1_1fig__types__t.html", "structsrilakshmikanthanp_1_1libfiglet_1_1fig__types__t" ],
-    [ "ascii_fig_type", "namespacesrilakshmikanthanp_1_1libfiglet.html#a59333dd166b8c1297db16de4b2aa350c", null ],
-    [ "figlet", "namespacesrilakshmikanthanp_1_1libfiglet.html#a5afb702cdfe1968bc01a6d82334e8a9b", null ],
-    [ "flf_font", "namespacesrilakshmikanthanp_1_1libfiglet.html#a79fc7104e2516a40e1e3a06d03de9620", null ],
-    [ "full_width", "namespacesrilakshmikanthanp_1_1libfiglet.html#a2447166176afe39e3f99d6d48834038e", null ],
-    [ "kerning", "namespacesrilakshmikanthanp_1_1libfiglet.html#a0ffda6028926c0f8a3cdb92718e4ac7d", null ],
-    [ "smushed", "namespacesrilakshmikanthanp_1_1libfiglet.html#a9fabf275d9801aec96962cc4c8fc87e9", null ]
+    [ "figlet", "namespacesrilakshmikanthanp_1_1libfiglet.html#a4b8b4961c03b8977b64a5dc19d0380ec", null ],
+    [ "flf_font", "namespacesrilakshmikanthanp_1_1libfiglet.html#ac87dfecc546f6edb4683fc24506fcee9", null ],
+    [ "full_width", "namespacesrilakshmikanthanp_1_1libfiglet.html#a16d0fd815b66c8b90ef55e7f7314475b", null ],
+    [ "kerning", "namespacesrilakshmikanthanp_1_1libfiglet.html#ac2c0a455b57672e74275646e9f2927aa", null ],
+    [ "smushed", "namespacesrilakshmikanthanp_1_1libfiglet.html#a1138691e006720e82393f6b9bc32b16a", null ],
+    [ "shrink_type", "namespacesrilakshmikanthanp_1_1libfiglet.html#afd63bf7704519ad3169681563e5c772d", [
+      [ "FULL_WIDTH", "namespacesrilakshmikanthanp_1_1libfiglet.html#afd63bf7704519ad3169681563e5c772dad81b384cdab56cef3bd398e84bc45e99", null ],
+      [ "KERNING", "namespacesrilakshmikanthanp_1_1libfiglet.html#afd63bf7704519ad3169681563e5c772dafc50889d1f8ccd23d51575b83703dd1a", null ],
+      [ "SMUSHED", "namespacesrilakshmikanthanp_1_1libfiglet.html#afd63bf7704519ad3169681563e5c772da7de550fc6d0f96e559774bc5e2c16ed3", null ]
+    ] ],
+    [ "FIGLET_VERSION", "namespacesrilakshmikanthanp_1_1libfiglet.html#a26d37d4c8fb52e686b4e2892f5ed3414", null ]
 ];

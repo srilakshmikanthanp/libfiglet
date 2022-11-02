@@ -1,4 +1,4 @@
-#include "../include/srilakshmikanthanp/libfiglet.hpp"
+#include "../src/srilakshmikanthanp/libfiglet.hpp"
 #include <filesystem>
 #include <iostream>
 
@@ -12,8 +12,8 @@ int main(void)
   {
     try
     {
-      const auto flf_font = flf_font::make_shared(entry.path().string());
-      const figlet figlet(flf_font, full_width::make_shared());
+      const auto flf_font_v = flf_font::make_shared(entry.path().string());
+      const figlet figlet(flf_font_v, full_width::make_shared());
       std::cout << entry.path().filename() << "\n" << figlet("Hello, C++");
     }
     catch (const std::exception & e)

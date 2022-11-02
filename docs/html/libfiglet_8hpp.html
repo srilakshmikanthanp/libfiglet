@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>libfiglet: D:/source/srilakshmikanthanp/libfiglet/include/srilakshmikanthanp/libfiglet.hpp File Reference</title>
+<title>libfiglet: D:/source/srilakshmikanthanp/libfiglet/src/srilakshmikanthanp/libfiglet.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,86 +83,51 @@ $(document).ready(function(){initNavTree('libfiglet_8hpp.html',''); initResizabl
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle"><div class="title">libfiglet.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
-<code>#include &lt;ostream&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-<code>#include &lt;map&gt;</code><br />
-<code>#include &lt;iomanip&gt;</code><br />
-<code>#include &lt;regex&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;fstream&gt;</code><br />
-<code>#include &lt;sstream&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="abstract_8hpp_source.html">./abstract/abstract.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="constants_8hpp_source.html">./constants/constants.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="driver_8hpp_source.html">./driver/driver.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="fonts_8hpp_source.html">./fonts/fonts.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="styles_8hpp_source.html">./styles/styles.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="types_8hpp_source.html">./types/types.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for libfiglet.hpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="libfiglet_8hpp__incl.png" border="0" usemap="#a_d_1_2source_2srilakshmikanthanp_2libfiglet_2include_2srilakshmikanthanp_2libfiglet_8hpp" alt=""/></div>
+<div class="center"><img src="libfiglet_8hpp__incl.png" border="0" usemap="#a_d_1_2source_2srilakshmikanthanp_2libfiglet_2src_2srilakshmikanthanp_2libfiglet_8hpp" alt=""/></div>
 </div>
 </div>
 <p><a href="libfiglet_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1fig__types__t.html">srilakshmikanthanp::libfiglet::fig_types_t&lt; string_type_t &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Some of the common typedefs for the Library.  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1fig__types__t.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html">srilakshmikanthanp::libfiglet::basic_base_figlet_font&lt; fig_types &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base Font Type for Figlet.  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html">srilakshmikanthanp::libfiglet::basic_base_figlet_style&lt; fig_types &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base Style Type for Figlet.  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__style.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html">srilakshmikanthanp::libfiglet::basic_figlet&lt; fig_types &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">basic figlet class  <a href="classsrilakshmikanthanp_1_1libfiglet_1_1basic__figlet.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrilakshmikanthanp_1_1libfiglet_1_1basic__flf__font.html">srilakshmikanthanp::libfiglet::basic_flf_font&lt; fig_types &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Figlet flf Font Type.  <a href="classsrilakshmikanthanp_1_1libfiglet_1_1basic__flf__font.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__full__width__style.html">srilakshmikanthanp::libfiglet::basic_full_width_style&lt; fig_types &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Figlet full width style.  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__full__width__style.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__kerning__style.html">srilakshmikanthanp::libfiglet::basic_kerning_style&lt; fig_types &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Figlet kerning style.  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__kerning__style.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__smushed__style.html">srilakshmikanthanp::libfiglet::basic_smushed_style&lt; fig_types &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Figlet smushed style.  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__smushed__style.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacesrilakshmikanthanp"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesrilakshmikanthanp.html">srilakshmikanthanp</a></td></tr>
-<tr class="memdesc:namespacesrilakshmikanthanp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default figlet types. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacesrilakshmikanthanp_1_1libfiglet"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesrilakshmikanthanp_1_1libfiglet.html">srilakshmikanthanp::libfiglet</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a59333dd166b8c1297db16de4b2aa350c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesrilakshmikanthanp_1_1libfiglet.html#a59333dd166b8c1297db16de4b2aa350c">srilakshmikanthanp::libfiglet::ascii_fig_type</a> = fig_types_t&lt; std::string &gt;</td></tr>
-<tr class="separator:a59333dd166b8c1297db16de4b2aa350c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79fc7104e2516a40e1e3a06d03de9620"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesrilakshmikanthanp_1_1libfiglet.html#a79fc7104e2516a40e1e3a06d03de9620">srilakshmikanthanp::libfiglet::flf_font</a> = basic_flf_font&lt; ascii_fig_type &gt;</td></tr>
-<tr class="separator:a79fc7104e2516a40e1e3a06d03de9620"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5afb702cdfe1968bc01a6d82334e8a9b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesrilakshmikanthanp_1_1libfiglet.html#a5afb702cdfe1968bc01a6d82334e8a9b">srilakshmikanthanp::libfiglet::figlet</a> = basic_figlet&lt; ascii_fig_type &gt;</td></tr>
-<tr class="separator:a5afb702cdfe1968bc01a6d82334e8a9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2447166176afe39e3f99d6d48834038e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesrilakshmikanthanp_1_1libfiglet.html#a2447166176afe39e3f99d6d48834038e">srilakshmikanthanp::libfiglet::full_width</a> = basic_full_width_style&lt; ascii_fig_type &gt;</td></tr>
-<tr class="separator:a2447166176afe39e3f99d6d48834038e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ffda6028926c0f8a3cdb92718e4ac7d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesrilakshmikanthanp_1_1libfiglet.html#a0ffda6028926c0f8a3cdb92718e4ac7d">srilakshmikanthanp::libfiglet::kerning</a> = basic_kerning_style&lt; ascii_fig_type &gt;</td></tr>
-<tr class="separator:a0ffda6028926c0f8a3cdb92718e4ac7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fabf275d9801aec96962cc4c8fc87e9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesrilakshmikanthanp_1_1libfiglet.html#a9fabf275d9801aec96962cc4c8fc87e9">srilakshmikanthanp::libfiglet::smushed</a> = basic_smushed_style&lt; ascii_fig_type &gt;</td></tr>
-<tr class="separator:a9fabf275d9801aec96962cc4c8fc87e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16d0fd815b66c8b90ef55e7f7314475b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesrilakshmikanthanp_1_1libfiglet.html#a16d0fd815b66c8b90ef55e7f7314475b">srilakshmikanthanp::libfiglet::full_width</a> = basic_full_width_style&lt; std::string &gt;</td></tr>
+<tr class="separator:a16d0fd815b66c8b90ef55e7f7314475b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2c0a455b57672e74275646e9f2927aa"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesrilakshmikanthanp_1_1libfiglet.html#ac2c0a455b57672e74275646e9f2927aa">srilakshmikanthanp::libfiglet::kerning</a> = basic_kerning_style&lt; std::string &gt;</td></tr>
+<tr class="separator:ac2c0a455b57672e74275646e9f2927aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1138691e006720e82393f6b9bc32b16a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesrilakshmikanthanp_1_1libfiglet.html#a1138691e006720e82393f6b9bc32b16a">srilakshmikanthanp::libfiglet::smushed</a> = basic_smushed_style&lt; std::string &gt;</td></tr>
+<tr class="separator:a1138691e006720e82393f6b9bc32b16a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac87dfecc546f6edb4683fc24506fcee9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesrilakshmikanthanp_1_1libfiglet.html#ac87dfecc546f6edb4683fc24506fcee9">srilakshmikanthanp::libfiglet::flf_font</a> = basic_flf_font&lt; std::string &gt;</td></tr>
+<tr class="separator:ac87dfecc546f6edb4683fc24506fcee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b8b4961c03b8977b64a5dc19d0380ec"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesrilakshmikanthanp_1_1libfiglet.html#a4b8b4961c03b8977b64a5dc19d0380ec">srilakshmikanthanp::libfiglet::figlet</a> = basic_figlet&lt; std::string &gt;</td></tr>
+<tr class="separator:a4b8b4961c03b8977b64a5dc19d0380ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_df9987516b34dc28a9cca6da9a4d7e08.html">srilakshmikanthanp</a></li><li class="navelem"><a class="el" href="libfiglet_8hpp.html">libfiglet.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_93f0c05ce9d266791f30f3a707625e27.html">srilakshmikanthanp</a></li><li class="navelem"><a class="el" href="libfiglet_8hpp.html">libfiglet.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>

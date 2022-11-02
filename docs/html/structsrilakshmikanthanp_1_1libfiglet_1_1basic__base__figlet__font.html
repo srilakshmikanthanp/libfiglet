@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>libfiglet: srilakshmikanthanp::libfiglet::basic_base_figlet_font&lt; fig_types &gt; Struct Template Reference</title>
+<title>libfiglet: srilakshmikanthanp::libfiglet::basic_base_figlet_font&lt; string_type_t &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,56 +83,169 @@ $(document).ready(function(){initNavTree('structsrilakshmikanthanp_1_1libfiglet_
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">srilakshmikanthanp::libfiglet::basic_base_figlet_font&lt; fig_types &gt; Struct Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+  <div class="headertitle"><div class="title">srilakshmikanthanp::libfiglet::basic_base_figlet_font&lt; string_type_t &gt; Struct Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Base Font Type for Figlet.  
  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="libfiglet_8hpp_source.html">libfiglet.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="abstract_8hpp_source.html">abstract.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for srilakshmikanthanp::libfiglet::basic_base_figlet_font&lt; fig_types &gt;:</div>
+Inheritance diagram for srilakshmikanthanp::libfiglet::basic_base_figlet_font&lt; string_type_t &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font__inherit__graph.png" border="0" usemap="#asrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font_3_01fig__types_01_4_inherit__map" alt="Inheritance graph"/></div>
+<div class="center"><img src="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font__inherit__graph.png" border="0" usemap="#asrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font_3_01string__type__t_01_4_inherit__map" alt="Inheritance graph"/></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a5a81e02c1d10a34e24f3af202bb9b90e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a5a81e02c1d10a34e24f3af202bb9b90e">string_type</a> = string_type_t</td></tr>
+<tr class="separator:a5a81e02c1d10a34e24f3af202bb9b90e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a727ff0fb92b92cad416a9776474c8232"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a727ff0fb92b92cad416a9776474c8232">char_type</a> = typename string_type_t::value_type</td></tr>
+<tr class="separator:a727ff0fb92b92cad416a9776474c8232"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dd0ff079cef5ea4badb8dcd90b0554b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a5dd0ff079cef5ea4badb8dcd90b0554b">traits_type</a> = typename string_type_t::traits_type</td></tr>
+<tr class="separator:a5dd0ff079cef5ea4badb8dcd90b0554b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb92c1d0719ec9f9cd49823155202ecd"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#adb92c1d0719ec9f9cd49823155202ecd">size_type</a> = typename string_type_t::size_type</td></tr>
+<tr class="separator:adb92c1d0719ec9f9cd49823155202ecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29ab107374f738b4f2a3908b93cecf63"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a29ab107374f738b4f2a3908b93cecf63">fig_char_type</a> = std::vector&lt; string_type_t &gt;</td></tr>
+<tr class="separator:a29ab107374f738b4f2a3908b93cecf63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a223ef19e706a21959abe593899fe3b06"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a223ef19e706a21959abe593899fe3b06">fig_str_type</a> = std::vector&lt; string_type_t &gt;</td></tr>
+<tr class="separator:a223ef19e706a21959abe593899fe3b06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a64141a9e8fcce0942967cccba9456d41"><td class="memItemLeft" align="right" valign="top">virtual fig_types::fig_char_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a64141a9e8fcce0942967cccba9456d41">get_fig_char</a> (typename fig_types::char_type ch) const =0</td></tr>
-<tr class="memdesc:a64141a9e8fcce0942967cccba9456d41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the BasicFiglet character.  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a64141a9e8fcce0942967cccba9456d41">More...</a><br /></td></tr>
-<tr class="separator:a64141a9e8fcce0942967cccba9456d41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07accf1db953b4aef9672ecded201781"><td class="memItemLeft" align="right" valign="top">virtual fig_types::char_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a07accf1db953b4aef9672ecded201781">get_hard_blank</a> () const =0</td></tr>
-<tr class="memdesc:a07accf1db953b4aef9672ecded201781"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Hard Blank character.  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a07accf1db953b4aef9672ecded201781">More...</a><br /></td></tr>
-<tr class="separator:a07accf1db953b4aef9672ecded201781"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8315c24c595df93cbbef5b17fbc77041"><td class="memItemLeft" align="right" valign="top">virtual fig_types::size_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a8315c24c595df93cbbef5b17fbc77041">get_height</a> () const =0</td></tr>
-<tr class="memdesc:a8315c24c595df93cbbef5b17fbc77041"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Height of font.  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a8315c24c595df93cbbef5b17fbc77041">More...</a><br /></td></tr>
-<tr class="separator:a8315c24c595df93cbbef5b17fbc77041"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7808bb576e16bb6e9e72dc76d736326a"><td class="memItemLeft" align="right" valign="top">virtual fig_types::shrink_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a7808bb576e16bb6e9e72dc76d736326a">get_shrink_level</a> () const =0</td></tr>
-<tr class="memdesc:a7808bb576e16bb6e9e72dc76d736326a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Shrink Level of font.  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a7808bb576e16bb6e9e72dc76d736326a">More...</a><br /></td></tr>
-<tr class="separator:a7808bb576e16bb6e9e72dc76d736326a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0632cfc8a9dc455814d5b9d775e85199"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a29ab107374f738b4f2a3908b93cecf63">fig_char_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a0632cfc8a9dc455814d5b9d775e85199">get_fig_char</a> (<a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a727ff0fb92b92cad416a9776474c8232">char_type</a> ch) const =0</td></tr>
+<tr class="memdesc:a0632cfc8a9dc455814d5b9d775e85199"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the BasicFiglet character.  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a0632cfc8a9dc455814d5b9d775e85199">More...</a><br /></td></tr>
+<tr class="separator:a0632cfc8a9dc455814d5b9d775e85199"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1a145ed94ec330e9b37de1eb55c7d58"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a727ff0fb92b92cad416a9776474c8232">char_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#ae1a145ed94ec330e9b37de1eb55c7d58">get_hard_blank</a> () const =0</td></tr>
+<tr class="memdesc:ae1a145ed94ec330e9b37de1eb55c7d58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Hard Blank character.  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#ae1a145ed94ec330e9b37de1eb55c7d58">More...</a><br /></td></tr>
+<tr class="separator:ae1a145ed94ec330e9b37de1eb55c7d58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc3eadbbdf028f6bdc073f9a57d95669"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#adb92c1d0719ec9f9cd49823155202ecd">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#afc3eadbbdf028f6bdc073f9a57d95669">get_height</a> () const =0</td></tr>
+<tr class="memdesc:afc3eadbbdf028f6bdc073f9a57d95669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Height of font.  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#afc3eadbbdf028f6bdc073f9a57d95669">More...</a><br /></td></tr>
+<tr class="separator:afc3eadbbdf028f6bdc073f9a57d95669"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1daaf6db3c8f624f0ddd596c46d78518"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacesrilakshmikanthanp_1_1libfiglet.html#afd63bf7704519ad3169681563e5c772d">shrink_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a1daaf6db3c8f624f0ddd596c46d78518">get_shrink_level</a> () const =0</td></tr>
+<tr class="memdesc:a1daaf6db3c8f624f0ddd596c46d78518"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Shrink Level of font.  <a href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a1daaf6db3c8f624f0ddd596c46d78518">More...</a><br /></td></tr>
+<tr class="separator:a1daaf6db3c8f624f0ddd596c46d78518"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;class fig_types&gt;<br />
-struct srilakshmikanthanp::libfiglet::basic_base_figlet_font&lt; fig_types &gt;</div><p >Base Font Type for Figlet. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a64141a9e8fcce0942967cccba9456d41" name="a64141a9e8fcce0942967cccba9456d41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64141a9e8fcce0942967cccba9456d41">&#9670;&nbsp;</a></span>get_fig_char()</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class string_type_t&gt;<br />
+struct srilakshmikanthanp::libfiglet::basic_base_figlet_font&lt; string_type_t &gt;</div><p >Base Font Type for Figlet. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a727ff0fb92b92cad416a9776474c8232" name="a727ff0fb92b92cad416a9776474c8232"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a727ff0fb92b92cad416a9776474c8232">&#9670;&nbsp;</a></span>char_type</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class fig_types &gt; </div>
+template&lt;class string_type_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html">srilakshmikanthanp::libfiglet::basic_base_figlet_font</a>&lt; string_type_t &gt;::char_type =  typename string_type_t::value_type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a29ab107374f738b4f2a3908b93cecf63" name="a29ab107374f738b4f2a3908b93cecf63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29ab107374f738b4f2a3908b93cecf63">&#9670;&nbsp;</a></span>fig_char_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class string_type_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html">srilakshmikanthanp::libfiglet::basic_base_figlet_font</a>&lt; string_type_t &gt;::fig_char_type =  std::vector&lt;string_type_t&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a223ef19e706a21959abe593899fe3b06" name="a223ef19e706a21959abe593899fe3b06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a223ef19e706a21959abe593899fe3b06">&#9670;&nbsp;</a></span>fig_str_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class string_type_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html">srilakshmikanthanp::libfiglet::basic_base_figlet_font</a>&lt; string_type_t &gt;::fig_str_type =  std::vector&lt;string_type_t&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adb92c1d0719ec9f9cd49823155202ecd" name="adb92c1d0719ec9f9cd49823155202ecd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb92c1d0719ec9f9cd49823155202ecd">&#9670;&nbsp;</a></span>size_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class string_type_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html">srilakshmikanthanp::libfiglet::basic_base_figlet_font</a>&lt; string_type_t &gt;::size_type =  typename string_type_t::size_type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5a81e02c1d10a34e24f3af202bb9b90e" name="a5a81e02c1d10a34e24f3af202bb9b90e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a81e02c1d10a34e24f3af202bb9b90e">&#9670;&nbsp;</a></span>string_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class string_type_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html">srilakshmikanthanp::libfiglet::basic_base_figlet_font</a>&lt; string_type_t &gt;::string_type =  string_type_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5dd0ff079cef5ea4badb8dcd90b0554b" name="a5dd0ff079cef5ea4badb8dcd90b0554b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dd0ff079cef5ea4badb8dcd90b0554b">&#9670;&nbsp;</a></span>traits_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class string_type_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html">srilakshmikanthanp::libfiglet::basic_base_figlet_font</a>&lt; string_type_t &gt;::traits_type =  typename string_type_t::traits_type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0632cfc8a9dc455814d5b9d775e85199" name="a0632cfc8a9dc455814d5b9d775e85199"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0632cfc8a9dc455814d5b9d775e85199">&#9670;&nbsp;</a></span>get_fig_char()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class string_type_t &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual fig_types::fig_char_type <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html">srilakshmikanthanp::libfiglet::basic_base_figlet_font</a>&lt; fig_types &gt;::get_fig_char </td>
+          <td class="memname">virtual <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a29ab107374f738b4f2a3908b93cecf63">fig_char_type</a> <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html">srilakshmikanthanp::libfiglet::basic_base_figlet_font</a>&lt; string_type_t &gt;::get_fig_char </td>
           <td>(</td>
-          <td class="paramtype">typename fig_types::char_type&#160;</td>
+          <td class="paramtype"><a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a727ff0fb92b92cad416a9776474c8232">char_type</a>&#160;</td>
           <td class="paramname"><em>ch</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -146,23 +259,23 @@ template&lt;class fig_types &gt; </div>
 
 <p>Get the BasicFiglet character. </p>
 
-<p>Implemented in <a class="el" href="classsrilakshmikanthanp_1_1libfiglet_1_1basic__flf__font.html#a5c706568397ccdbf9f61414b58d47086">srilakshmikanthanp::libfiglet::basic_flf_font&lt; fig_types &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classsrilakshmikanthanp_1_1libfiglet_1_1basic__flf__font.html#afa934ef6b1b896512da1dc6e0ecbe224">srilakshmikanthanp::libfiglet::basic_flf_font&lt; string_type_t &gt;</a>.</p>
 
 </div>
 </div>
-<a id="a07accf1db953b4aef9672ecded201781" name="a07accf1db953b4aef9672ecded201781"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07accf1db953b4aef9672ecded201781">&#9670;&nbsp;</a></span>get_hard_blank()</h2>
+<a id="ae1a145ed94ec330e9b37de1eb55c7d58" name="ae1a145ed94ec330e9b37de1eb55c7d58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1a145ed94ec330e9b37de1eb55c7d58">&#9670;&nbsp;</a></span>get_hard_blank()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class fig_types &gt; </div>
+template&lt;class string_type_t &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual fig_types::char_type <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html">srilakshmikanthanp::libfiglet::basic_base_figlet_font</a>&lt; fig_types &gt;::get_hard_blank </td>
+          <td class="memname">virtual <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#a727ff0fb92b92cad416a9776474c8232">char_type</a> <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html">srilakshmikanthanp::libfiglet::basic_base_figlet_font</a>&lt; string_type_t &gt;::get_hard_blank </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -177,23 +290,23 @@ template&lt;class fig_types &gt; </div>
 
 <p>Get the Hard Blank character. </p>
 
-<p>Implemented in <a class="el" href="classsrilakshmikanthanp_1_1libfiglet_1_1basic__flf__font.html#a3085eceb74e1ef4739bb6a6c396cc898">srilakshmikanthanp::libfiglet::basic_flf_font&lt; fig_types &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classsrilakshmikanthanp_1_1libfiglet_1_1basic__flf__font.html#aa52ed93f38614df0f7cd731ae94bcc0d">srilakshmikanthanp::libfiglet::basic_flf_font&lt; string_type_t &gt;</a>.</p>
 
 </div>
 </div>
-<a id="a8315c24c595df93cbbef5b17fbc77041" name="a8315c24c595df93cbbef5b17fbc77041"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8315c24c595df93cbbef5b17fbc77041">&#9670;&nbsp;</a></span>get_height()</h2>
+<a id="afc3eadbbdf028f6bdc073f9a57d95669" name="afc3eadbbdf028f6bdc073f9a57d95669"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc3eadbbdf028f6bdc073f9a57d95669">&#9670;&nbsp;</a></span>get_height()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class fig_types &gt; </div>
+template&lt;class string_type_t &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual fig_types::size_type <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html">srilakshmikanthanp::libfiglet::basic_base_figlet_font</a>&lt; fig_types &gt;::get_height </td>
+          <td class="memname">virtual <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html#adb92c1d0719ec9f9cd49823155202ecd">size_type</a> <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html">srilakshmikanthanp::libfiglet::basic_base_figlet_font</a>&lt; string_type_t &gt;::get_height </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -208,23 +321,23 @@ template&lt;class fig_types &gt; </div>
 
 <p>Get the Height of font. </p>
 
-<p>Implemented in <a class="el" href="classsrilakshmikanthanp_1_1libfiglet_1_1basic__flf__font.html#aa4afe6127393844b8e8516ac60390cfc">srilakshmikanthanp::libfiglet::basic_flf_font&lt; fig_types &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classsrilakshmikanthanp_1_1libfiglet_1_1basic__flf__font.html#a351881877a4e22337481fca350afda54">srilakshmikanthanp::libfiglet::basic_flf_font&lt; string_type_t &gt;</a>.</p>
 
 </div>
 </div>
-<a id="a7808bb576e16bb6e9e72dc76d736326a" name="a7808bb576e16bb6e9e72dc76d736326a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7808bb576e16bb6e9e72dc76d736326a">&#9670;&nbsp;</a></span>get_shrink_level()</h2>
+<a id="a1daaf6db3c8f624f0ddd596c46d78518" name="a1daaf6db3c8f624f0ddd596c46d78518"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1daaf6db3c8f624f0ddd596c46d78518">&#9670;&nbsp;</a></span>get_shrink_level()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class fig_types &gt; </div>
+template&lt;class string_type_t &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual fig_types::shrink_type <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html">srilakshmikanthanp::libfiglet::basic_base_figlet_font</a>&lt; fig_types &gt;::get_shrink_level </td>
+          <td class="memname">virtual <a class="el" href="namespacesrilakshmikanthanp_1_1libfiglet.html#afd63bf7704519ad3169681563e5c772d">shrink_type</a> <a class="el" href="structsrilakshmikanthanp_1_1libfiglet_1_1basic__base__figlet__font.html">srilakshmikanthanp::libfiglet::basic_base_figlet_font</a>&lt; string_type_t &gt;::get_shrink_level </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -239,12 +352,12 @@ template&lt;class fig_types &gt; </div>
 
 <p>Get the Shrink Level of font. </p>
 
-<p>Implemented in <a class="el" href="classsrilakshmikanthanp_1_1libfiglet_1_1basic__flf__font.html#a1e79ce351e2367c773f8cea0dfe3f046">srilakshmikanthanp::libfiglet::basic_flf_font&lt; fig_types &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classsrilakshmikanthanp_1_1libfiglet_1_1basic__flf__font.html#a75588494fcbd120141fbee3463e9e4d8">srilakshmikanthanp::libfiglet::basic_flf_font&lt; string_type_t &gt;</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>D:/source/srilakshmikanthanp/libfiglet/include/srilakshmikanthanp/<a class="el" href="libfiglet_8hpp_source.html">libfiglet.hpp</a></li>
+<li>D:/source/srilakshmikanthanp/libfiglet/src/srilakshmikanthanp/abstract/<a class="el" href="abstract_8hpp_source.html">abstract.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
