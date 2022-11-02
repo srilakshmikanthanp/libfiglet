@@ -238,7 +238,7 @@ namespace srilakshmikanthanp
       using ifstream_type    =   std::basic_ifstream<char_type>;          // Ifstream Type
       using ofstream_type    =   std::basic_ofstream<char_type>;          // Ofstream Type
 
-    protected:                                                         // protected methods
+    protected:                                                            // protected methods
       /**
        * @brief Smush Rules for the characters
        *
