@@ -54,7 +54,7 @@ This Project was only can use With ASCII Characters and it currently does not su
 
 ### Installation
 
-This is a header-only library so just take `libfiglet.hpp` and use it.
+This is a header-only library so just take `libfiglet.hpp` from Release and use it.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -62,7 +62,7 @@ This is a header-only library so just take `libfiglet.hpp` and use it.
 Usage of This Library is very easy a Hello C++ would be,
 
 ~~~cpp
-#include "../include/srilakshmikanthanp/libfiglet.hpp"
+#include "libfiglet.hpp"
 #include <iostream>
 
 using namespace srilakshmikanthanp::libfiglet;
