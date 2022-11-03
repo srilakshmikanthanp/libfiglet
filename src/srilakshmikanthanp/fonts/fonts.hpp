@@ -61,36 +61,6 @@ namespace srilakshmikanthanp
 
     private:                                                              // Private utilities
       /**
-       * @brief string to fig char
-       */
-      fig_char_type to_fig_char(const std::vector<string_type> &lines) const
-      {
-        // regex pattern to match
-        std::regex pattern("(.)\\1?\n", std::regex::ECMAScript);
-
-        // fig char container
-        fig_char_type fig_char;
-
-        // line
-        string_type line;
-
-        // read lines
-        for (const auto &line : lines)
-        {
-          fig_char.push_back(std::regex_replace(line + "\n", pattern, ""));
-        }
-
-        // check height
-        if (fig_char.size() != this->height)
-        {
-          throw std::runtime_error("Height not match");
-        }
-
-        // return
-        return fig_char;
-      }
-
-      /**
        * @brief Read the Config from the stream
        */
       void read_config_and_remove_comments(istream_type &is)
@@ -199,37 +169,60 @@ namespace srilakshmikanthanp
       }
 
       /**
-       * @brief Read the next n lines
-       * @param n lines
-       */
-      auto read_lines(istream_type &is, size_type n) const
-      {
-        // lines container
-        std::vector<string_type> lines;
-
-        // line
-        string_type line;
-
-        // read lines
-        for (auto i = 0; i < n && std::getline(is, line); ++i)
-        {
-          lines.push_back(line);
-        }
-
-        // return
-        return lines;
-      }
-
-      /**
        * @brief Read the characters from the stream
        */
       void read_chars(istream_type &is)
       {
+        // lambda function to convert the lines to fig char
+        auto to_fig_char = [this](const std::vector<string_type> &lines) {
+          // regex pattern to match
+          std::regex pattern("(.)\\1?\n", std::regex::ECMAScript);
+
+          // fig char container
+          fig_char_type fig_char;
+
+          // line
+          string_type line;
+
+          // read lines
+          for (const auto &line : lines)
+          {
+            fig_char.push_back(std::regex_replace(line + "\n", pattern, ""));
+          }
+
+          // check height
+          if (fig_char.size() != this->height)
+          {
+            throw std::runtime_error("Height not match");
+          }
+
+          // return
+          return fig_char;
+        };
+
+        // lambda function to read lines from the stream
+        auto read_lines = [this](istream_type &is, size_type n) {
+          // lines container
+          std::vector<string_type> lines;
+
+          // line
+          string_type line;
+
+          // read lines
+          for (auto i = 0; i < n && std::getline(is, line); ++i)
+          {
+            lines.push_back(line);
+          }
+
+          // return
+          return lines;
+        };
+
         // read all the characters (ch <= '~' must be first)
         for (char_type ch = ' '; ch <= '~'; ++ch)
         {
           // get the fig char
-          const auto fig_char = this->to_fig_char(this->read_lines(is, this->height));
+          const auto fig_char = to_fig_char(read_lines(is, this->height));
 
           // if length less
           if (fig_char.size() < this->height)
@@ -242,6 +235,18 @@ namespace srilakshmikanthanp
         }
       }
 
+      /**
+       * @brief Init from the Stream
+       */
+      void init(istream_type &is)
+      {
+        // read config and remove comments
+        this->read_config_and_remove_comments(is);
+
+        // read characters
+        this->read_chars(is);
+      }
+
     public:                                                               // Public constructors
       basic_flf_font() = delete;                                          // default constructor
       basic_flf_font(const basic_flf_font &) = default;                   // copy constructor
@@ -252,11 +257,7 @@ namespace srilakshmikanthanp
        */
       explicit basic_flf_font(istream_type &is)
       {
-        // read config and remove comments
-        this->read_config_and_remove_comments(is);
-
-        // read characters
-        this->read_chars(is);
+        this->init(is);
       }
 
       /**
@@ -270,14 +271,11 @@ namespace srilakshmikanthanp
         // check
         if (!ifs.is_open())
         {
-          throw std::runtime_error("Cannot open file");
+          throw std::runtime_error("Cannot open font : " + file);
         }
 
-        // read config and remove comments
-        this->read_config_and_remove_comments(ifs);
-
-        // read characters
-        this->read_chars(ifs);
+        // read
+        this->init(ifs);
       }
 
     public: // Public overrides
@@ -313,7 +311,7 @@ namespace srilakshmikanthanp
         // check
         if (ch < ' ' || ch > '~')
         {
-          throw std::runtime_error("Invalid character" + std::to_string(ch));
+          throw std::runtime_error("Invalid character : " + std::to_string(ch));
         }
 
         // return

@@ -54,7 +54,27 @@ This Project was only can use With ASCII Characters and it currently does not su
 
 ### Installation
 
-This is a header-only library so just take `libfiglet.hpp` from Release and use it.
+Starting with version 1.3.0 the library is no longer header-only But you generate the header file using quom and then you can use it in your project.
+
+1. Clone the repo from the GitHub
+
+~~~sh
+git clone https://github.com/srilakshmikanthanp/libfiglet.git
+~~~
+
+2. Install the quom with pip
+
+~~~sh
+pip install quom
+~~~
+
+3. Generate Include Files
+
+~~~sh
+quom .\src\srilakshmikanthanp\libfiglet.hpp .\dist\libfiglet.hpp
+~~~
+
+4. Use the header file in your project
 
 <!-- USAGE EXAMPLES -->
 ## Usage

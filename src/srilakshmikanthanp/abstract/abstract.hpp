@@ -97,12 +97,28 @@ namespace srilakshmikanthanp
 
     protected:                                                            // Protected Methods
       /**
+       * @brief verify the height of the fig chars
+       *
+       * @param fig_chs fig characters
+       */
+      void verify_height(const std::vector<fig_char_type> &fig_chs) const
+      {
+        for(const auto &fig_ch: fig_chs)
+        {
+          if(fig_ch.size() != this->height)
+          {
+            throw std::runtime_error("Invalid Fig char Height");
+          }
+        }
+      }
+
+      /**
        * @brief removes hardblank from fig string
        *
        * @param figs fig string
        * @param hb hardblank
        */
-      fig_str_type rm_hb(fig_str_type &figs) const
+      fig_str_type rm_hardblank(fig_str_type &figs) const
       {
         for (size_type i = 0; i < figs.size(); ++i)
         {
