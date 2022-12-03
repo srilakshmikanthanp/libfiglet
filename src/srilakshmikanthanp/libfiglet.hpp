@@ -13,6 +13,7 @@
 #include "./fonts/fonts.hpp"
 #include "./styles/styles.hpp"
 #include "./types/types.hpp"
+#include "./utility/functions.hpp"
 
 namespace srilakshmikanthanp
 {
