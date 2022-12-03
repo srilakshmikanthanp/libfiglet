@@ -1,0 +1,17 @@
+digraph "D:/source/srilakshmikanthanp/libfiglet/src/srilakshmikanthanp/styles"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  compound=true
+  subgraph clusterdir_93f0c05ce9d266791f30f3a707625e27 {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", style="filled,dashed,", label="srilakshmikanthanp", fontname="Helvetica", fontsize="10", URL="dir_93f0c05ce9d266791f30f3a707625e27.html"]
+  dir_6e33c9fd847494bfdb2e93fd27cfbc2d [shape=box, label="utility", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_6e33c9fd847494bfdb2e93fd27cfbc2d.html"];
+  dir_e8fe6b248cc7ea74d1bc4678d5a547cd [shape=box, label="types", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_e8fe6b248cc7ea74d1bc4678d5a547cd.html"];
+  dir_808d01e0e6d7653322f2e957f0548f91 [shape=box, label="abstract", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_808d01e0e6d7653322f2e957f0548f91.html"];
+  dir_cd05fae38db9cb251f120cb5c7f8ce5e [shape=box, label="styles", style="filled,bold,", fillcolor="#edf0f7", color="grey25", URL="dir_cd05fae38db9cb251f120cb5c7f8ce5e.html"];
+  }
+  dir_cd05fae38db9cb251f120cb5c7f8ce5e->dir_6e33c9fd847494bfdb2e93fd27cfbc2d [headlabel="1", labeldistance=1.5 headhref="dir_000006_000008.html"];
+  dir_cd05fae38db9cb251f120cb5c7f8ce5e->dir_808d01e0e6d7653322f2e957f0548f91 [headlabel="1", labeldistance=1.5 headhref="dir_000006_000000.html"];
+  dir_cd05fae38db9cb251f120cb5c7f8ce5e->dir_e8fe6b248cc7ea74d1bc4678d5a547cd [headlabel="1", labeldistance=1.5 headhref="dir_000006_000007.html"];
+}
