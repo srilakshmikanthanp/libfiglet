@@ -65,7 +65,7 @@ git clone https://github.com/srilakshmikanthanp/libfiglet.git
 2. Install the quom with pip
 
 ~~~sh
-pip install quom
+pip install --user quom
 ~~~
 
 3. Generate Include Files

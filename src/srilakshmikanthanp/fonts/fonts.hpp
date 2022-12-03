@@ -7,7 +7,8 @@
 #ifndef SRILAKSHMIKANTHANP_LIBFIGLET_FONTS_HPP
 #define SRILAKSHMIKANTHANP_LIBFIGLET_FONTS_HPP
 
-#include "../abstract/abstract.hpp"
+#include "../base_classes/base_classes.hpp"
+#include "../utilities/functions.hpp"
 #include "../types/types.hpp"
 
 #include <algorithm>
@@ -81,7 +82,7 @@ namespace srilakshmikanthanp
         ss >> std::setw(5) >> token;
 
         // check
-        if (token != "flf2a")
+        if (token != cvt<string_type>("flf2a"))
         {
           throw std::runtime_error("Invalid flf2a header");
         }
@@ -176,7 +177,7 @@ namespace srilakshmikanthanp
         // lambda function to convert the lines to fig char
         auto to_fig_char = [this](const std::vector<string_type> &lines) {
           // regex pattern to match
-          std::regex pattern("(.)\\1?\n", std::regex::ECMAScript);
+          std::basic_regex<char_type> pattern(cvt<string_type>("(.)\\1?\n"), std::regex::ECMAScript);
 
           // fig char container
           fig_char_type fig_char;
@@ -187,7 +188,7 @@ namespace srilakshmikanthanp
           // read lines
           for (const auto &line : lines)
           {
-            fig_char.push_back(std::regex_replace(line + "\n", pattern, ""));
+            fig_char.push_back(std::regex_replace(line + cvt<string_type>("\n"), pattern, cvt<string_type>("")));
           }
 
           // check height
@@ -263,7 +264,7 @@ namespace srilakshmikanthanp
       /**
        * @brief From file
        */
-      explicit basic_flf_font(const string_type &file)
+      explicit basic_flf_font(const std::string &file)
       {
         // file stream
         ifstream_type ifs(file);
@@ -322,7 +323,7 @@ namespace srilakshmikanthanp
       /**
        * @brief Make a flf font type as shared pointer
        */
-      static auto make_shared(const string_type &file)
+      static auto make_shared(const std::string &file)
       {
         return std::make_shared<basic_flf_font>(file);
       }

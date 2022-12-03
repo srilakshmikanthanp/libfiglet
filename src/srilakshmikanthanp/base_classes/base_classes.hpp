@@ -4,8 +4,8 @@
 // https://opensource.org/licenses/MIT
 
 // Header Guards
-#ifndef SRILAKSHMIKANTHANP_LIBFIGLET_ABSTRACT_HPP
-#define SRILAKSHMIKANTHANP_LIBFIGLET_ABSTRACT_HPP
+#ifndef SRILAKSHMIKANTHANP_LIBFIGLET_BASE_CLASSES_HPP
+#define SRILAKSHMIKANTHANP_LIBFIGLET_BASE_CLASSES_HPP
 
 #include "../types/types.hpp"
 
@@ -122,21 +122,10 @@ namespace srilakshmikanthanp
       {
         for (size_type i = 0; i < figs.size(); ++i)
         {
-          std::replace(figs[i].begin(), figs[i].end(), this->hard_blank, ' ');
+          std::replace(figs[i].begin(), figs[i].end(), this->hard_blank, traits_type::to_char_type(' '));
         }
 
         return figs;
-      }
-
-      /**
-       * @brief convert ascii string to string_type
-       *
-       * @param str string to convert
-       * @return string_type string converted
-       */
-      string_type cvt(const std::string &str) const
-      {
-        return string_type(str.begin(), str.end());
       }
 
     public:
@@ -171,4 +160,4 @@ namespace srilakshmikanthanp
   }
 }
 
-#endif  // SRILAKSHMIKANTHANP_LIBFIGLET_ABSTRACT_HPP
+#endif  // SRILAKSHMIKANTHANP_LIBFIGLET_BASE_CLASSEs_HPP

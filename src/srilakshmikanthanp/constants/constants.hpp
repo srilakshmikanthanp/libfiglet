@@ -13,7 +13,7 @@ namespace srilakshmikanthanp
 {
   namespace libfiglet
   {
-    const std::string LIBFIGLET_VERSION = "1.3.1";
+    const std::string LIBFIGLET_VERSION = "1.3.2";
   }
 }
 

@@ -7,7 +7,7 @@
 #ifndef SRILAKSHMIKANTHANP_LIBFIGLET_DRIVER_HPP
 #define SRILAKSHMIKANTHANP_LIBFIGLET_DRIVER_HPP
 
-#include "../abstract/abstract.hpp"
+#include "../base_classes/base_classes.hpp"
 #include "../types/types.hpp"
 
 #include <algorithm>
@@ -147,7 +147,7 @@ namespace srilakshmikanthanp
 
         for (const auto &fig : fig_str)
         {
-          value += fig + '\n';
+          value += fig + traits_type::to_char_type('\n');
         }
 
         return value;

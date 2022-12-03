@@ -7,7 +7,7 @@
 #ifndef SRILAKSHMIKANTHANP_LIBFIGLET_LIBFIGLET_HPP
 #define SRILAKSHMIKANTHANP_LIBFIGLET_LIBFIGLET_HPP
 
-#include "./abstract/abstract.hpp"
+#include "./base_classes/base_classes.hpp"
 #include "./constants/constants.hpp"
 #include "./driver/driver.hpp"
 #include "./fonts/fonts.hpp"
@@ -28,6 +28,17 @@ namespace srilakshmikanthanp
 
     // Figlet Driver using std::string
     using figlet      =   basic_figlet<std::string>;
+
+    // Styles for the Figlet using std::wstring
+    using wfull_width =   basic_full_width_style<std::wstring>;
+    using wkerning    =   basic_kerning_style<std::wstring>;
+    using wsmushed    =   basic_smushed_style<std::wstring>;
+
+    // flf Font Parser using std::wstring
+    using wflf_font   =   basic_flf_font<std::wstring>;
+
+    // Figlet Driver using std::wstring
+    using wfiglet     =   basic_figlet<std::wstring>;
   }
 }
 

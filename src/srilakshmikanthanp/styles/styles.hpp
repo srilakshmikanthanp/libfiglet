@@ -6,7 +6,8 @@
 #ifndef SRILAKSHMIKANTHANP_LIBFIGLET_STYLES_HPP
 #define SRILAKSHMIKANTHANP_LIBFIGLET_STYLES_HPP
 
-#include "../abstract/abstract.hpp"
+#include "../base_classes/base_classes.hpp"
+#include "../utilities/functions.hpp"
 #include "../types/types.hpp"
 
 #include <algorithm>
@@ -240,12 +241,12 @@ namespace srilakshmikanthanp
       auto smush_rules(char_type lc, char_type rc) const
       {
         //()
-        if (lc == ' ')
+        if (lc == traits_type::to_char_type(' '))
         {
           return rc;
         }
 
-        if (rc == ' ')
+        if (rc == traits_type::to_char_type(' '))
         {
           return lc;
         }
@@ -257,12 +258,12 @@ namespace srilakshmikanthanp
         }
 
         //(Underscores smush)
-        if (lc == '_' && this->cvt("|/\\[]{}()<>").find(rc) != string_type::npos)
+        if (lc == traits_type::to_char_type('_') && cvt<string_type>("|/\\[]{}()<>").find(rc) != string_type::npos)
         {
           return rc;
         }
 
-        if (rc == '_' && this->cvt("|/\\[]{}()<>").find(lc) != string_type::npos)
+        if (rc == traits_type::to_char_type('_') && cvt<string_type>("|/\\[]{}()<>").find(lc) != string_type::npos)
         {
           return lc;
         }
@@ -270,27 +271,27 @@ namespace srilakshmikanthanp
         //(Hierarchy Smushing)
         auto find_class = [](char_type ch)
         {
-          if (ch == '|')
+          if (ch == traits_type::to_char_type('|'))
           {
             return 1;
           }
 
-          if (ch == '/' || ch == '\\')
+          if (ch == traits_type::to_char_type('/') || ch == traits_type::to_char_type('\\'))
           {
             return 3;
           }
 
-          if (ch == '[' || ch == ']')
+          if (ch == traits_type::to_char_type('[') || ch == traits_type::to_char_type(']'))
           {
             return 4;
           }
 
-          if (ch == '{' || ch == '}')
+          if (ch == traits_type::to_char_type('{') || ch == traits_type::to_char_type('}'))
           {
             return 5;
           }
 
-          if (ch == '(' || ch == ')')
+          if (ch == traits_type::to_char_type('(') || ch == traits_type::to_char_type(')'))
           {
             return 6;
           }
@@ -312,50 +313,50 @@ namespace srilakshmikanthanp
         }
 
         //(Opposite smush)
-        if (lc == '[' && rc == ']')
+        if (lc == traits_type::to_char_type('[')  &&  rc == traits_type::to_char_type(']'))
         {
-          return '|';
+          return traits_type::to_char_type('|');
         }
 
-        if (lc == ']' && rc == '[')
+        if (lc == traits_type::to_char_type(']')  &&  rc == traits_type::to_char_type('['))
         {
-          return '|';
+          return traits_type::to_char_type('|');
         }
 
-        if (lc == '{' && rc == '}')
+        if (lc == traits_type::to_char_type('{')  &&  rc == traits_type::to_char_type('}'))
         {
-          return '|';
+          return traits_type::to_char_type('|');
         }
 
-        if (lc == '}' && rc == '{')
+        if (lc == traits_type::to_char_type('}')  &&  rc == traits_type::to_char_type('{'))
         {
-          return '|';
+          return traits_type::to_char_type('|');
         }
 
-        if (lc == '(' && rc == ')')
+        if (lc == traits_type::to_char_type('(')  &&  rc == traits_type::to_char_type(')'))
         {
-          return '|';
+          return traits_type::to_char_type('|');
         }
 
-        if (lc == ')' && rc == '(')
+        if (lc == traits_type::to_char_type(')')  &&  rc == traits_type::to_char_type('('))
         {
-          return '|';
+          return traits_type::to_char_type('|');
         }
 
         //(Big X smush)
-        if (lc == '/' && rc == '\\')
+        if (lc == traits_type::to_char_type('/')  &&  rc == traits_type::to_char_type('\\'))
         {
-          return '|';
+          return traits_type::to_char_type('|');
         }
 
-        if (lc == '\\' && rc == '/')
+        if (lc == traits_type::to_char_type('\\') &&  rc == traits_type::to_char_type('/'))
         {
-          return 'Y';
+          return traits_type::to_char_type('Y');
         }
 
-        if (lc == '>' && rc == '<')
+        if (lc == traits_type::to_char_type('>')  &&  rc == traits_type::to_char_type('<'))
         {
-          return 'X';
+          return traits_type::to_char_type('X');
         }
 
         //(universal smush)
