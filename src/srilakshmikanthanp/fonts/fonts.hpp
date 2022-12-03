@@ -7,8 +7,8 @@
 #ifndef SRILAKSHMIKANTHANP_LIBFIGLET_FONTS_HPP
 #define SRILAKSHMIKANTHANP_LIBFIGLET_FONTS_HPP
 
-#include "../base_classes/base_classes.hpp"
-#include "../utilities/functions.hpp"
+#include "../abstract/abstract.hpp"
+#include "../utility/functions.hpp"
 #include "../types/types.hpp"
 
 #include <algorithm>

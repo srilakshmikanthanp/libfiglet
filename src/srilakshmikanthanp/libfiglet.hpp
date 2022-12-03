@@ -7,7 +7,7 @@
 #ifndef SRILAKSHMIKANTHANP_LIBFIGLET_LIBFIGLET_HPP
 #define SRILAKSHMIKANTHANP_LIBFIGLET_LIBFIGLET_HPP
 
-#include "./base_classes/base_classes.hpp"
+#include "./abstract/abstract.hpp"
 #include "./constants/constants.hpp"
 #include "./driver/driver.hpp"
 #include "./fonts/fonts.hpp"

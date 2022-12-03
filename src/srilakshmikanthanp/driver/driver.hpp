@@ -7,7 +7,7 @@
 #ifndef SRILAKSHMIKANTHANP_LIBFIGLET_DRIVER_HPP
 #define SRILAKSHMIKANTHANP_LIBFIGLET_DRIVER_HPP
 
-#include "../base_classes/base_classes.hpp"
+#include "../abstract/abstract.hpp"
 #include "../types/types.hpp"
 
 #include <algorithm>
