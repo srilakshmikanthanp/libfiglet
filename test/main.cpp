@@ -12,16 +12,15 @@ using namespace srilakshmikanthanp::libfiglet;
 void flf_font_test(void)
 {
   // using std::string
-  const auto base_dir_path = "D:\\source\\srilakshmikanthanp\\libfiglet\\assets\\fonts";
+  const auto base_dir_path = "./assets/fonts";
 
   for (const auto & entry : std::filesystem::directory_iterator(base_dir_path))
   {
     flf_font::make_shared(entry.path().string());
   }
 
-
   // using std::wstring
-  const auto wbase_dir_path = "D:\\source\\srilakshmikanthanp\\libfiglet\\assets\\fonts";
+  const auto wbase_dir_path = "./assets/fonts";
 
   for (const auto & entry : std::filesystem::directory_iterator(wbase_dir_path))
   {
@@ -32,7 +31,7 @@ void flf_font_test(void)
 void style_test(void)
 {
   // Font and figlet objects using std::string
-  const auto font_path  = "D:\\source\\srilakshmikanthanp\\libfiglet\\assets\\fonts\\Standard.flf";
+  const auto font_path  = "./assets/fonts/Standard.flf";
   const auto flf_font   = flf_font::make_shared(font_path);
   const auto full_width = figlet(flf_font, full_width::make_shared());
   const auto kerning    = figlet(flf_font, kerning::make_shared());
@@ -44,7 +43,7 @@ void style_test(void)
   std::cout << smushed("Hello, C++")    <<  std::endl;
 
   // Font and figlet objects using std::wstring
-  const auto wfont_path  = "D:\\source\\srilakshmikanthanp\\libfiglet\\assets\\fonts\\Standard.flf";
+  const auto wfont_path  = "./assets/fonts/Standard.flf";
   const auto wflf_font   = wflf_font::make_shared(wfont_path);
   const auto wfull_width = wfiglet(wflf_font, wfull_width::make_shared());
   const auto wkerning    = wfiglet(wflf_font, wkerning::make_shared());
