@@ -71,7 +71,7 @@ pip install --user quom
 3. Generate Include Files
 
 ~~~sh
-quom .\src\srilakshmikanthanp\libfiglet.hpp .\dist\libfiglet.hpp
+mkdir dist && quom ./src/srilakshmikanthanp/libfiglet.hpp ./dist/libfiglet.hpp
 ~~~
 
 4. Use the header file in your project
